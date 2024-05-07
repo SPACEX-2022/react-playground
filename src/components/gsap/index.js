@@ -1,7 +1,7 @@
 import styles from './index.module.css';
 import { gsap } from "gsap";
 import { useGSAP } from '@gsap/react';
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Button, Form, Input, Layout, Slider, Space} from "antd";
 import Sider from "antd/es/layout/Sider";
 import FormItem from "antd/es/form/FormItem";
@@ -16,22 +16,108 @@ const GSAPDemo = () => {
 
     /* type: core.Timeline */
     const timeline = useRef();
+    const [config, setConfig] = useState({
+        width: 0,
+        height: 0,
+    })
+
+    useEffect(() => {
+        const content = document.querySelector('.ant-layout-content')
+        setConfig({
+            width: content.offsetWidth,
+            height: content.offsetHeight,
+        })
+    }, [])
 
     useGSAP(() => {
-        const toLeft = gsap.to('#box', {
+        if (config.width === 0) return
+        console.log(config)
+        const { width, height } = config;
+
+
+        const showTitle1 = gsap.to(`.${styles.title1}`, {
             duration: 0.5,
-            // x: 100,
-            xPercent: '-=50',
+            x: 0,
+            alpha: 1,
+            // xPercent: '+=50',
             // y: 100,
             ease: 'power1.inOut',
             onComplete: () => {
                 console.log('onComplete')
             }
         })
-        const toRight = gsap.to('#box', {
+        const showTitle2 = gsap.to(`.${styles.title2}`, {
+            duration: 0.5,
+            x: 0,
+            alpha: 1,
+            // xPercent: '+=50',
+            // y: 100,
+            ease: 'power1.inOut',
+            onComplete: () => {
+                console.log('onComplete')
+            }
+        })
+        const showTitle3 = gsap.to(`.${styles.title3}`, {
+            duration: 0.5,
+            x: 0,
+            alpha: 1,
+            // xPercent: '+=50',
+            // y: 100,
+            ease: 'power1.inOut',
+            onComplete: () => {
+                console.log('onComplete')
+            }
+        })
+        const showLeftText = gsap.to(`.${styles.leftText}`, {
+            duration: 0.5,
+            x: 0,
+            alpha: 1,
+            // xPercent: '+=50',
+            // y: 100,
+            ease: 'power1.inOut',
+            onComplete: () => {
+                console.log('onComplete')
+            }
+        })
+        const titleWrapperToRight = gsap.to(`.${styles.titleWrapper}`, {
             duration: 0.5,
             // x: 100,
-            xPercent: '+=50',
+            x: 50,
+            // y: -((height - 300) / 2),
+            // xPercent: '-=50',
+            // y: 100,
+            ease: 'power1.inOut',
+            onComplete: () => {
+                console.log('onComplete')
+            }
+        })
+        const toLeft = gsap.to(`.${styles.contentWrapper}`, {
+            duration: 0.5,
+            // x: 100,
+            x: -(width + 50),
+            y: -((height - 300) / 2),
+            // xPercent: '-=50',
+            // y: 100,
+            ease: 'power1.inOut',
+            onComplete: () => {
+                console.log('onComplete')
+            }
+        })
+        const toRight = gsap.to(`.${styles.title2}`, {
+            duration: 0.5,
+            x: width,
+            // xPercent: '+=50',
+            // y: 100,
+            ease: 'power1.inOut',
+            onComplete: () => {
+                console.log('onComplete')
+            }
+        })
+        const showList = gsap.to(`.${styles.title2} .${styles.listWrapper}`, {
+            duration: 0.7,
+            height: height * 0.7,
+            // x: width,
+            // xPercent: '+=50',
             // y: 100,
             ease: 'power1.inOut',
             onComplete: () => {
@@ -41,14 +127,69 @@ const GSAPDemo = () => {
 
 
         timeline.current = gsap.timeline({ paused: true })
-            .add(toLeft)
-            .add(toRight)
+            .add(showTitle1)
+            .add(showTitle2)
+            .add(showTitle3)
+            .add(showLeftText)
+            .add(titleWrapperToRight, '<')
+            .add(toLeft, '+=1')
+            .add(toRight, '<')
+            .add(showList, '>-0.1')
+            .add(gsap.to(`.${styles.title2} .${styles.listWrapper} .${styles.listItem}`, {
+                duration: 0.7,
+                x: 0,
+                // x: width,
+                // xPercent: '+=50',
+                // y: 100,
+                ease: 'power1.inOut',
+                onComplete: () => {
+                    console.log('onComplete')
+                }
+            }), '>-0.2')
+            .add(gsap.to(`.${styles.listItem1}`, {
+                duration: 0.7,
+                x: 0,
+                // x: width,
+                // xPercent: '+=50',
+                // y: 100,
+                ease: 'power1.inOut',
+                onComplete: () => {
+                    console.log('onComplete')
+                }
+            }))
+            .add(gsap.to(`.${styles.title2} .${styles.listWrapper}`, {
+                duration: 0.7,
+                height: `+=${height / 2}`,
+                // x: width,
+                // xPercent: '+=50',
+                // y: 100,
+                ease: 'power1.inOut',
+                onComplete: () => {
+                    console.log('onComplete')
+                }
+            }))
+            .add(gsap.to(`.${styles.listItemContent}`, {
+                duration: 0.7,
+                height: 'auto',
+                alpha: 1,
+                // x: width,
+                // xPercent: '+=50',
+                // y: 100,
+                ease: 'power1.inOut',
+                onComplete: () => {
+                    console.log('onComplete')
+                }
+            }), '<')
 
         setDuration(timeline.current.duration());
-    })
+    }, [config])
 
     const onPlay = () => {
         timeline.current.play()
+    }
+
+    const onReversePlay = () => {
+        timeline.current.reverse()
     }
 
     const onSeek = (timestamp) => {
@@ -68,19 +209,48 @@ const GSAPDemo = () => {
                 <Form layout={'vertical'}>
                     <FormItem label="timestamp">
                         {/*<Input value={timestamp} onChange={(e) => setTimestamp(e.target.value)} suffix={'ms'} />*/}
-                        <Slider dots={true} step={0.1} min={0} max={duration} value={timestamp} onChange={onSeek} />
+                        <Slider step={0.1} min={0} max={duration} value={timestamp} onChange={onSeek} />
                     </FormItem>
                     <FormItem label="action">
                         <Space direction={'vertical'} style={{ width: '100%' }}>
                             <Button block onClick={onPlay}>Play</Button>
+                            <Button block onClick={onReversePlay}>Reverse Play</Button>
                             {/*<Button block onClick={onSeek}>Seek</Button>*/}
                         </Space>
                     </FormItem>
                 </Form>
             </Sider>
-            <Content style={{ position: 'relative', backgroundColor: '#282c34' }}>
-                <div id={'box'} className={styles.text}>
-                    GroupShopping List
+            <Content style={{ position: 'relative', backgroundColor: '#282c34', color: '#fff', fontSize: '100px', overflow: 'hidden' }}>
+                {/*<div id={'box'} className={styles.text}>*/}
+                {/*    GroupShopping List*/}
+                {/*</div>*/}
+
+                <div className={styles.contentWrapper}>
+
+                    <div className={styles.leftText}>
+                        百模大战
+                    </div>
+                    <div className={styles.titleWrapper}>
+                        <div className={styles.title1}>基础层</div>
+                        <div className={styles.title2}>
+                            技术层
+                            <div className={styles.listWrapper}>
+                                <div className={styles.listItem}>
+                                    <div className={styles.listItemTitle}>大模型大模型</div>
+                                    <div className={styles.listItemContent}>
+                                        <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>
+                                        <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>
+                                        <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>
+                                        <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>
+                                        <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>
+                                        <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>
+                                    </div>
+                                </div>
+                                <div className={styles.listItem1}>大模型大模型</div>
+                            </div>
+                        </div>
+                        <div className={styles.title3}>应用层</div>
+                    </div>
                 </div>
             </Content>
         </Layout>
