@@ -21,6 +21,109 @@ const GSAPDemo = () => {
         height: 0,
     })
 
+    const data = useRef([
+        {
+            title: '基础层',
+            children: [
+                {
+                    title: '大模型大模型',
+                    children: [
+                        {
+                            title: '智能计算平台',
+                        },
+                    ]
+                }
+            ]
+        },
+        {
+            title: '技术层',
+            children: [
+                {
+                    title: '大模型大模型',
+                    children: [
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                    ]
+                },
+                {
+                    title: '大模型大模型',
+                    children: [
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                    ]
+                },
+                {
+                    title: '大模型大模型',
+                    children: [
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                        {
+                            title: '智能计算平台',
+                        },
+                    ]
+                },
+            ]
+        },
+        {
+            title: '应用层',
+            children: [
+                {
+                    title: '大模型大模型',
+                    children: [
+                        {
+                            title: '智能计算平台',
+                        },
+                    ]
+                }
+            ]
+        },
+    ])
+
     useEffect(() => {
         const content = document.querySelector('.ant-layout-content')
         setConfig({
@@ -31,155 +134,167 @@ const GSAPDemo = () => {
 
     useGSAP(() => {
         if (config.width === 0) return
-        console.log(config)
+        console.log(config, data.current[0].ref)
         const { width, height } = config;
 
 
-        const showTitle1 = gsap.to(`.${styles.title1}`, {
-            duration: 0.5,
-            x: 0,
-            alpha: 1,
-            // xPercent: '+=50',
-            // y: 100,
-            ease: 'power1.inOut',
-            onComplete: () => {
-                console.log('onComplete')
-            }
-        })
-        const showTitle2 = gsap.to(`.${styles.title2}`, {
-            duration: 0.5,
-            x: 0,
-            alpha: 1,
-            // xPercent: '+=50',
-            // y: 100,
-            ease: 'power1.inOut',
-            onComplete: () => {
-                console.log('onComplete')
-            }
-        })
-        const showTitle3 = gsap.to(`.${styles.title3}`, {
-            duration: 0.5,
-            x: 0,
-            alpha: 1,
-            // xPercent: '+=50',
-            // y: 100,
-            ease: 'power1.inOut',
-            onComplete: () => {
-                console.log('onComplete')
-            }
-        })
+        // const showTitle1 = gsap.to(`.${styles.title1}`, {
+        //     duration: 0.5,
+        //     x: 0,
+        //     alpha: 1,
+        //     ease: 'power1.inOut',
+        // })
+        // const showTitle2 = gsap.to(`#title2`, {
+        //     duration: 0.5,
+        //     x: 0,
+        //     alpha: 1,
+        //     ease: 'power1.inOut',
+        // })
+        // const showTitle3 = gsap.to(`.${styles.title3}`, {
+        //     duration: 0.5,
+        //     x: 0,
+        //     alpha: 1,
+        //     ease: 'power1.inOut',
+        // })
         const showLeftText = gsap.to(`.${styles.leftText}`, {
             duration: 0.5,
             x: 0,
             alpha: 1,
-            // xPercent: '+=50',
-            // y: 100,
             ease: 'power1.inOut',
-            onComplete: () => {
-                console.log('onComplete')
-            }
         })
         const titleWrapperToRight = gsap.to(`.${styles.titleWrapper}`, {
             duration: 0.5,
-            // x: 100,
             x: 50,
-            // y: -((height - 300) / 2),
-            // xPercent: '-=50',
-            // y: 100,
             ease: 'power1.inOut',
-            onComplete: () => {
-                console.log('onComplete')
-            }
         })
         const toLeft = gsap.to(`.${styles.contentWrapper}`, {
             duration: 0.5,
-            // x: 100,
             x: -(width + 50),
             y: -((height - 300) / 2),
-            // xPercent: '-=50',
-            // y: 100,
             ease: 'power1.inOut',
-            onComplete: () => {
-                console.log('onComplete')
-            }
         })
-        const toRight = gsap.to(`.${styles.title2}`, {
-            duration: 0.5,
-            x: width,
-            // xPercent: '+=50',
-            // y: 100,
-            ease: 'power1.inOut',
-            onComplete: () => {
-                console.log('onComplete')
-            }
-        })
-        const showList = gsap.to(`.${styles.title2} .${styles.listWrapper}`, {
-            duration: 0.7,
-            height: height * 0.7,
-            // x: width,
-            // xPercent: '+=50',
-            // y: 100,
-            ease: 'power1.inOut',
-            onComplete: () => {
-                console.log('onComplete')
-            }
+        // const toRight = gsap.to(`#title2`, {
+        //     duration: 0.5,
+        //     x: width,
+        //     ease: 'power1.inOut',
+        // })
+        // const showList = gsap.to(`.${styles.listWrapper}`, {
+        //     duration: 0.7,
+        //     height: height * 0.7,
+        //     ease: 'power1.inOut',
+        // })
+
+        timeline.current = gsap.timeline({ paused: true });
+
+        data.current.forEach((item, index) => {
+            timeline.current.add(
+                gsap.to(item.ref, {
+                    duration: 0.5,
+                    x: 0,
+                    alpha: 1,
+                    ease: 'power1.inOut',
+                })
+            )
+            // if (index === data.current.length - 1) {
+            //     timeline.current
+            //         .add(showLeftText)
+            //         .add(titleWrapperToRight, '<')
+            //         .add(toLeft, '+=1')
+            //         .add(toRight, '<')
+            //         .add(showList, '>-0.1')
+            // }
         })
 
-
-        timeline.current = gsap.timeline({ paused: true })
-            .add(showTitle1)
-            .add(showTitle2)
-            .add(showTitle3)
+        timeline.current
             .add(showLeftText)
             .add(titleWrapperToRight, '<')
             .add(toLeft, '+=1')
-            .add(toRight, '<')
-            .add(showList, '>-0.1')
-            .add(gsap.to(`.${styles.title2} .${styles.listWrapper} .${styles.listItem}`, {
+
+
+        timeline.current.add(gsap.to(data.current[1].ref, {
+            duration: 0.5,
+            x: width,
+            ease: 'power1.inOut',
+        }), '<')
+            .add(gsap.to(data.current[1].listRef, {
                 duration: 0.7,
-                x: 0,
-                // x: width,
-                // xPercent: '+=50',
-                // y: 100,
+                height: height * 0.7,
                 ease: 'power1.inOut',
-                onComplete: () => {
-                    console.log('onComplete')
-                }
-            }), '>-0.2')
-            .add(gsap.to(`.${styles.listItem1}`, {
-                duration: 0.7,
-                x: 0,
-                // x: width,
-                // xPercent: '+=50',
-                // y: 100,
+            }), '>-0.1')
+
+        data.current[1].children.forEach((item, index) => {
+            timeline.current.add(
+                gsap.to(item.ref, {
+                    duration: 0.5,
+                    x: 0,
+                    ease: 'power1.inOut',
+                })
+            )
+        })
+
+        timeline.current
+            .add(gsap.to(`.${styles.contentWrapper}`, {
+                duration: 0.5,
+                y: -(height * 0.55),
                 ease: 'power1.inOut',
-                onComplete: () => {
-                    console.log('onComplete')
-                }
             }))
-            .add(gsap.to(`.${styles.title2} .${styles.listWrapper}`, {
-                duration: 0.7,
-                height: `+=${height / 2}`,
-                // x: width,
-                // xPercent: '+=50',
-                // y: 100,
+            .add(gsap.to(`.${styles.listWrapper}`, {
+                duration: 0.5,
+                paddingTop: `+=100`,
+                height: `+=${height}`,
                 ease: 'power1.inOut',
-                onComplete: () => {
-                    console.log('onComplete')
-                }
-            }))
-            .add(gsap.to(`.${styles.listItemContent}`, {
-                duration: 0.7,
-                height: 'auto',
-                alpha: 1,
-                // x: width,
-                // xPercent: '+=50',
-                // y: 100,
-                ease: 'power1.inOut',
-                onComplete: () => {
-                    console.log('onComplete')
-                }
             }), '<')
+
+        data.current[1].children.forEach((item, index) => {
+            timeline.current.add(
+                gsap.to(item.listRef, {
+                    // display: 'flex',
+                    duration: 0.5,
+                    y: 0,
+                    height: 'auto',
+                    alpha: 1,
+                    ease: 'power1.inOut',
+                }), '<'
+            )
+            timeline.current.add(
+                gsap.to(item.listRef, {
+                    // display: 'none',
+                    delay: 1.5,
+                    duration: 0.5,
+                    height: 0,
+                    alpha: 0,
+                    ease: 'power1.inOut',
+                })
+            )
+        })
+
+        // timeline.current
+            // .add(gsap.to(`.${styles.listItem}`, {
+            //     duration: 0.7,
+            //     x: 0,
+            //     ease: 'power1.inOut',
+            // }), '>-0.2')
+            // .add(gsap.to(`.${styles.listItem1}`, {
+            //     duration: 0.7,
+            //     x: 0,
+            //     ease: 'power1.inOut',
+            // }))
+            // .add(gsap.to(`.${styles.contentWrapper}`, {
+            //     duration: 0.5,
+            //     y: -(height * 0.55),
+            //     ease: 'power1.inOut',
+            // }))
+            // .add(gsap.to(`.${styles.listWrapper}`, {
+            //     duration: 0.5,
+            //     height: `+=${height}`,
+            //     ease: 'power1.inOut',
+            // }), '<')
+            // .add(gsap.to(`.${styles.listItemContent}`, {
+            //     duration: 0.5,
+            //     height: 'auto',
+            //     alpha: 1,
+            //     ease: 'power1.inOut',
+            // }), '<')
 
         setDuration(timeline.current.duration());
     }, [config])
@@ -231,25 +346,80 @@ const GSAPDemo = () => {
                         百模大战
                     </div>
                     <div className={styles.titleWrapper}>
-                        <div className={styles.title1}>基础层</div>
-                        <div className={styles.title2}>
-                            技术层
-                            <div className={styles.listWrapper}>
-                                <div className={styles.listItem}>
-                                    <div className={styles.listItemTitle}>大模型大模型</div>
-                                    <div className={styles.listItemContent}>
-                                        <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>
-                                        <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>
-                                        <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>
-                                        <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>
-                                        <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>
-                                        <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>
+                        {
+                            data.current.map((item, index) => {
+                                return (
+                                    <div ref={ref => item.ref = ref} className={styles.title}>
+                                        {item.title}
+                                        <div ref={ref => item.listRef = ref} className={styles.listWrapper}>
+                                            {
+                                                item.children.map((child, childIndex) => {
+                                                    return (
+                                                        <div ref={ref => child.ref = ref} className={styles.listItem}>
+                                                            <div className={styles.listItemTitle}>{ child.title }</div>
+                                                            <div ref={ref => child.listRef = ref} className={styles.listItemContent}>
+                                                                {
+                                                                    child.children.map((grandson, grandsonIndex) => {
+                                                                        return (
+                                                                            <img
+                                                                                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                                                                                alt=""/>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                            {/*<div className={styles.listItem}>*/}
+                                            {/*    <div className={styles.listItemTitle}>大模型大模型</div>*/}
+                                            {/*    <div className={styles.listItemContent}>*/}
+                                            {/*        <img*/}
+                                            {/*            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"*/}
+                                            {/*            alt=""/>*/}
+                                            {/*        <img*/}
+                                            {/*            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"*/}
+                                            {/*            alt=""/>*/}
+                                            {/*        <img*/}
+                                            {/*            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"*/}
+                                            {/*            alt=""/>*/}
+                                            {/*        <img*/}
+                                            {/*            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"*/}
+                                            {/*            alt=""/>*/}
+                                            {/*        <img*/}
+                                            {/*            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"*/}
+                                            {/*            alt=""/>*/}
+                                            {/*        <img*/}
+                                            {/*            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"*/}
+                                            {/*            alt=""/>*/}
+                                            {/*    </div>*/}
+                                            {/*</div>*/}
+                                            {/*<div className={styles.listItem1}>大模型大模型</div>*/}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className={styles.listItem1}>大模型大模型</div>
-                            </div>
-                        </div>
-                        <div className={styles.title3}>应用层</div>
+                                )
+                            })
+                        }
+                        {/*<div className={styles.title1}>基础层</div>*/}
+                        {/*<div id="title2" className={styles.title2}>*/}
+                        {/*    技术层*/}
+                        {/*    <div className={styles.listWrapper}>*/}
+                        {/*        <div className={styles.listItem}>*/}
+                        {/*            <div className={styles.listItemTitle}>大模型大模型</div>*/}
+                        {/*            <div className={styles.listItemContent}>*/}
+                        {/*                <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>*/}
+                        {/*                <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>*/}
+                        {/*                <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>*/}
+                        {/*                <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>*/}
+                        {/*                <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>*/}
+                        {/*                <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*        <div className={styles.listItem1}>大模型大模型</div>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
+                        {/*<div className={styles.title3}>应用层</div>*/}
                     </div>
                 </div>
             </Content>
