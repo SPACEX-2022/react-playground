@@ -251,9 +251,21 @@ const GSAPDemo = () => {
                 y: -((height - 300) / 2),
                 ease: 'power1.inOut',
             }, '+=1')
-            .to(refs['leftTextLine'], {
-                width: `+=$${width + 50}`
-            })
+            .to(refs['leftTextLineSVG'], {
+                duration: 0.5,
+                attr: {
+                    width: `+=${width + 50}`,
+                    viewBox: `0 0 +=${width + 50} 145.963574`,
+                },
+                ease: 'power1.inOut',
+            }, '<')
+            .to(refs['leftTextLine'].querySelectorAll('line'), {
+                duration: 0.5,
+                attr: {
+                    x1: `+=${width + 50}`,
+                },
+                ease: 'power1.inOut',
+            }, '<')
 
 
         timeline.current.add(gsap.to(data.current[1].ref, {
@@ -394,29 +406,29 @@ const GSAPDemo = () => {
 
                             <div className={styles.leftText}>
                                 <div className={styles.leftTextContent}>百模大战</div>
-                                <svg width="145.999233px" height="145.963574px" viewBox="0 0 145.999233 145.963574"
+                                <svg ref={ref => refs['leftTextLineSVG'] = ref} width="145.999233px" height="145.963574px" viewBox="0 0 145.999233 145.963574"
                                      version="1.1" xmlns="http://www.w3.org/2000/svg">
                                     <title>编组 2</title>
                                     <defs>
                                         <linearGradient x1="0%" y1="100%" x2="102.553873%" y2="100%"
                                                         id="linearGradient-1">
-                                            <stop stop-color="#FFFFFF" offset="0%"></stop>
-                                            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+                                            <stop stopColor="#FFFFFF" offset="0%"></stop>
+                                            <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
                                         </linearGradient>
                                         <linearGradient x1="0%" y1="100%" x2="102.553873%" y2="100%"
                                                         id="linearGradient-2">
-                                            <stop stop-color="#FFFFFF" offset="0%"></stop>
-                                            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+                                            <stop stopColor="#FFFFFF" offset="0%"></stop>
+                                            <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
                                         </linearGradient>
                                         <linearGradient x1="0%" y1="100%" x2="102.553873%" y2="100%"
                                                         id="linearGradient-3">
-                                            <stop stop-color="#FFFFFF" offset="0%"></stop>
-                                            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+                                            <stop stopColor="#FFFFFF" offset="0%"></stop>
+                                            <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
                                         </linearGradient>
                                     </defs>
-                                    <g ref={ref => refs['leftTextLine'] = ref} id="leftTextLine" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
-                                       stroke-dasharray="20" stroke-linecap="round">
-                                        <g id="画板01" transform="translate(-250.0008, -851.0364)" stroke-width="6">
+                                    <g ref={ref => refs['leftTextLine'] = ref} id="leftTextLine" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"
+                                       strokeDasharray="20" strokeLinecap="round">
+                                        <g id="画板01" transform="translate(-250.0008, -851.0364)" strokeWidth="6">
                                             <g id="01" transform="translate(-0, 0)">
                                                 <g id="事件" transform="translate(135, 790)">
                                                     <g id="编组-2" transform="translate(107, 63.5)">
@@ -437,7 +449,7 @@ const GSAPDemo = () => {
                                 {
                                     data.current.map((item, index) => {
                                         return (
-                                            <div ref={ref => item.ref = ref} className={styles.title}
+                                            <div key={index} ref={ref => item.ref = ref} className={styles.title}
                                                  style={{'--color': titleIndexData[index].themeColor}}>
                                                 <div className={styles.titleContent}>
                                                     <div
@@ -448,7 +460,7 @@ const GSAPDemo = () => {
                                                     {
                                                         item.children.map((child, childIndex) => {
                                                             return (
-                                                                <div ref={ref => child.ref = ref}
+                                                                <div key={childIndex} ref={ref => child.ref = ref}
                                                                      className={styles.listItem}>
                                                                     <div
                                                                         className={styles.listItemTitle}>{child.title}</div>
@@ -458,6 +470,7 @@ const GSAPDemo = () => {
                                                                             child.children.map((grandson, grandsonIndex) => {
                                                                                 return (
                                                                                     <img
+                                                                                        key={grandsonIndex}
                                                                                         src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
                                                                                         alt=""/>
                                                                                 )
