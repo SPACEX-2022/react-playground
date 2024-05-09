@@ -18,6 +18,44 @@
     color: white;
 }
 
+.stage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*border: 1px solid #fff;*/
+    width: 1080px;
+    height: 1920px;
+
+    background-color: #282c34;
+    color: #fff;
+    font-size: 100px;
+}
+.stageContent {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.resolutions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(0, -100%);
+    font-size: 24px;
+    color: #282c34;
+}
+
+.stageBorder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border: 1px solid #fff;
+    z-index: -1;
+}
+
 .contentWrapper {
     position: relative;
     width: 100%;
@@ -30,50 +68,71 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /*position: absolute;*/
-    /*left: 50%;*/
-    /*top: 50%;*/
-    /*transform: translate(-50%, -50%);*/
 
     font-size: 1em;
 }
 
 .title {
-    margin-top: 1.5em;
+    margin-top: 5em;
     position: relative;
-    /*position: absolute;*/
     transform: translateX(100%);
     opacity: 0;
+    font-size: .4em;
 }
 .title:first-child {
     margin-top: 0;
 }
 
-.title1,.title2,.title3 {
+.titleIndex {
+    position: absolute;
+    top: -6px;
+    left: 0;
+    width: 150px;
+    height: 150px;
+    /*font-weight: 700;*/
+    font-size: 80px;
+    line-height: 150px;
+    color: #FFFFFF;
+    text-align: center;
+    background: var(--color);
+    border-radius: 50%;
+    transform: translateX(-50%);
+}
+.titleContent {
+    width: 482px;
+    height: 150px;
     position: relative;
-    /*position: absolute;*/
-    transform: translateX(100%);
-    opacity: 0;
+    padding: 14px 27px 13px 98px;
+    /*font-weight: 700;*/
+    font-size: 70px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 111px;
+    background: #000000;
+    border: 6px solid var(--color);
+    border-radius: 0 10px 10px 0;
 }
 
-.title2 {
-    margin-top: 1.5em;
-    /*position: absolute;*/
-}
-
-.title3 {
-    margin-top: 1.5em;
-    /*position: absolute;*/
-}
 
 .leftText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    left: 10%;
+    left: 135px;
     top: 50%;
     transform: translateY(-50%) translateX(-100%);
     opacity: 0;
-    font-size: .5em;
-    writing-mode: vertical-lr;
+    font-size: 50px;
+    /*writing-mode: vertical-lr;*/
+    /*letter-spacing: 5px;*/
+    line-height: 60px;
+}
+
+.leftTextContent {
+    width: 107px;
+    margin-right: 15px;
 }
 
 .listWrapper {

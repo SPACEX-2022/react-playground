@@ -1,5 +1,6 @@
 import styles from './index.module.css';
-import { gsap } from "gsap";
+import { gsap } from "gsap-trial";
+import DrawSVGPlugin from 'gsap-trial/DrawSVGPlugin';
 import { useGSAP } from '@gsap/react';
 import {useEffect, useRef, useState} from "react";
 import {Button, Form, Input, Layout, Slider, Space} from "antd";
@@ -8,7 +9,24 @@ import FormItem from "antd/es/form/FormItem";
 import {Content} from "antd/es/layout/layout";
 // import { SplitText } from "gsap/SplitText";
 
+console.log(DrawSVGPlugin, gsap)
+gsap.registerPlugin(DrawSVGPlugin)
 const mindMapData = {"layout":"logicalStructure","root":{"data":{"text":"\u003Cp\u003E\u003Cstrong style=\"font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(255, 255, 255); font-size: 24px;\"\u003E光刻机\u003C/strong\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"470e7df9-b8c6-4b3a-ac54-2b2dc82dca7f"},"children":[{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(255, 255, 255); font-size: 18px;\"\u003E材料及设备\u003C/span\u003E\u003C/p\u003E","generalization":null,"richText":true,"expand":true,"isActive":false,"uid":"5e486721-0563-4ef1-9ac7-e674d576d7aa"},"children":[{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86); font-size: 14px;\"\u003E光刻机\u003C/span\u003E\u003C/p\u003E","richText":true,"expand":true,"isActive":false,"uid":"db9817b7-7fc7-4bf4-9cc7-91814d9d53b7"},"children":[{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E彤程新材\u003C/span\u003E\u003C/p\u003E","uid":"8211c7b7-af8c-4170-a7f6-450415d2df5a","expand":true,"richText":true,"isActive":false},"children":[{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E从事新材料的研发生产，光刻胶专利保证光刻胶回刻的平坦化程度\u003C/span\u003E\u003C/p\u003E","uid":"389d7647-5806-4e5a-a783-22b853170201","expand":true,"richText":true,"isActive":false},"children":[]}]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E晶瑞电材\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"2cc7afc0-0e66-4bab-a737-d6141c9f300c"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E南大光电\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"cd9f569f-b471-4f7b-9f60-03e37ada553d"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E容大感光\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"dfdb34bb-0d48-4a18-b6c3-e8385676c524"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E同益股份\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"584774a3-5b17-4e8e-8508-abce2147d2da"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E华丰科技\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"f3fec018-e9fd-4599-bfcc-2416fe8b1d6a"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E上海新阳\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"188d1823-6754-4a47-9156-aff813403d3f"},"children":[]}]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86); font-size: 14px;\"\u003E电子特气\u003C/span\u003E\u003C/p\u003E","richText":true,"expand":true,"isActive":false,"uid":"a0762b35-db88-4d58-a976-fcf6b79c8831"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E涂胶显影设备\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"bd7e58fc-0363-42a7-b70e-97bf29c3f32e"},"children":[]}]}]},"theme":{"template":"classic4","config":{}},"view":{"transform":{"scaleX":1,"scaleY":1,"shear":0,"rotate":0,"translateX":-355,"translateY":-20,"originX":0,"originY":0,"a":1,"b":0,"c":0,"d":1,"e":-355,"f":-20},"state":{"scale":1,"x":-355,"y":-20,"sx":-355,"sy":-20}}}
+
+const titleIndexData = [
+    {
+        label: '上',
+        themeColor: '#009FFF',
+    },
+    {
+        label: '中',
+        themeColor: '#EFBB35',
+    },
+    {
+        label: '下',
+        themeColor: '#0C8B75',
+    },
+]
 
 const GSAPDemo = () => {
     const [duration, setDuration] = useState(0);
@@ -16,6 +34,7 @@ const GSAPDemo = () => {
 
     /* type: core.Timeline */
     const timeline = useRef();
+    const refs =  useRef({});
     const [config, setConfig] = useState({
         width: 0,
         height: 0,
@@ -124,18 +143,38 @@ const GSAPDemo = () => {
         },
     ])
 
+    const resolutions = [1080, 1920];
+    const [scale, setScale] = useState(1);
+
     useEffect(() => {
-        const content = document.querySelector('.ant-layout-content')
+        const { offsetWidth, offsetHeight } = document.querySelector('.ant-layout-content')
         setConfig({
-            width: content.offsetWidth,
-            height: content.offsetHeight,
+            width: offsetWidth,
+            height: offsetHeight,
         })
+
+        const widthRadio = (offsetWidth - 100) / resolutions[0];
+        const heightRadio = (offsetHeight - 100) / resolutions[1];
+        setScale(Math.min(widthRadio, heightRadio))
     }, [])
 
+    const createShowTitle1TimeLine = (el, reverse = false) => {
+        const [width, height] = resolutions;
+        const timeline = gsap.timeline({ paused: true });
+        const x = -(width + 50);
+        const y = -((height - 300) / 2);
+        timeline.to(el, {
+            duration: 0.5,
+            x: reverse ? -x : x,
+            y: reverse ? -y : y,
+            ease: 'power1.inOut',
+        })
+    }
+
     useGSAP(() => {
-        if (config.width === 0) return
-        console.log(config, data.current[0].ref)
-        const { width, height } = config;
+        // if (config.width === 0) return
+        // console.log(config, data.current[0].ref)
+        const [width, height] = resolutions;
 
 
         // const showTitle1 = gsap.to(`.${styles.title1}`, {
@@ -164,13 +203,7 @@ const GSAPDemo = () => {
         })
         const titleWrapperToRight = gsap.to(`.${styles.titleWrapper}`, {
             duration: 0.5,
-            x: 50,
-            ease: 'power1.inOut',
-        })
-        const toLeft = gsap.to(`.${styles.contentWrapper}`, {
-            duration: 0.5,
-            x: -(width + 50),
-            y: -((height - 300) / 2),
+            x: 138,
             ease: 'power1.inOut',
         })
         // const toRight = gsap.to(`#title2`, {
@@ -183,6 +216,7 @@ const GSAPDemo = () => {
         //     height: height * 0.7,
         //     ease: 'power1.inOut',
         // })
+        // gsap.fromTo(refs['leftTextLine'], { strokeDashoffset: 200 }, { strokeDashoffset: 400, duration: 3.5, repeat: -1, ease: 'none' })
 
         timeline.current = gsap.timeline({ paused: true });
 
@@ -208,7 +242,18 @@ const GSAPDemo = () => {
         timeline.current
             .add(showLeftText)
             .add(titleWrapperToRight, '<')
-            .add(toLeft, '+=1')
+            .fromTo(refs['leftTextLine'], { strokeDashoffset: 200 }, { strokeDashoffset: 400, duration: 3.5, repeat: -1, ease: 'none' })
+            .fromTo(refs['leftTextLine'], { alpha: 0 }, { alpha: 1, ease: 'power1.inOut' }, '<')
+            // .delay(1)
+            .to(`.${styles.contentWrapper}`, {
+                duration: 0.5,
+                x: -(width + 50),
+                y: -((height - 300) / 2),
+                ease: 'power1.inOut',
+            }, '+=1')
+            .to(refs['leftTextLine'], {
+                width: `+=$${width + 50}`
+            })
 
 
         timeline.current.add(gsap.to(data.current[1].ref, {
@@ -296,7 +341,8 @@ const GSAPDemo = () => {
             //     ease: 'power1.inOut',
             // }), '<')
 
-        setDuration(timeline.current.duration());
+        // timeline.current.seek(2.1)
+        setDuration(20 || timeline.current.duration());
     }, [config])
 
     const onPlay = () => {
@@ -335,91 +381,100 @@ const GSAPDemo = () => {
                     </FormItem>
                 </Form>
             </Sider>
-            <Content style={{ position: 'relative', backgroundColor: '#282c34', color: '#fff', fontSize: '100px', overflow: 'hidden' }}>
+            <Content style={{ position: 'relative' }}>
                 {/*<div id={'box'} className={styles.text}>*/}
                 {/*    GroupShopping List*/}
                 {/*</div>*/}
+                <div className={styles.stage} style={{ transform: `translate(-50%, -50%) scale(${scale})`, width: `${resolutions[0]}px`, height: `${resolutions[1]}px` }}>
+                    <div className={styles.resolutions} style={{ transform: `translateY(-100%) scale(${1})` }}>1080 x 1920</div>
+                    <div className={styles.stageBorder} style={{ transform: `scale(${1})` }}></div>
 
-                <div className={styles.contentWrapper}>
+                    <div className={styles.stageContent} style={{ fontSize: `${resolutions[1] / 10}px` }}>
+                        <div className={styles.contentWrapper}>
 
-                    <div className={styles.leftText}>
-                        百模大战
-                    </div>
-                    <div className={styles.titleWrapper}>
-                        {
-                            data.current.map((item, index) => {
-                                return (
-                                    <div ref={ref => item.ref = ref} className={styles.title}>
-                                        {item.title}
-                                        <div ref={ref => item.listRef = ref} className={styles.listWrapper}>
-                                            {
-                                                item.children.map((child, childIndex) => {
-                                                    return (
-                                                        <div ref={ref => child.ref = ref} className={styles.listItem}>
-                                                            <div className={styles.listItemTitle}>{ child.title }</div>
-                                                            <div ref={ref => child.listRef = ref} className={styles.listItemContent}>
-                                                                {
-                                                                    child.children.map((grandson, grandsonIndex) => {
-                                                                        return (
-                                                                            <img
-                                                                                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                                                                                alt=""/>
-                                                                        )
-                                                                    })
-                                                                }
-                                                            </div>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                            {/*<div className={styles.listItem}>*/}
-                                            {/*    <div className={styles.listItemTitle}>大模型大模型</div>*/}
-                                            {/*    <div className={styles.listItemContent}>*/}
-                                            {/*        <img*/}
-                                            {/*            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"*/}
-                                            {/*            alt=""/>*/}
-                                            {/*        <img*/}
-                                            {/*            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"*/}
-                                            {/*            alt=""/>*/}
-                                            {/*        <img*/}
-                                            {/*            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"*/}
-                                            {/*            alt=""/>*/}
-                                            {/*        <img*/}
-                                            {/*            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"*/}
-                                            {/*            alt=""/>*/}
-                                            {/*        <img*/}
-                                            {/*            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"*/}
-                                            {/*            alt=""/>*/}
-                                            {/*        <img*/}
-                                            {/*            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"*/}
-                                            {/*            alt=""/>*/}
-                                            {/*    </div>*/}
-                                            {/*</div>*/}
-                                            {/*<div className={styles.listItem1}>大模型大模型</div>*/}
-                                        </div>
-                                    </div>
-                                )
-                            })
-                        }
-                        {/*<div className={styles.title1}>基础层</div>*/}
-                        {/*<div id="title2" className={styles.title2}>*/}
-                        {/*    技术层*/}
-                        {/*    <div className={styles.listWrapper}>*/}
-                        {/*        <div className={styles.listItem}>*/}
-                        {/*            <div className={styles.listItemTitle}>大模型大模型</div>*/}
-                        {/*            <div className={styles.listItemContent}>*/}
-                        {/*                <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>*/}
-                        {/*                <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>*/}
-                        {/*                <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>*/}
-                        {/*                <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>*/}
-                        {/*                <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>*/}
-                        {/*                <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" alt=""/>*/}
-                        {/*            </div>*/}
-                        {/*        </div>*/}
-                        {/*        <div className={styles.listItem1}>大模型大模型</div>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-                        {/*<div className={styles.title3}>应用层</div>*/}
+                            <div className={styles.leftText}>
+                                <div className={styles.leftTextContent}>百模大战</div>
+                                <svg width="145.999233px" height="145.963574px" viewBox="0 0 145.999233 145.963574"
+                                     version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                    <title>编组 2</title>
+                                    <defs>
+                                        <linearGradient x1="0%" y1="100%" x2="102.553873%" y2="100%"
+                                                        id="linearGradient-1">
+                                            <stop stop-color="#FFFFFF" offset="0%"></stop>
+                                            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+                                        </linearGradient>
+                                        <linearGradient x1="0%" y1="100%" x2="102.553873%" y2="100%"
+                                                        id="linearGradient-2">
+                                            <stop stop-color="#FFFFFF" offset="0%"></stop>
+                                            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+                                        </linearGradient>
+                                        <linearGradient x1="0%" y1="100%" x2="102.553873%" y2="100%"
+                                                        id="linearGradient-3">
+                                            <stop stop-color="#FFFFFF" offset="0%"></stop>
+                                            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                    <g ref={ref => refs['leftTextLine'] = ref} id="leftTextLine" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+                                       stroke-dasharray="20" stroke-linecap="round">
+                                        <g id="画板01" transform="translate(-250.0008, -851.0364)" stroke-width="6">
+                                            <g id="01" transform="translate(-0, 0)">
+                                                <g id="事件" transform="translate(135, 790)">
+                                                    <g id="编组-2" transform="translate(107, 63.5)">
+                                                        <line x1="112" y1="70.5" x2="0" y2="70" id="路径"
+                                                              stroke="url(#linearGradient-1)"></line>
+                                                        <line x1="151" y1="140.5" x2="0" y2="140" id="路径"
+                                                              stroke="url(#linearGradient-2)"></line>
+                                                        <line x1="151" y1="1" x2="0" y2="0.5" id="路径"
+                                                              stroke="url(#linearGradient-3)"></line>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div className={styles.titleWrapper}>
+                                {
+                                    data.current.map((item, index) => {
+                                        return (
+                                            <div ref={ref => item.ref = ref} className={styles.title}
+                                                 style={{'--color': titleIndexData[index].themeColor}}>
+                                                <div className={styles.titleContent}>
+                                                    <div
+                                                        className={styles.titleIndex}>{titleIndexData[index].label}</div>
+                                                    {item.title}
+                                                </div>
+                                                <div ref={ref => item.listRef = ref} className={styles.listWrapper}>
+                                                    {
+                                                        item.children.map((child, childIndex) => {
+                                                            return (
+                                                                <div ref={ref => child.ref = ref}
+                                                                     className={styles.listItem}>
+                                                                    <div
+                                                                        className={styles.listItemTitle}>{child.title}</div>
+                                                                    <div ref={ref => child.listRef = ref}
+                                                                         className={styles.listItemContent}>
+                                                                    {
+                                                                            child.children.map((grandson, grandsonIndex) => {
+                                                                                return (
+                                                                                    <img
+                                                                                        src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                                                                                        alt=""/>
+                                                                                )
+                                                                            })
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Content>
