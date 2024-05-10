@@ -3,11 +3,12 @@ import { gsap } from "gsap";
 import DrawSVGPlugin from 'gsap-trial/DrawSVGPlugin';
 import { useGSAP } from '@gsap/react';
 import {useEffect, useMemo, useRef, useState} from "react";
-import {Button, Form, Input, Layout, message, Slider, Space} from "antd";
+import {Button, Form, Input, Layout, List, message, Slider, Space} from "antd";
 import Sider from "antd/es/layout/Sider";
 import FormItem from "antd/es/form/FormItem";
 import {Content} from "antd/es/layout/layout";
 import {useDebounceFn} from "ahooks";
+import {DragSortTable} from "@ant-design/pro-components";
 // import { SplitText } from "gsap/SplitText";
 
 // console.log(DrawSVGPlugin, gsap)
@@ -57,8 +58,14 @@ const GSAPDemo = () => {
         height: 0,
     })
 
+    const [sequence, setSequence] = useState([
+        { index: 0 },
+        { index: 1 },
+        { index: 2 },
+    ])
+
     const [_data, setData] = useState(JSON.stringify({
-        sequence: [1, 2, 3],
+        // sequence: [1, 2, 3],
         data: [
             {
                 title: '基础层',
@@ -434,7 +441,13 @@ const GSAPDemo = () => {
             ease: 'power1.inOut',
         })
 
-        timeline.current = gsap.timeline({ paused: true });
+        timeline.current = gsap.timeline({
+            paused: true,
+            onUpdate() {
+                // console.log(timeline.current)
+                setTimestamp(timeline.current.time())
+            }
+        });
 
         data.forEach((item, index) => {
             timeline.current.add(
@@ -471,10 +484,10 @@ const GSAPDemo = () => {
             // }, '<+1')
             // .add(createShowHotspotMoveSVG('middle'), '<')
 
-        const { sequence } = demoData;
+        // const { sequence } = demoData;
 
         sequence.forEach((item) => {
-            const index = item - 1;
+            const index = item.index;
             if (index === 0) {
                 timeline.current.add(createShowHotspotSVG('up'), '<+1')
             } else if (index === 2) {
@@ -516,43 +529,12 @@ const GSAPDemo = () => {
                 .delay(1);
         })
 
-        // timeline.current
-        //     .to(data[1].listRef, {
-        //         duration: 0.7,
-        //         height: height * 0.5,
-        //         ease: 'power1.inOut',
-        //     }, '>-0.1')
-
-        // data[1].children.forEach((item, index) => {
-        //     timeline.current.fromTo(
-        //         item.ref,
-        //         {
-        //             x: '-100%',
-        //         },
-        //         {
-        //             duration: 0.5,
-        //             x: 0,
-        //             ease: 'power1.inOut',
-        //         },
-        //     )
-        // })
-
-        // timeline.current.add(showSectorList(1), '<')
-        //
-        // timeline.current
-        //     .to(data[1].listRef, {
-        //         duration: 0.3,
-        //         height: 0,
-        //         ease: 'power1.inOut',
-        //     }, '+=1')
-        //
-        // timeline.current.add(createShowTitleTimeLine(1, true), '<');
 
         timeline.current.addLabel('endTime');
         // timeline.current.seek(2.1)
         console.log(999, timeline.current.duration(), timeline.current.totalTime(), timeline.current)
         setDuration(timeline.current.labels.endTime);
-    }, [config, data])
+    }, [config, data, sequence])
 
     const { run: onChange } = useDebounceFn(
         (e) => {
@@ -628,6 +610,31 @@ const GSAPDemo = () => {
             </svg>
         )
     }
+    const columns = [
+        {
+            title: 'sort',
+            dataIndex: 'sort',
+            width: 60,
+            className: 'drag-visible',
+        },
+        {
+            title: 'name',
+            dataIndex: 'title',
+            className: 'drag-visible',
+            renderText: (_, record, index) => (data[record.index].title)
+        },
+    ];
+
+    const handleDragSortEnd = (
+        beforeIndex,
+        afterIndex,
+        newDataSource,
+    ) => {
+        console.log('排序后的数据', newDataSource);
+        // setDataSource(newDataSource);
+        setSequence(newDataSource)
+        message.success('修改列表排序成功');
+    };
 
     return (
         <Layout className={styles.container}>
@@ -637,18 +644,30 @@ const GSAPDemo = () => {
                 height: '100%'
             }}>
                 <Form layout={'vertical'}>
-                    <FormItem label="timestamp">
+                    <FormItem label="Timestamp">
                         {/*<Input value={timestamp} onChange={(e) => setTimestamp(e.target.value)} suffix={'ms'} />*/}
                         <Slider step={0.1} min={0} max={duration} value={timestamp} onChange={onSeek}/>
                     </FormItem>
-                    <FormItem label="data" help={'回车键确认数据'}>
+                    <FormItem label="Sequence">
+                        <DragSortTable
+                            toolBarRender={false}
+                            columns={columns}
+                            rowKey="index"
+                            search={false}
+                            pagination={false}
+                            dataSource={sequence}
+                            dragSortKey="sort"
+                            onDragSortEnd={handleDragSortEnd}
+                        />
+                    </FormItem>
+                    <FormItem label="Data" help={'回车键确认数据'}>
                         <Input.TextArea
                             autoSize={{minRows: 10, maxRows: 30}}
                             defaultValue={_data}
                             onChange={onChange}
                         />
                     </FormItem>
-                    <FormItem label="action">
+                    <FormItem label="Action">
                         <Space direction={'vertical'} style={{width: '100%'}}>
                             <Button block type="primary" onClick={onPlay}>Play</Button>
                             <Button block type="dashed" onClick={onPause}>Pause</Button>
