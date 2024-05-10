@@ -3,10 +3,11 @@ import { gsap } from "gsap";
 import DrawSVGPlugin from 'gsap-trial/DrawSVGPlugin';
 import { useGSAP } from '@gsap/react';
 import {useEffect, useMemo, useRef, useState} from "react";
-import {Button, Form, Input, Layout, List, message, Slider, Space} from "antd";
+import {Button, Col, Form, Input, Layout, List, message, Row, Slider, Space} from "antd";
 import Sider from "antd/es/layout/Sider";
 import FormItem from "antd/es/form/FormItem";
 import {Content} from "antd/es/layout/layout";
+import { CaretRightFilled, PauseOutlined } from '@ant-design/icons';
 import {useDebounceFn} from "ahooks";
 import {DragSortTable} from "@ant-design/pro-components";
 // import { SplitText } from "gsap/SplitText";
@@ -49,6 +50,7 @@ const SCALE = 1.4;
 const GSAPDemo = () => {
     const [duration, setDuration] = useState(0);
     const [timestamp, setTimestamp] = useState(0);
+    const [playing, setPlaying] = useState(false);
 
     /* type: core.Timeline */
     const timeline = useRef();
@@ -241,7 +243,7 @@ const GSAPDemo = () => {
         })
 
         const widthRadio = (offsetWidth - 100) / resolutions[0];
-        const heightRadio = (offsetHeight - 100) / resolutions[1];
+        const heightRadio = (offsetHeight - 150) / resolutions[1];
         setScale(Math.min(widthRadio, heightRadio))
     }, [])
 
@@ -552,11 +554,13 @@ const GSAPDemo = () => {
     );
 
     const onPlay = () => {
-        timeline.current.play()
-    }
-
-    const onPause = () => {
-        timeline.current.pause()
+        if (playing) {
+            timeline.current.pause()
+            setPlaying(false);
+        } else {
+            timeline.current.play()
+            setPlaying(true);
+        }
     }
 
     const onReversePlay = () => {
@@ -567,6 +571,7 @@ const GSAPDemo = () => {
         console.log(timestamp)
         setTimestamp(timestamp);
         timeline.current.seek(timestamp).pause();
+        setPlaying(false);
         // timeline.current.pause();
     }
 
@@ -633,6 +638,7 @@ const GSAPDemo = () => {
         console.log('排序后的数据', newDataSource);
         // setDataSource(newDataSource);
         setSequence(newDataSource)
+        onSeek(0);
         message.success('修改列表排序成功');
     };
 
@@ -644,10 +650,10 @@ const GSAPDemo = () => {
                 height: '100%'
             }}>
                 <Form layout={'vertical'}>
-                    <FormItem label="Timestamp">
-                        {/*<Input value={timestamp} onChange={(e) => setTimestamp(e.target.value)} suffix={'ms'} />*/}
-                        <Slider step={0.1} min={0} max={duration} value={timestamp} onChange={onSeek}/>
-                    </FormItem>
+                    {/*<FormItem label="Timestamp">*/}
+                    {/*    /!*<Input value={timestamp} onChange={(e) => setTimestamp(e.target.value)} suffix={'ms'} />*!/*/}
+                    {/*    <Slider step={0.1} min={0} max={duration} value={timestamp} onChange={onSeek}/>*/}
+                    {/*</FormItem>*/}
                     <FormItem label="Sequence">
                         <DragSortTable
                             toolBarRender={false}
@@ -660,152 +666,166 @@ const GSAPDemo = () => {
                             onDragSortEnd={handleDragSortEnd}
                         />
                     </FormItem>
-                    <FormItem label="Data" help={'回车键确认数据'}>
+                    <FormItem label="Data">
                         <Input.TextArea
                             autoSize={{minRows: 10, maxRows: 30}}
                             defaultValue={_data}
                             onChange={onChange}
                         />
                     </FormItem>
-                    <FormItem label="Action">
-                        <Space direction={'vertical'} style={{width: '100%'}}>
-                            <Button block type="primary" onClick={onPlay}>Play</Button>
-                            <Button block type="dashed" onClick={onPause}>Pause</Button>
-                            <Button block onClick={onReversePlay}>Reverse Play</Button>
-                            {/*<Button block onClick={onSeek}>Seek</Button>*/}
-                        </Space>
-                    </FormItem>
+                    {/*<FormItem label="Action">*/}
+                    {/*    <Space direction={'vertical'} style={{width: '100%'}}>*/}
+                    {/*        <Button block type="primary" onClick={onPlay}>Play</Button>*/}
+                    {/*        <Button block type="dashed" onClick={onPause}>Pause</Button>*/}
+                    {/*        <Button block onClick={onReversePlay}>Reverse Play</Button>*/}
+                    {/*        /!*<Button block onClick={onSeek}>Seek</Button>*!/*/}
+                    {/*    </Space>*/}
+                    {/*</FormItem>*/}
                 </Form>
             </Sider>
-            <Content style={{position: 'relative'}}>
-                {/*<div id={'box'} className={styles.text}>*/}
-                {/*    GroupShopping List*/}
-                {/*</div>*/}
-                <div className={styles.stage} style={{
-                    transform: `translate(-50%, -50%) scale(${scale})`,
-                    width: `${resolutions[0]}px`,
-                    height: `${resolutions[1]}px`
-                }}>
-                    <div className={styles.resolutions} style={{transform: `translateY(-100%) scale(${1})`}}>1080 x
-                        1920
-                    </div>
-                    <div className={styles.stageBorder} style={{transform: `scale(${1})`}}></div>
+            <Layout>
+                <Content style={{position: 'relative'}}>
+                    {/*<div id={'box'} className={styles.text}>*/}
+                    {/*    GroupShopping List*/}
+                    {/*</div>*/}
+                    <div className={styles.stage} style={{
+                        transform: `translate(-50%, -50%) scale(${scale})`,
+                        width: `${resolutions[0]}px`,
+                        height: `${resolutions[1]}px`
+                    }}>
+                        <div className={styles.resolutions} style={{transform: `translateY(-100%) scale(${1})`}}>1080 x
+                            1920
+                        </div>
+                        <div className={styles.stageBorder} style={{transform: `scale(${1})`}}></div>
 
-                    <div className={styles.stageContent} style={{fontSize: `${resolutions[1] / 10}px`}}>
-                        <div ref={ref => refs['contentWrapper'] = ref} className={styles.contentWrapper}>
-                            <div className={styles.leftText}>
-                                <div className={styles.leftTextContent}>百模大战</div>
-                                <svg ref={ref => refs['leftTextLineSVG'] = ref} width="145.999233px" height="145.963574px" viewBox="0 0 145.999233 145.963574"
-                                     version="1.1" xmlns="http://www.w3.org/2000/svg">
-                                    <title>编组 2</title>
-                                    <defs>
-                                        <linearGradient x1="0%" y1="100%" x2="102.553873%" y2="100%"
-                                                        id="linearGradient-1">
-                                            <stop stopColor="#FFFFFF" offset="0%"></stop>
-                                            <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
-                                        </linearGradient>
-                                        <linearGradient x1="0%" y1="100%" x2="102.553873%" y2="100%"
-                                                        id="linearGradient-2">
-                                            <stop stopColor="#FFFFFF" offset="0%"></stop>
-                                            <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
-                                        </linearGradient>
-                                        <linearGradient x1="0%" y1="100%" x2="102.553873%" y2="100%"
-                                                        id="linearGradient-3">
-                                            <stop stopColor="#FFFFFF" offset="0%"></stop>
-                                            <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
-                                        </linearGradient>
-                                    </defs>
-                                    <g ref={ref => refs['leftTextLine'] = ref} id="leftTextLine" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"
-                                       strokeDasharray="20" strokeLinecap="round">
-                                        <g id="画板01" transform="translate(-250.0008, -851.0364)" strokeWidth="6">
-                                            <g id="01" transform="translate(-0, 0)">
-                                                <g id="事件" transform="translate(135, 790)">
-                                                    <g id="编组-2" transform="translate(107, 63.5)">
-                                                        <line x1="112" y1="70.5" x2="0" y2="70" id="路径"
-                                                              stroke="url(#linearGradient-1)"></line>
-                                                        <line x1="151" y1="140.5" x2="0" y2="140" id="路径"
-                                                              stroke="url(#linearGradient-2)"></line>
-                                                        <line x1="151" y1="1" x2="0" y2="0.5" id="路径"
-                                                              stroke="url(#linearGradient-3)"></line>
+                        <div className={styles.stageContent} style={{fontSize: `${resolutions[1] / 10}px`}}>
+                            <div ref={ref => refs['contentWrapper'] = ref} className={styles.contentWrapper}>
+                                <div className={styles.leftText}>
+                                    <div className={styles.leftTextContent}>百模大战</div>
+                                    <svg ref={ref => refs['leftTextLineSVG'] = ref} width="145.999233px" height="145.963574px" viewBox="0 0 145.999233 145.963574"
+                                         version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                        <title>编组 2</title>
+                                        <defs>
+                                            <linearGradient x1="0%" y1="100%" x2="102.553873%" y2="100%"
+                                                            id="linearGradient-1">
+                                                <stop stopColor="#FFFFFF" offset="0%"></stop>
+                                                <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
+                                            </linearGradient>
+                                            <linearGradient x1="0%" y1="100%" x2="102.553873%" y2="100%"
+                                                            id="linearGradient-2">
+                                                <stop stopColor="#FFFFFF" offset="0%"></stop>
+                                                <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
+                                            </linearGradient>
+                                            <linearGradient x1="0%" y1="100%" x2="102.553873%" y2="100%"
+                                                            id="linearGradient-3">
+                                                <stop stopColor="#FFFFFF" offset="0%"></stop>
+                                                <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
+                                            </linearGradient>
+                                        </defs>
+                                        <g ref={ref => refs['leftTextLine'] = ref} id="leftTextLine" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"
+                                           strokeDasharray="20" strokeLinecap="round">
+                                            <g id="画板01" transform="translate(-250.0008, -851.0364)" strokeWidth="6">
+                                                <g id="01" transform="translate(-0, 0)">
+                                                    <g id="事件" transform="translate(135, 790)">
+                                                        <g id="编组-2" transform="translate(107, 63.5)">
+                                                            <line x1="112" y1="70.5" x2="0" y2="70" id="路径"
+                                                                  stroke="url(#linearGradient-1)"></line>
+                                                            <line x1="151" y1="140.5" x2="0" y2="140" id="路径"
+                                                                  stroke="url(#linearGradient-2)"></line>
+                                                            <line x1="151" y1="1" x2="0" y2="0.5" id="路径"
+                                                                  stroke="url(#linearGradient-3)"></line>
+                                                        </g>
                                                     </g>
                                                 </g>
                                             </g>
                                         </g>
-                                    </g>
-                                </svg>
-                            </div>
-                            <div className={styles.titleWrapper}>
-                                {
-                                    data.map((item, index) => {
-                                        return (
-                                            <>
-                                                <div key={index} ref={ref => item.ref = ref} className={styles.title}
-                                                     style={{
-                                                         '--color': titleIndexData[index].themeColor,
-                                                         '--font-color': titleIndexData[index].fontColor,
-                                                         '--title2-bg-color': titleIndexData[index].title2BgColor,
-                                                         '--sector-bg-color': titleIndexData[index].sectorBgColor,
-                                                         '--sector-font-color': titleIndexData[index].sectorFontColor,
-                                                }}>
-                                                    <div ref={ref => item.titleRef = ref} className={styles.titleContent + ' ' + (item.title.length > 7 ? styles.titleContentMinFs : (item.title.length > 5 ? styles.titleContentMiddleFs : styles.titleContentMaxFs ))}>
-                                                        <div
-                                                            className={styles.titleIndex}>{titleIndexData[index].label}</div>
-                                                        <div className={styles.titleContentNode}>{item.title}</div>
-                                                    </div>
-                                                    <div ref={ref => item.listRef = ref} className={styles.listWrapper}>
-                                                        {
-                                                            item.children.map((child, childIndex) => {
-                                                                return (
-                                                                    <div key={childIndex}
-                                                                         ref={ref => child.ref = ref}
-                                                                         className={styles.listItem}
-                                                                         style={{ transform: `scale(${1 / SCALE})` }}
-                                                                    >
-                                                                        <div
-                                                                            className={styles.listItemTitle}>
-                                                                            {child.title}
-                                                                            <div className={styles.listItemDesc}>
-                                                                                { child.desc }
+                                    </svg>
+                                </div>
+                                <div className={styles.titleWrapper}>
+                                    {
+                                        data.map((item, index) => {
+                                            return (
+                                                <>
+                                                    <div key={index} ref={ref => item.ref = ref} className={styles.title}
+                                                         style={{
+                                                             '--color': titleIndexData[index].themeColor,
+                                                             '--font-color': titleIndexData[index].fontColor,
+                                                             '--title2-bg-color': titleIndexData[index].title2BgColor,
+                                                             '--sector-bg-color': titleIndexData[index].sectorBgColor,
+                                                             '--sector-font-color': titleIndexData[index].sectorFontColor,
+                                                         }}>
+                                                        <div ref={ref => item.titleRef = ref} className={styles.titleContent + ' ' + (item.title.length > 7 ? styles.titleContentMinFs : (item.title.length > 5 ? styles.titleContentMiddleFs : styles.titleContentMaxFs ))}>
+                                                            <div
+                                                                className={styles.titleIndex}>{titleIndexData[index].label}</div>
+                                                            <div className={styles.titleContentNode}>{item.title}</div>
+                                                        </div>
+                                                        <div ref={ref => item.listRef = ref} className={styles.listWrapper}>
+                                                            {
+                                                                item.children.map((child, childIndex) => {
+                                                                    return (
+                                                                        <div key={childIndex}
+                                                                             ref={ref => child.ref = ref}
+                                                                             className={styles.listItem}
+                                                                             style={{ transform: `scale(${1 / SCALE})` }}
+                                                                        >
+                                                                            <div
+                                                                                className={styles.listItemTitle}>
+                                                                                {child.title}
+                                                                                <div className={styles.listItemDesc}>
+                                                                                    { child.desc }
+                                                                                </div>
+                                                                            </div>
+                                                                            <div style={{overflow: 'hidden'}}>
+                                                                                <div ref={ref => child.listRef = ref}
+                                                                                     className={styles.listItemContent}>
+                                                                                    {
+                                                                                        child.children.map((grandson, grandsonIndex) => {
+                                                                                            return (
+                                                                                                <div
+                                                                                                    className={styles.sectorWrapper}>
+                                                                                                    <div
+                                                                                                        className={styles.sectorPositive}>间接利好
+                                                                                                    </div>
+                                                                                                    <div
+                                                                                                        className={styles.sectorTitle}>{grandson.title}</div>
+                                                                                                    <div
+                                                                                                        className={styles.sectorDesc}>{ grandson.desc }
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            )
+                                                                                        })
+                                                                                    }
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div style={{overflow: 'hidden'}}>
-                                                                            <div ref={ref => child.listRef = ref}
-                                                                                 className={styles.listItemContent}>
-                                                                                {
-                                                                                    child.children.map((grandson, grandsonIndex) => {
-                                                                                        return (
-                                                                                            <div
-                                                                                                className={styles.sectorWrapper}>
-                                                                                                <div
-                                                                                                    className={styles.sectorPositive}>间接利好
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    className={styles.sectorTitle}>{grandson.title}</div>
-                                                                                                <div
-                                                                                                    className={styles.sectorDesc}>{ grandson.desc }
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        )
-                                                                                    })
-                                                                                }
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                )
-                                                            })
-                                                        }
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                {index !== data.length - 1 ? createHotspotVerticalSVG(index % 2 ? 'down' : 'up') : null}
-                                            </>
-                                        )
-                                    })
-                                }
+                                                    {index !== data.length - 1 ? createHotspotVerticalSVG(index % 2 ? 'down' : 'up') : null}
+                                                </>
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </Content>
+                </Content>
+                <Layout.Footer>
+                    <Row>
+                        <Col span={24}>
+                            <Slider step={0.1} min={0} max={duration} value={timestamp} onChange={onSeek}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={24}>
+                            <Button icon={playing ? <PauseOutlined /> : <CaretRightFilled />} type="text" size="large" onClick={onPlay}></Button>
+                        </Col>
+                    </Row>
+                </Layout.Footer>
+            </Layout>
         </Layout>
     )
 }
