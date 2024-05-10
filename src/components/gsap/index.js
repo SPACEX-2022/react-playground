@@ -17,6 +17,10 @@ const titleIndexData = [
     {
         label: '上',
         themeColor: '#009FFF',
+        fontColor: '#084C75',
+        title2BgColor: '#54BFFF',
+        sectorBgColor: '#D7F0FF',
+        sectorFontColor: '#2277A9',
     },
     {
         label: '中',
@@ -29,6 +33,10 @@ const titleIndexData = [
     {
         label: '下',
         themeColor: '#0C8B75',
+        fontColor: '#023E34',
+        title2BgColor: '#25BFA5',
+        sectorBgColor: '#D3FFF8',
+        sectorFontColor: '#4D8B81',
     },
 ]
 
@@ -48,110 +56,114 @@ const GSAPDemo = () => {
         height: 0,
     })
 
-    const [_data, setData] = useState(JSON.stringify([
-        {
-            title: '基础层',
-            children: [
-                {
-                    title: '大模型大模型',
-                    children: [
-                        {
-                            title: '智能计算平台',
-                        },
-                    ]
-                }
-            ]
-        },
-        {
-            title: '技术层',
-            children: [
-                {
-                    title: '大模型大模型',
-                    children: [
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                    ]
-                },
-                {
-                    title: '大模型大模型',
-                    children: [
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                    ]
-                },
-                {
-                    title: '大模型大模型',
-                    children: [
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                        {
-                            title: '智能计算平台',
-                        },
-                    ]
-                },
-            ]
-        },
-        {
-            title: '应用层',
-            children: [
-                {
-                    title: '大模型大模型',
-                    children: [
-                        {
-                            title: '智能计算平台',
-                        },
-                    ]
-                }
-            ]
-        },
-    ]))
+    const [_data, setData] = useState(JSON.stringify({
+        sequence: [1, 2, 3],
+        data: [
+            {
+                title: '基础层',
+                children: [
+                    {
+                        title: '大模型大模型',
+                        children: [
+                            {
+                                title: '智能计算平台',
+                            },
+                        ]
+                    }
+                ]
+            },
+            {
+                title: '技术层',
+                children: [
+                    {
+                        title: '大模型大模型',
+                        children: [
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                        ]
+                    },
+                    {
+                        title: '大模型大模型',
+                        children: [
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                        ]
+                    },
+                    {
+                        title: '大模型大模型',
+                        children: [
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                            {
+                                title: '智能计算平台',
+                            },
+                        ]
+                    },
+                ]
+            },
+            {
+                title: '应用层',
+                children: [
+                    {
+                        title: '大模型大模型',
+                        children: [
+                            {
+                                title: '智能计算平台',
+                            },
+                        ]
+                    }
+                ]
+            },
+        ]
+    }))
 
-    const data = useMemo(() => JSON.parse(_data), [_data]);
+    const demoData = useMemo(() => JSON.parse(_data), [_data]);
+    const data = demoData.data;
 
     const resolutions = [1080, 1920];
     const [scale, setScale] = useState(1);
@@ -173,7 +185,24 @@ const GSAPDemo = () => {
         // const scale = 1.2;
         const timeline = gsap.timeline();
         const x = (width + SCALE_TITLE_MOVE_DIS) * SCALE;
-        const y = 650;
+        let y = 86 + (564 * index);
+        // if (index === 0 || index % 1 !== 0) {
+        //     y =  (y * SCALE) - (y + 75) * (SCALE)
+        // }
+        if (index === 0 || index === 2) {
+            // y =  (y * SCALE) - (y + 75) * (SCALE)
+            timeline.set(
+                refs['contentWrapper'], {
+                    transformOrigin: `50% ${height / 2 - (index === 0 ? 564 : -564)}px`
+                }
+            )
+        } else {
+            timeline.set(
+                refs['contentWrapper'], {
+                    transformOrigin: `50% 50%`
+                }
+            )
+        }
         const prefix = reverse ? '+=' : '-=';
         timeline
             .to(refs['contentWrapper'], {
@@ -182,7 +211,6 @@ const GSAPDemo = () => {
                 y: prefix + y,
                 ease: 'power1.inOut',
             })
-            .add(createShowHotspotMoveSVG('middle', reverse), '<')
             .to(refs['contentWrapper'], {
                 duration: 0.5,
                 scale: reverse ? 1 : SCALE,
@@ -192,6 +220,9 @@ const GSAPDemo = () => {
                 x: (reverse ? '-=' : '+=') + width,
                 ease: 'power1.inOut',
             }, '<')
+        if (index === 1) {
+            timeline.add(createShowHotspotMoveSVG('middle', reverse), '<')
+        }
         return timeline;
     }
 
@@ -270,7 +301,7 @@ const GSAPDemo = () => {
                 {
                         // display: 'flex',
                         duration: 0.5,
-                        height: 'auto',
+                        height: `+=${height}`,
                         // alpha: 1,
                         ease: 'power1.inOut',
                     },
@@ -373,7 +404,6 @@ const GSAPDemo = () => {
             .add(createShowHotspotSVG('up'), '<+1')
             .add(createShowHotspotSVG('down'), '<+1')
             // .delay(1)
-            .add(createShowTitleTimeLine(1), '<+1')
             // .to(refs['contentWrapper'], {
             //     duration: 0.5,
             //     x: -(width + LEFT_TEXT_MOVE_DIS),
@@ -382,38 +412,77 @@ const GSAPDemo = () => {
             // }, '<+1')
             // .add(createShowHotspotMoveSVG('middle'), '<')
 
+        const { sequence } = demoData;
 
-        timeline.current
-            .to(data[1].listRef, {
-                duration: 0.7,
-                height: height * 0.5,
-                ease: 'power1.inOut',
-            }, '>-0.1')
-
-        data[1].children.forEach((item, index) => {
-            timeline.current.fromTo(
-                item.ref,
-                {
-                    x: '-100%',
-                },
-                {
-                    duration: 0.5,
-                    x: 0,
+        sequence.forEach((item) => {
+            const index = item - 1;
+            timeline.current
+                .add(createShowTitleTimeLine(index), '<+1')
+                .to(data[index].listRef, {
+                    duration: 0.7,
+                    height: height * 0.5,
                     ease: 'power1.inOut',
-                },
-            )
+                }, '>-0.1')
+
+            data[index].children.forEach((item, index) => {
+                timeline.current.fromTo(
+                    item.ref,
+                    {
+                        x: '-100%',
+                    },
+                    {
+                        duration: 0.5,
+                        x: 0,
+                        ease: 'power1.inOut',
+                    },
+                )
+            })
+
+            timeline.current.add(showSectorList(index), '+=0.5')
+
+            timeline.current
+                .to(data[index].listRef, {
+                    duration: 0.3,
+                    height: 0,
+                    ease: 'power1.inOut',
+                }, '+=1')
+
+            timeline.current
+                .add(createShowTitleTimeLine(index, true), '<')
+                .delay(1);
         })
 
-        timeline.current.add(showSectorList(1), '<')
+        // timeline.current
+        //     .to(data[1].listRef, {
+        //         duration: 0.7,
+        //         height: height * 0.5,
+        //         ease: 'power1.inOut',
+        //     }, '>-0.1')
 
-        timeline.current
-            .to(data[1].listRef, {
-                duration: 0.3,
-                height: 0,
-                ease: 'power1.inOut',
-            }, '+=1')
+        // data[1].children.forEach((item, index) => {
+        //     timeline.current.fromTo(
+        //         item.ref,
+        //         {
+        //             x: '-100%',
+        //         },
+        //         {
+        //             duration: 0.5,
+        //             x: 0,
+        //             ease: 'power1.inOut',
+        //         },
+        //     )
+        // })
 
-        timeline.current.add(createShowTitleTimeLine(1, true), '<');
+        // timeline.current.add(showSectorList(1), '<')
+        //
+        // timeline.current
+        //     .to(data[1].listRef, {
+        //         duration: 0.3,
+        //         height: 0,
+        //         ease: 'power1.inOut',
+        //     }, '+=1')
+        //
+        // timeline.current.add(createShowTitleTimeLine(1, true), '<');
 
         timeline.current.addLabel('endTime');
         // timeline.current.seek(2.1)
