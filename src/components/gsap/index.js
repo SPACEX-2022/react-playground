@@ -23,6 +23,8 @@ const titleIndexData = [
         themeColor: '#EFBB35',
         fontColor: '#6D4F03',
         title2BgColor: '#FFD977',
+        sectorBgColor: '#FFF0C9',
+        sectorFontColor: '#BA932D',
     },
     {
         label: '下',
@@ -31,7 +33,8 @@ const titleIndexData = [
 ]
 
 const LEFT_TEXT_MOVE_DIS = 138;
-const SCALE = 1.2;
+const SCALE_TITLE_MOVE_DIS = 138 - (75 / 2);
+const SCALE = 1.4;
 
 const GSAPDemo = () => {
     const [duration, setDuration] = useState(0);
@@ -169,19 +172,25 @@ const GSAPDemo = () => {
         const [width, height] = resolutions;
         // const scale = 1.2;
         const timeline = gsap.timeline();
-        const x = -(width + LEFT_TEXT_MOVE_DIS) * SCALE;
-        const y = -650;
+        const x = (width + SCALE_TITLE_MOVE_DIS) * SCALE;
+        const y = 650;
+        const prefix = reverse ? '+=' : '-=';
         timeline
             .to(refs['contentWrapper'], {
                 duration: 0.5,
-                x: reverse ? -x : x,
-                y: reverse ? -y : y,
+                x: prefix + x,
+                y: prefix + y,
                 ease: 'power1.inOut',
             })
             .add(createShowHotspotMoveSVG('middle', reverse), '<')
             .to(refs['contentWrapper'], {
                 duration: 0.5,
                 scale: reverse ? 1 : SCALE,
+            }, '<')
+            .to(data[index].ref, {
+                duration: 0.5,
+                x: (reverse ? '-=' : '+=') + width,
+                ease: 'power1.inOut',
             }, '<')
         return timeline;
     }
@@ -204,15 +213,15 @@ const GSAPDemo = () => {
             timeline.to(refs['leftTextLineSVG'], {
                 duration: 0.5,
                 attr: {
-                    width: `${reverse ? '-' : '+'}=${width + LEFT_TEXT_MOVE_DIS}`,
-                    viewBox: `0 0 ${reverse ? '-' : '+'}=${width + LEFT_TEXT_MOVE_DIS} 145.963574`,
+                    width: `${reverse ? '-' : '+'}=${width + SCALE_TITLE_MOVE_DIS}`,
+                    viewBox: `0 0 ${reverse ? '-' : '+'}=${width + SCALE_TITLE_MOVE_DIS} 145.963574`,
                 },
                 ease: 'power1.inOut',
             })
             .to(refs['leftTextLine'].querySelectorAll('line'), {
                 duration: 0.5,
                 attr: {
-                    x1: `${reverse ? '-' : '+'}=${width + LEFT_TEXT_MOVE_DIS}`,
+                    x1: `${reverse ? '-' : '+'}=${width + SCALE_TITLE_MOVE_DIS}`,
                 },
                 ease: 'power1.inOut',
             }, '<')
@@ -225,30 +234,104 @@ const GSAPDemo = () => {
         return timeline;
     }
 
+    const showSectorList = (index) => {
+        const [width, height] = resolutions;
+        const timeline = gsap.timeline();
+        const titleMoveDis = 150;
+        const contentWrapperMoveDis = 600;
+        const contentWrapperMoveItemDis = ((94 + 60) * SCALE);
+
+        timeline
+            .to(refs['contentWrapper'], {
+                duration: 0.5,
+                y: `-=${contentWrapperMoveDis}`,
+                ease: 'power1.inOut',
+            })
+            .to(data[index].listRef, {
+                duration: 0.5,
+                // y: `-=200`,
+                height: `+=1200`,
+                ease: 'power1.inOut',
+            }, '<')
+
+        data[index].children.forEach((item, _index) => {
+            timeline
+                .to(
+                    item.ref,
+                    {
+                        duration: 0.5,
+                        y: titleMoveDis,
+                    }, '<')
+                .fromTo(
+                    item.listRef,
+                {
+                        y: '-100%',
+                    },
+                {
+                        // display: 'flex',
+                        duration: 0.5,
+                        height: 'auto',
+                        // alpha: 1,
+                        ease: 'power1.inOut',
+                    },
+                '<'
+                )
+                .to(item.listRef, {
+                    y: 0,
+                    ease: 'power1.inOut',
+                })
+                .to(
+                    item.listRef,
+                    {
+                    // display: 'none',
+                        delay: 1.5,
+                        duration: 0.5,
+                        height: 0,
+                        alpha: 0,
+                        ease: 'power1.inOut',
+                    }
+                )
+                .to(
+                    item.ref,
+                    {
+                        duration: 0.5,
+                        y: 0,
+                    }, '<')
+
+                if (_index !== data[index].children.length - 1) {
+                    timeline.to(
+                        refs['contentWrapper'],
+                        {
+                            y: `-=${contentWrapperMoveItemDis}`,
+                            ease: 'power1.inOut',
+                        },
+                        '<'
+                    )
+                }
+        })
+
+        timeline
+            .to(refs['contentWrapper'], {
+                duration: 0.5,
+                y: `+=${contentWrapperMoveDis + (contentWrapperMoveItemDis * (data[index].children.length - 1))}`,
+                ease: 'power1.inOut',
+            }, '<')
+            .to(data[index].listRef, {
+                duration: 0.5,
+                // y: `-=200`,
+                height: '-=1200',
+                ease: 'power1.inOut',
+            }, '<')
+
+        return timeline;
+    }
+
     useGSAP(() => {
         // if (config.width === 0) return
         // console.log(config, data.current[0].ref)
         const [width, height] = resolutions;
 
 
-        // const showTitle1 = gsap.to(`.${styles.title1}`, {
-        //     duration: 0.5,
-        //     x: 0,
-        //     alpha: 1,
-        //     ease: 'power1.inOut',
-        // })
-        // const showTitle2 = gsap.to(`#title2`, {
-        //     duration: 0.5,
-        //     x: 0,
-        //     alpha: 1,
-        //     ease: 'power1.inOut',
-        // })
-        // const showTitle3 = gsap.to(`.${styles.title3}`, {
-        //     duration: 0.5,
-        //     x: 0,
-        //     alpha: 1,
-        //     ease: 'power1.inOut',
-        // })
         const showLeftText = gsap.to(`.${styles.leftText}`, {
             duration: 0.5,
             x: 0,
@@ -260,17 +343,6 @@ const GSAPDemo = () => {
             x: LEFT_TEXT_MOVE_DIS,
             ease: 'power1.inOut',
         })
-        // const toRight = gsap.to(`#title2`, {
-        //     duration: 0.5,
-        //     x: width,
-        //     ease: 'power1.inOut',
-        // })
-        // const showList = gsap.to(`.${styles.listWrapper}`, {
-        //     duration: 0.7,
-        //     height: height * 0.7,
-        //     ease: 'power1.inOut',
-        // })
-        // gsap.fromTo(refs['leftTextLine'], { strokeDashoffset: 200 }, { strokeDashoffset: 400, duration: 3.5, repeat: -1, ease: 'none' })
 
         timeline.current = gsap.timeline({ paused: true });
 
@@ -311,11 +383,7 @@ const GSAPDemo = () => {
             // .add(createShowHotspotMoveSVG('middle'), '<')
 
 
-        timeline.current.to(data[1].ref, {
-            duration: 0.5,
-            x: width,
-            ease: 'power1.inOut',
-        }, '<')
+        timeline.current
             .to(data[1].listRef, {
                 duration: 0.7,
                 height: height * 0.5,
@@ -323,78 +391,29 @@ const GSAPDemo = () => {
             }, '>-0.1')
 
         data[1].children.forEach((item, index) => {
-            timeline.current.add(
-                gsap.to(item.ref, {
+            timeline.current.fromTo(
+                item.ref,
+                {
+                    x: '-100%',
+                },
+                {
                     duration: 0.5,
                     x: 0,
                     ease: 'power1.inOut',
-                })
+                },
             )
         })
+
+        timeline.current.add(showSectorList(1), '<')
 
         timeline.current
-            .add(gsap.to(`.${styles.contentWrapper}`, {
-                duration: 0.5,
-                y: -(height * 0.55),
+            .to(data[1].listRef, {
+                duration: 0.3,
+                height: 0,
                 ease: 'power1.inOut',
-            }))
-            .add(gsap.to(`.${styles.listWrapper}`, {
-                duration: 0.5,
-                paddingTop: `+=100`,
-                height: `+=${height}`,
-                ease: 'power1.inOut',
-            }), '<')
+            }, '+=1')
 
-        data[1].children.forEach((item, index) => {
-            timeline.current.add(
-                gsap.to(item.listRef, {
-                    // display: 'flex',
-                    duration: 0.5,
-                    y: 0,
-                    height: 'auto',
-                    alpha: 1,
-                    ease: 'power1.inOut',
-                }), '<'
-            )
-            timeline.current.add(
-                gsap.to(item.listRef, {
-                    // display: 'none',
-                    delay: 1.5,
-                    duration: 0.5,
-                    height: 0,
-                    alpha: 0,
-                    ease: 'power1.inOut',
-                })
-            )
-        })
-
-        // timeline.current
-            // .add(gsap.to(`.${styles.listItem}`, {
-            //     duration: 0.7,
-            //     x: 0,
-            //     ease: 'power1.inOut',
-            // }), '>-0.2')
-            // .add(gsap.to(`.${styles.listItem1}`, {
-            //     duration: 0.7,
-            //     x: 0,
-            //     ease: 'power1.inOut',
-            // }))
-            // .add(gsap.to(`.${styles.contentWrapper}`, {
-            //     duration: 0.5,
-            //     y: -(height * 0.55),
-            //     ease: 'power1.inOut',
-            // }))
-            // .add(gsap.to(`.${styles.listWrapper}`, {
-            //     duration: 0.5,
-            //     height: `+=${height}`,
-            //     ease: 'power1.inOut',
-            // }), '<')
-            // .add(gsap.to(`.${styles.listItemContent}`, {
-            //     duration: 0.5,
-            //     height: 'auto',
-            //     alpha: 1,
-            //     ease: 'power1.inOut',
-            // }), '<')
+        timeline.current.add(createShowTitleTimeLine(1, true), '<');
 
         timeline.current.addLabel('endTime');
         // timeline.current.seek(2.1)
@@ -404,6 +423,10 @@ const GSAPDemo = () => {
 
     const onPlay = () => {
         timeline.current.play()
+    }
+
+    const onPause = () => {
+        timeline.current.pause()
     }
 
     const onReversePlay = () => {
@@ -476,7 +499,8 @@ const GSAPDemo = () => {
                     </FormItem>
                     <FormItem label="action">
                         <Space direction={'vertical'} style={{width: '100%'}}>
-                            <Button block onClick={onPlay}>Play</Button>
+                            <Button block type="primary" onClick={onPlay}>Play</Button>
+                            <Button block type="dashed" onClick={onPause}>Pause</Button>
                             <Button block onClick={onReversePlay}>Reverse Play</Button>
                             {/*<Button block onClick={onSeek}>Seek</Button>*/}
                         </Space>
@@ -550,6 +574,8 @@ const GSAPDemo = () => {
                                                          '--color': titleIndexData[index].themeColor,
                                                          '--font-color': titleIndexData[index].fontColor,
                                                          '--title2-bg-color': titleIndexData[index].title2BgColor,
+                                                         '--sector-bg-color': titleIndexData[index].sectorBgColor,
+                                                         '--sector-font-color': titleIndexData[index].sectorFontColor,
                                                 }}>
                                                     <div ref={ref => item.titleRef = ref} className={styles.titleContent}>
                                                         <div
@@ -562,7 +588,9 @@ const GSAPDemo = () => {
                                                                 return (
                                                                     <div key={childIndex}
                                                                          ref={ref => child.ref = ref}
-                                                                         className={styles.listItem}>
+                                                                         className={styles.listItem}
+                                                                         style={{ transform: `scale(${1 / SCALE})` }}
+                                                                    >
                                                                         <div
                                                                             className={styles.listItemTitle}>
                                                                             {child.title}
@@ -570,18 +598,27 @@ const GSAPDemo = () => {
                                                                                 利好利好利好利好利好利好
                                                                             </div>
                                                                         </div>
-                                                                        <div ref={ref => child.listRef = ref}
-                                                                             className={styles.listItemContent}>
-                                                                            {
-                                                                                child.children.map((grandson, grandsonIndex) => {
-                                                                                    return (
-                                                                                        <img
-                                                                                            key={grandsonIndex}
-                                                                                            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                                                                                            alt=""/>
-                                                                                    )
-                                                                                })
-                                                                            }
+                                                                        <div style={{overflow: 'hidden'}}>
+                                                                            <div ref={ref => child.listRef = ref}
+                                                                                 className={styles.listItemContent}>
+                                                                                {
+                                                                                    child.children.map((grandson, grandsonIndex) => {
+                                                                                        return (
+                                                                                            <div
+                                                                                                className={styles.sectorWrapper}>
+                                                                                                <div
+                                                                                                    className={styles.sectorPositive}>间接利好
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    className={styles.sectorTitle}>{child.title}</div>
+                                                                                                <div
+                                                                                                    className={styles.sectorDesc}>1122
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        )
+                                                                                    })
+                                                                                }
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 )
@@ -589,7 +626,7 @@ const GSAPDemo = () => {
                                                         }
                                                     </div>
                                                 </div>
-                                                { index !== data.length - 1 ? createHotspotVerticalSVG(index % 2 ? 'down' : 'up') : null}
+                                                {index !== data.length - 1 ? createHotspotVerticalSVG(index % 2 ? 'down' : 'up') : null}
                                             </>
                                         )
                                     })
