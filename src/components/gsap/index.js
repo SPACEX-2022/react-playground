@@ -1,14 +1,13 @@
 import styles from './index.module.css';
 import { gsap } from "gsap";
-import JsonEditor from 'react-json-editor-ui'
-import 'react-json-editor-ui/dist/react-json-editor-ui.cjs.development.css'
 import DrawSVGPlugin from 'gsap-trial/DrawSVGPlugin';
 import { useGSAP } from '@gsap/react';
 import {useEffect, useMemo, useRef, useState} from "react";
-import {Button, Form, Input, Layout, Slider, Space} from "antd";
+import {Button, Form, Input, Layout, message, Slider, Space} from "antd";
 import Sider from "antd/es/layout/Sider";
 import FormItem from "antd/es/form/FormItem";
 import {Content} from "antd/es/layout/layout";
+import {useDebounceFn} from "ahooks";
 // import { SplitText } from "gsap/SplitText";
 
 // console.log(DrawSVGPlugin, gsap)
@@ -66,9 +65,23 @@ const GSAPDemo = () => {
                 children: [
                     {
                         title: '大模型大模型',
+                        desc: '描述描述描述描述描述描述描述描述',
                         children: [
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
+                            },
+                            {
+                                title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
+                            },
+                            {
+                                title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
+                            },
+                            {
+                                title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                         ]
                     }
@@ -78,71 +91,92 @@ const GSAPDemo = () => {
                 title: '技术层',
                 children: [
                     {
-                        title: '大模型大模型',
+                        title: '大模型大模型大模型大模型大模型大模型',
+                        desc: '描述描述描述描述描述描述描述描述',
                         children: [
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                         ]
                     },
                     {
                         title: '大模型大模型',
+                        desc: '描述描述描述描述描述描述描述描述',
                         children: [
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                         ]
                     },
                     {
                         title: '大模型大模型',
+                        desc: '描述描述描述描述描述描述描述描述',
                         children: [
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                         ]
                     },
@@ -153,12 +187,34 @@ const GSAPDemo = () => {
                 children: [
                     {
                         title: '大模型大模型',
+                        desc: '描述描述描述描述描述描述描述描述',
                         children: [
                             {
                                 title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
                             },
                         ]
-                    }
+                    },
+                    {
+                        title: '大模型大模型',
+                        desc: '描述描述描述描述描述描述描述描述',
+                        children: [
+                            {
+                                title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
+                            },
+                        ]
+                    },
+                    {
+                        title: '大模型大模型',
+                        desc: '描述描述描述描述描述描述描述描述',
+                        children: [
+                            {
+                                title: '智能计算平台',
+                                desc: '描述描述描述描述描述描述描述描述',
+                            },
+                        ]
+                    },
                 ]
             },
         ]
@@ -360,6 +416,7 @@ const GSAPDemo = () => {
     }
 
     useGSAP(() => {
+        console.log('useGSAP')
         // if (config.width === 0) return
         // console.log(config, data.current[0].ref)
         const [width, height] = resolutions;
@@ -403,8 +460,8 @@ const GSAPDemo = () => {
             .add(titleWrapperToRight, '<')
             .fromTo(refs['leftTextLine'], { strokeDashoffset: 200 }, { strokeDashoffset: 400, duration: 3.5, repeat: -1, ease: 'none' })
             .fromTo(refs['leftTextLine'], { alpha: 0 }, { alpha: 1, ease: 'power1.inOut' }, '<')
-            .add(createShowHotspotSVG('up'), '<+1')
-            .add(createShowHotspotSVG('down'), '<+1')
+            // .add(createShowHotspotSVG('up'), '<+1')
+            // .add(createShowHotspotSVG('down'), '<+1')
             // .delay(1)
             // .to(refs['contentWrapper'], {
             //     duration: 0.5,
@@ -418,6 +475,11 @@ const GSAPDemo = () => {
 
         sequence.forEach((item) => {
             const index = item - 1;
+            if (index === 0) {
+                timeline.current.add(createShowHotspotSVG('up'), '<+1')
+            } else if (index === 2) {
+                timeline.current.add(createShowHotspotSVG('down'), '<+1')
+            }
             timeline.current
                 .add(createShowTitleTimeLine(index), '<+1')
                 .to(data[index].listRef, {
@@ -490,7 +552,22 @@ const GSAPDemo = () => {
         // timeline.current.seek(2.1)
         console.log(999, timeline.current.duration(), timeline.current.totalTime(), timeline.current)
         setDuration(timeline.current.labels.endTime);
-    }, [config])
+    }, [config, data])
+
+    const { run: onChange } = useDebounceFn(
+        (e) => {
+            const val = e.target.value;
+            try {
+                JSON.parse(val);
+                setData(val);
+            } catch (e) {
+                message.error('请输入正确的JSON数据');
+            }
+        },
+        {
+            wait: 500,
+        },
+    );
 
     const onPlay = () => {
         timeline.current.play()
@@ -565,24 +642,11 @@ const GSAPDemo = () => {
                         <Slider step={0.1} min={0} max={duration} value={timestamp} onChange={onSeek}/>
                     </FormItem>
                     <FormItem label="data" help={'回车键确认数据'}>
-                        {/*<JsonEditor*/}
-                        {/*    data={_data}*/}
-                        {/*    onChange={data => {*/}
-                        {/*        setData(data)*/}
-                        {/*    }}*/}
-                        {/*    optionsMap={{*/}
-                        {/*        color: [*/}
-                        {/*            { value: 'red', label: 'Red' },*/}
-                        {/*            { value: 'blue', label: 'Blue' },*/}
-                        {/*        ],*/}
-                        {/*        city: [*/}
-                        {/*            { value: 'beijing', label: 'Beijing' },*/}
-                        {/*            { value: 'shanghai', label: 'Shanghai' },*/}
-                        {/*        ],*/}
-                        {/*    }}*/}
-                        {/*/>*/}
-                        <Input.TextArea autoSize={{minRows: 10, maxRows: 30}} value={_data}
-                                        onChange={(e) => setData(e.target.value)}/>
+                        <Input.TextArea
+                            autoSize={{minRows: 10, maxRows: 30}}
+                            defaultValue={_data}
+                            onChange={onChange}
+                        />
                     </FormItem>
                     <FormItem label="action">
                         <Space direction={'vertical'} style={{width: '100%'}}>
@@ -664,10 +728,10 @@ const GSAPDemo = () => {
                                                          '--sector-bg-color': titleIndexData[index].sectorBgColor,
                                                          '--sector-font-color': titleIndexData[index].sectorFontColor,
                                                 }}>
-                                                    <div ref={ref => item.titleRef = ref} className={styles.titleContent}>
+                                                    <div ref={ref => item.titleRef = ref} className={styles.titleContent + ' ' + (item.title.length > 7 ? styles.titleContentMinFs : (item.title.length > 5 ? styles.titleContentMiddleFs : styles.titleContentMaxFs ))}>
                                                         <div
                                                             className={styles.titleIndex}>{titleIndexData[index].label}</div>
-                                                        {item.title}
+                                                        <div className={styles.titleContentNode}>{item.title}</div>
                                                     </div>
                                                     <div ref={ref => item.listRef = ref} className={styles.listWrapper}>
                                                         {
@@ -682,7 +746,7 @@ const GSAPDemo = () => {
                                                                             className={styles.listItemTitle}>
                                                                             {child.title}
                                                                             <div className={styles.listItemDesc}>
-                                                                                利好利好利好利好利好利好
+                                                                                { child.desc }
                                                                             </div>
                                                                         </div>
                                                                         <div style={{overflow: 'hidden'}}>
@@ -697,9 +761,9 @@ const GSAPDemo = () => {
                                                                                                     className={styles.sectorPositive}>间接利好
                                                                                                 </div>
                                                                                                 <div
-                                                                                                    className={styles.sectorTitle}>{child.title}</div>
+                                                                                                    className={styles.sectorTitle}>{grandson.title}</div>
                                                                                                 <div
-                                                                                                    className={styles.sectorDesc}>1122
+                                                                                                    className={styles.sectorDesc}>{ grandson.desc }
                                                                                                 </div>
                                                                                             </div>
                                                                                         )

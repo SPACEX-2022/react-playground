@@ -98,6 +98,15 @@
     border-radius: 50%;
     transform: translateX(-50%);
 }
+.titleContentNode {
+    /*white-space: ;*/
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
 .titleContent {
     width: 482px;
     height: 150px;
@@ -112,6 +121,18 @@
     background: #000000;
     border: 6px solid var(--color);
     border-radius: 0 10px 10px 0;
+}
+.titleContentMaxFs {
+    font-size: 70px;
+    line-height: 111px;
+}
+.titleContentMiddleFs {
+    font-size: 49px;
+    line-height: 111px;
+}
+.titleContentMinFs {
+    font-size: 49px;
+    line-height: 60px;
 }
 
 
@@ -155,6 +176,7 @@
 }
 .listItemTitle {
     width: 619px;
+    height: 155px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -173,6 +195,10 @@
     line-height: 57px;
     font-size: 30px;
     /*color: #084C75;*/
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .listItemContent {
     /*display: none;*/
