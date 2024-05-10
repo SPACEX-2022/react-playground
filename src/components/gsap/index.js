@@ -2,7 +2,7 @@ import styles from './index.module.css';
 import { gsap } from "gsap-trial";
 import DrawSVGPlugin from 'gsap-trial/DrawSVGPlugin';
 import { useGSAP } from '@gsap/react';
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import {Button, Form, Input, Layout, Slider, Space} from "antd";
 import Sider from "antd/es/layout/Sider";
 import FormItem from "antd/es/form/FormItem";
@@ -21,12 +21,17 @@ const titleIndexData = [
     {
         label: '中',
         themeColor: '#EFBB35',
+        fontColor: '#6D4F03',
+        title2BgColor: '#FFD977',
     },
     {
         label: '下',
         themeColor: '#0C8B75',
     },
 ]
+
+const LEFT_TEXT_MOVE_DIS = 138;
+const SCALE = 1.2;
 
 const GSAPDemo = () => {
     const [duration, setDuration] = useState(0);
@@ -40,7 +45,7 @@ const GSAPDemo = () => {
         height: 0,
     })
 
-    const data = useRef([
+    const [_data, setData] = useState(JSON.stringify([
         {
             title: '基础层',
             children: [
@@ -141,7 +146,9 @@ const GSAPDemo = () => {
                 }
             ]
         },
-    ])
+    ]))
+
+    const data = useMemo(() => JSON.parse(_data), [_data]);
 
     const resolutions = [1080, 1920];
     const [scale, setScale] = useState(1);
@@ -158,17 +165,64 @@ const GSAPDemo = () => {
         setScale(Math.min(widthRadio, heightRadio))
     }, [])
 
-    const createShowTitle1TimeLine = (el, reverse = false) => {
+    const createShowTitleTimeLine = (index, reverse = false) => {
         const [width, height] = resolutions;
-        const timeline = gsap.timeline({ paused: true });
-        const x = -(width + 50);
-        const y = -((height - 300) / 2);
-        timeline.to(el, {
-            duration: 0.5,
-            x: reverse ? -x : x,
-            y: reverse ? -y : y,
-            ease: 'power1.inOut',
-        })
+        // const scale = 1.2;
+        const timeline = gsap.timeline();
+        const x = -(width + LEFT_TEXT_MOVE_DIS) * SCALE;
+        const y = -650;
+        timeline
+            .to(refs['contentWrapper'], {
+                duration: 0.5,
+                x: reverse ? -x : x,
+                y: reverse ? -y : y,
+                ease: 'power1.inOut',
+            })
+            .add(createShowHotspotMoveSVG('middle', reverse), '<')
+            .to(refs['contentWrapper'], {
+                duration: 0.5,
+                scale: reverse ? 1 : SCALE,
+            }, '<')
+        return timeline;
+    }
+
+    const createShowHotspotSVG = (type) => {
+        return gsap.timeline().fromTo(refs[`${type}HotspotLine`], {
+            strokeDashoffset: 200
+        }, {
+            strokeDashoffset: 400,
+            duration: 3.5,
+            repeat: -1,
+            ease: 'none'
+        }).fromTo(refs[`${type}HotspotLine`], { alpha: 0 }, { alpha: 1, ease: 'power1.inOut' }, '<');
+    }
+
+    const createShowHotspotMoveSVG = (type, reverse = false) => {
+        const [width, height] = resolutions;
+        const timeline = gsap.timeline();
+        if (type === 'middle') {
+            timeline.to(refs['leftTextLineSVG'], {
+                duration: 0.5,
+                attr: {
+                    width: `${reverse ? '-' : '+'}=${width + LEFT_TEXT_MOVE_DIS}`,
+                    viewBox: `0 0 ${reverse ? '-' : '+'}=${width + LEFT_TEXT_MOVE_DIS} 145.963574`,
+                },
+                ease: 'power1.inOut',
+            })
+            .to(refs['leftTextLine'].querySelectorAll('line'), {
+                duration: 0.5,
+                attr: {
+                    x1: `${reverse ? '-' : '+'}=${width + LEFT_TEXT_MOVE_DIS}`,
+                },
+                ease: 'power1.inOut',
+            }, '<')
+        } else if (type === 'up') {
+            // refs[`${type}HotspotLine`]
+        } else if (type === 'down') {
+
+        }
+
+        return timeline;
     }
 
     useGSAP(() => {
@@ -203,7 +257,7 @@ const GSAPDemo = () => {
         })
         const titleWrapperToRight = gsap.to(`.${styles.titleWrapper}`, {
             duration: 0.5,
-            x: 138,
+            x: LEFT_TEXT_MOVE_DIS,
             ease: 'power1.inOut',
         })
         // const toRight = gsap.to(`#title2`, {
@@ -220,7 +274,7 @@ const GSAPDemo = () => {
 
         timeline.current = gsap.timeline({ paused: true });
 
-        data.current.forEach((item, index) => {
+        data.forEach((item, index) => {
             timeline.current.add(
                 gsap.to(item.ref, {
                     duration: 0.5,
@@ -244,42 +298,31 @@ const GSAPDemo = () => {
             .add(titleWrapperToRight, '<')
             .fromTo(refs['leftTextLine'], { strokeDashoffset: 200 }, { strokeDashoffset: 400, duration: 3.5, repeat: -1, ease: 'none' })
             .fromTo(refs['leftTextLine'], { alpha: 0 }, { alpha: 1, ease: 'power1.inOut' }, '<')
+            .add(createShowHotspotSVG('up'), '<+1')
+            .add(createShowHotspotSVG('down'), '<+1')
             // .delay(1)
-            .to(`.${styles.contentWrapper}`, {
-                duration: 0.5,
-                x: -(width + 50),
-                y: -((height - 300) / 2),
-                ease: 'power1.inOut',
-            }, '+=1')
-            .to(refs['leftTextLineSVG'], {
-                duration: 0.5,
-                attr: {
-                    width: `+=${width + 50}`,
-                    viewBox: `0 0 +=${width + 50} 145.963574`,
-                },
-                ease: 'power1.inOut',
-            }, '<')
-            .to(refs['leftTextLine'].querySelectorAll('line'), {
-                duration: 0.5,
-                attr: {
-                    x1: `+=${width + 50}`,
-                },
-                ease: 'power1.inOut',
-            }, '<')
+            .add(createShowTitleTimeLine(1), '<+1')
+            // .to(refs['contentWrapper'], {
+            //     duration: 0.5,
+            //     x: -(width + LEFT_TEXT_MOVE_DIS),
+            //     y: -((height - 300) / 2),
+            //     ease: 'power1.inOut',
+            // }, '<+1')
+            // .add(createShowHotspotMoveSVG('middle'), '<')
 
 
-        timeline.current.add(gsap.to(data.current[1].ref, {
+        timeline.current.to(data[1].ref, {
             duration: 0.5,
             x: width,
             ease: 'power1.inOut',
-        }), '<')
-            .add(gsap.to(data.current[1].listRef, {
+        }, '<')
+            .to(data[1].listRef, {
                 duration: 0.7,
-                height: height * 0.7,
+                height: height * 0.5,
                 ease: 'power1.inOut',
-            }), '>-0.1')
+            }, '>-0.1')
 
-        data.current[1].children.forEach((item, index) => {
+        data[1].children.forEach((item, index) => {
             timeline.current.add(
                 gsap.to(item.ref, {
                     duration: 0.5,
@@ -302,7 +345,7 @@ const GSAPDemo = () => {
                 ease: 'power1.inOut',
             }), '<')
 
-        data.current[1].children.forEach((item, index) => {
+        data[1].children.forEach((item, index) => {
             timeline.current.add(
                 gsap.to(item.listRef, {
                     // display: 'flex',
@@ -353,8 +396,10 @@ const GSAPDemo = () => {
             //     ease: 'power1.inOut',
             // }), '<')
 
+        timeline.current.addLabel('endTime');
         // timeline.current.seek(2.1)
-        setDuration(20 || timeline.current.duration());
+        console.log(999, timeline.current.duration(), timeline.current.totalTime(), timeline.current)
+        setDuration(timeline.current.labels.endTime);
     }, [config])
 
     const onPlay = () => {
@@ -372,9 +417,50 @@ const GSAPDemo = () => {
         // timeline.current.pause();
     }
 
+    const createHotspotVerticalSVG = (type = 'up') => {
+        return (
+            <svg width="371.669664px" height="397.996543px" viewBox="0 0 371.669664 397.996543" version="1.1"
+                 style={{ transform: type === 'up' ? '' : 'rotate(180deg)' }}
+                 xmlns="http://www.w3.org/2000/svg">
+                <title>编组</title>
+                <defs>
+                    <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id={`${type}-linearGradient-1`}>
+                        <stop stopColor="#FFFFFF" offset="0%"></stop>
+                        <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
+                    </linearGradient>
+                    <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id={`${type}-linearGradient-2`}>
+                        <stop stopColor="#FFFFFF" offset="0%"></stop>
+                        <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
+                    </linearGradient>
+                </defs>
+                <g ref={ref => refs[`${type}HotspotLine`] = ref} id="页面-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeDasharray="20"
+                   strokeLinecap="round">
+                    <g id="画板02" transform="translate(-479.9998, -441.9992)" strokeWidth="6">
+                        <g id="编组" transform="translate(483, 445)">
+                            <path
+                                d="M-5.68434189e-14,0 C39.779569,52.0098794 59.6693534,114.468021 59.6693534,187.374424 C59.6693534,260.280827 39.779569,328.489352 -5.68434189e-14,392"
+                                id="路径" stroke={`url(#${type}-linearGradient-1)`}></path>
+                            <path
+                                d="M108,0 C132.418695,62.0946972 144.628042,127.428031 144.628042,196 C144.628042,264.571969 132.418695,329.905303 108,392"
+                                id="路径" stroke={`url(#${type}-linearGradient-2)`}></path>
+                            <path
+                                d="M306,0 C345.779569,52.0098794 365.669353,114.468021 365.669353,187.374424 C365.669353,260.280827 345.779569,328.489352 306,392"
+                                id="路径" stroke={`url(#${type}-linearGradient-1)`}
+                                transform="translate(335.8347, 196) scale(-1, 1) translate(-335.8347, -196)"></path>
+                            <path
+                                d="M221,0 C245.418695,62.0946972 257.628042,127.428031 257.628042,196 C257.628042,264.571969 245.418695,329.905303 221,392"
+                                id="路径" stroke={`url(#${type}-linearGradient-2)`}
+                                transform="translate(239.314, 196) scale(-1, 1) translate(-239.314, -196)"></path>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        )
+    }
+
     return (
         <Layout className={styles.container}>
-            <Sider style={{
+            <Sider width={500} style={{
                 padding: 10,
                 background: '#fff',
                 height: '100%'
@@ -382,10 +468,14 @@ const GSAPDemo = () => {
                 <Form layout={'vertical'}>
                     <FormItem label="timestamp">
                         {/*<Input value={timestamp} onChange={(e) => setTimestamp(e.target.value)} suffix={'ms'} />*/}
-                        <Slider step={0.1} min={0} max={duration} value={timestamp} onChange={onSeek} />
+                        <Slider step={0.1} min={0} max={duration} value={timestamp} onChange={onSeek}/>
+                    </FormItem>
+                    <FormItem label="data">
+                        <Input.TextArea autoSize={{minRows: 10}} value={_data}
+                                        onChange={(e) => setData(e.target.value)}/>
                     </FormItem>
                     <FormItem label="action">
-                        <Space direction={'vertical'} style={{ width: '100%' }}>
+                        <Space direction={'vertical'} style={{width: '100%'}}>
                             <Button block onClick={onPlay}>Play</Button>
                             <Button block onClick={onReversePlay}>Reverse Play</Button>
                             {/*<Button block onClick={onSeek}>Seek</Button>*/}
@@ -393,17 +483,22 @@ const GSAPDemo = () => {
                     </FormItem>
                 </Form>
             </Sider>
-            <Content style={{ position: 'relative' }}>
+            <Content style={{position: 'relative'}}>
                 {/*<div id={'box'} className={styles.text}>*/}
                 {/*    GroupShopping List*/}
                 {/*</div>*/}
-                <div className={styles.stage} style={{ transform: `translate(-50%, -50%) scale(${scale})`, width: `${resolutions[0]}px`, height: `${resolutions[1]}px` }}>
-                    <div className={styles.resolutions} style={{ transform: `translateY(-100%) scale(${1})` }}>1080 x 1920</div>
-                    <div className={styles.stageBorder} style={{ transform: `scale(${1})` }}></div>
+                <div className={styles.stage} style={{
+                    transform: `translate(-50%, -50%) scale(${scale})`,
+                    width: `${resolutions[0]}px`,
+                    height: `${resolutions[1]}px`
+                }}>
+                    <div className={styles.resolutions} style={{transform: `translateY(-100%) scale(${1})`}}>1080 x
+                        1920
+                    </div>
+                    <div className={styles.stageBorder} style={{transform: `scale(${1})`}}></div>
 
-                    <div className={styles.stageContent} style={{ fontSize: `${resolutions[1] / 10}px` }}>
-                        <div className={styles.contentWrapper}>
-
+                    <div className={styles.stageContent} style={{fontSize: `${resolutions[1] / 10}px`}}>
+                        <div ref={ref => refs['contentWrapper'] = ref} className={styles.contentWrapper}>
                             <div className={styles.leftText}>
                                 <div className={styles.leftTextContent}>百模大战</div>
                                 <svg ref={ref => refs['leftTextLineSVG'] = ref} width="145.999233px" height="145.963574px" viewBox="0 0 145.999233 145.963574"
@@ -447,42 +542,55 @@ const GSAPDemo = () => {
                             </div>
                             <div className={styles.titleWrapper}>
                                 {
-                                    data.current.map((item, index) => {
+                                    data.map((item, index) => {
                                         return (
-                                            <div key={index} ref={ref => item.ref = ref} className={styles.title}
-                                                 style={{'--color': titleIndexData[index].themeColor}}>
-                                                <div className={styles.titleContent}>
-                                                    <div
-                                                        className={styles.titleIndex}>{titleIndexData[index].label}</div>
-                                                    {item.title}
-                                                </div>
-                                                <div ref={ref => item.listRef = ref} className={styles.listWrapper}>
-                                                    {
-                                                        item.children.map((child, childIndex) => {
-                                                            return (
-                                                                <div key={childIndex} ref={ref => child.ref = ref}
-                                                                     className={styles.listItem}>
-                                                                    <div
-                                                                        className={styles.listItemTitle}>{child.title}</div>
-                                                                    <div ref={ref => child.listRef = ref}
-                                                                         className={styles.listItemContent}>
-                                                                    {
-                                                                            child.children.map((grandson, grandsonIndex) => {
-                                                                                return (
-                                                                                    <img
-                                                                                        key={grandsonIndex}
-                                                                                        src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                                                                                        alt=""/>
-                                                                                )
-                                                                            })
-                                                                        }
+                                            <>
+                                                <div key={index} ref={ref => item.ref = ref} className={styles.title}
+                                                     style={{
+                                                         '--color': titleIndexData[index].themeColor,
+                                                         '--font-color': titleIndexData[index].fontColor,
+                                                         '--title2-bg-color': titleIndexData[index].title2BgColor,
+                                                }}>
+                                                    <div ref={ref => item.titleRef = ref} className={styles.titleContent}>
+                                                        <div
+                                                            className={styles.titleIndex}>{titleIndexData[index].label}</div>
+                                                        {item.title}
+                                                    </div>
+                                                    <div ref={ref => item.listRef = ref} className={styles.listWrapper}>
+                                                        {
+                                                            item.children.map((child, childIndex) => {
+                                                                return (
+                                                                    <div key={childIndex}
+                                                                         ref={ref => child.ref = ref}
+                                                                         className={styles.listItem}>
+                                                                        <div
+                                                                            className={styles.listItemTitle}>
+                                                                            {child.title}
+                                                                            <div className={styles.listItemDesc}>
+                                                                                利好利好利好利好利好利好
+                                                                            </div>
+                                                                        </div>
+                                                                        <div ref={ref => child.listRef = ref}
+                                                                             className={styles.listItemContent}>
+                                                                            {
+                                                                                child.children.map((grandson, grandsonIndex) => {
+                                                                                    return (
+                                                                                        <img
+                                                                                            key={grandsonIndex}
+                                                                                            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                                                                                            alt=""/>
+                                                                                    )
+                                                                                })
+                                                                            }
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            )
-                                                        })
-                                                    }
+                                                                )
+                                                            })
+                                                        }
+                                                    </div>
                                                 </div>
-                                            </div>
+                                                { index !== data.length - 1 ? createHotspotVerticalSVG(index % 2 ? 'down' : 'up') : null}
+                                            </>
                                         )
                                     })
                                 }
