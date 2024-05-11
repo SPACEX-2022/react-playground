@@ -62,9 +62,9 @@ const GSAPDemo = () => {
     })
 
     const [sequence, setSequence] = useState([
-        { index: 0 },
-        { index: 1 },
-        { index: 2 },
+        { index: 0, duration: 0 },
+        { index: 1, duration: 0 },
+        { index: 2, duration: 0 },
     ])
 
     const [_data, setData] = useState(JSON.stringify({
@@ -348,7 +348,7 @@ const GSAPDemo = () => {
         return timeline;
     }
 
-    const showSectorList = (index) => {
+    const showSectorList = (index, extraDuration) => {
         const [width, height] = resolutions;
         const timeline = gsap.timeline();
         const titleMoveDis = 150;
@@ -367,6 +367,8 @@ const GSAPDemo = () => {
                 height: `+=1200`,
                 ease: 'power1.inOut',
             }, '<')
+
+        const delayTime = extraDuration / data[index].children.length;
 
         data[index].children.forEach((item, _index) => {
             timeline
@@ -397,8 +399,7 @@ const GSAPDemo = () => {
                 .to(
                     item.listRef,
                     {
-                    // display: 'none',
-                        delay: 1.5,
+                        delay: 1.5 + delayTime,
                         duration: 0.5,
                         height: 0,
                         alpha: 0,
@@ -484,6 +485,7 @@ const GSAPDemo = () => {
 
         sequence.forEach((item) => {
             const index = item.index;
+            const extraDuration = item.duration;
             if (index === 0) {
                 timeline.current.add(createShowHotspotSVG('up'), '<+1')
             } else if (index === 2) {
@@ -511,7 +513,7 @@ const GSAPDemo = () => {
                 )
             })
 
-            timeline.current.add(showSectorList(index), '+=0.5')
+            timeline.current.add(showSectorList(index, extraDuration), '+=0.5')
 
             timeline.current
                 .to(data[index].listRef, {
@@ -612,13 +614,41 @@ const GSAPDemo = () => {
             title: 'sort',
             dataIndex: 'sort',
             width: 60,
+            editable: false,
             className: 'drag-visible',
         },
         {
             title: 'name',
             dataIndex: 'title',
+            editable: false,
             className: 'drag-visible',
             renderText: (_, record, index) => (data[record.index].title)
+        },
+        {
+            title: 'duration (s)',
+            dataIndex: 'duration',
+            editable: true,
+            valueType: 'digit',
+            className: 'drag-visible',
+            // renderText: (_, record, index) => {
+            //     console.log(record)
+            //     return record.duration + 's'
+            // }
+        },
+        {
+            title: '操作',
+            valueType: 'option',
+            width: 150,
+            render: (text, record, _, action) => [
+                <a
+                    key="editable"
+                    onClick={() => {
+                        action?.startEditable?.(record.index);
+                    }}
+                >
+                    edit
+                </a>,
+            ],
         },
     ];
 
@@ -681,6 +711,15 @@ const GSAPDemo = () => {
                             dataSource={sequence}
                             dragSortKey="sort"
                             onDragSortEnd={handleDragSortEnd}
+                            editable={{
+                                onSave: async (key, record, { index }) => {
+                                    console.log(key, record);
+                                    sequence[index] = record;
+                                    setSequence([...sequence])
+                                    // setLocalDataList([...localDataList])
+                                    return true;
+                                },
+                            }}
                         />
                     </FormItem>
                     <FormItem label="Data">
