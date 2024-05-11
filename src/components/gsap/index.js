@@ -8,8 +8,9 @@ import Sider from "antd/es/layout/Sider";
 import FormItem from "antd/es/form/FormItem";
 import {Content} from "antd/es/layout/layout";
 import { CaretRightFilled, PauseOutlined } from '@ant-design/icons';
-import {useDebounceFn} from "ahooks";
-import {DragSortTable} from "@ant-design/pro-components";
+import {useDebounce, useDebounceEffect, useDebounceFn, useLocalStorageState} from "ahooks";
+import {DragSortTable, ProList} from "@ant-design/pro-components";
+import dayjs from "dayjs";
 // import { SplitText } from "gsap/SplitText";
 
 // console.log(DrawSVGPlugin, gsap)
@@ -229,8 +230,23 @@ const GSAPDemo = () => {
         ]
     }, null, 2))
 
-    const demoData = useMemo(() => JSON.parse(_data), [_data]);
-    const data = demoData.data;
+    // const demoData = useMemo(() => JSON.parse(_data), [_data]);
+
+    const [data, setUseData] = useState(JSON.parse(_data).data);
+
+    useDebounceEffect(
+        () => {
+            try {
+                setUseData(JSON.parse(_data).data);
+            } catch (e) {
+                message.error('请输入正确的JSON数据');
+            }
+        },
+        [_data],
+        {
+            wait: 500,
+        },
+    );
 
     const resolutions = [1080, 1920];
     const [scale, setScale] = useState(1);
@@ -426,8 +442,6 @@ const GSAPDemo = () => {
 
     useGSAP(() => {
         console.log('useGSAP')
-        // if (config.width === 0) return
-        // console.log(config, data.current[0].ref)
         const [width, height] = resolutions;
 
 
@@ -460,14 +474,6 @@ const GSAPDemo = () => {
                     ease: 'power1.inOut',
                 })
             )
-            // if (index === data.current.length - 1) {
-            //     timeline.current
-            //         .add(showLeftText)
-            //         .add(titleWrapperToRight, '<')
-            //         .add(toLeft, '+=1')
-            //         .add(toRight, '<')
-            //         .add(showList, '>-0.1')
-            // }
         })
 
         timeline.current
@@ -475,18 +481,6 @@ const GSAPDemo = () => {
             .add(titleWrapperToRight, '<')
             .fromTo(refs['leftTextLine'], { strokeDashoffset: 200 }, { strokeDashoffset: 400, duration: 3.5, repeat: -1, ease: 'none' })
             .fromTo(refs['leftTextLine'], { alpha: 0 }, { alpha: 1, ease: 'power1.inOut' }, '<')
-            // .add(createShowHotspotSVG('up'), '<+1')
-            // .add(createShowHotspotSVG('down'), '<+1')
-            // .delay(1)
-            // .to(refs['contentWrapper'], {
-            //     duration: 0.5,
-            //     x: -(width + LEFT_TEXT_MOVE_DIS),
-            //     y: -((height - 300) / 2),
-            //     ease: 'power1.inOut',
-            // }, '<+1')
-            // .add(createShowHotspotMoveSVG('middle'), '<')
-
-        // const { sequence } = demoData;
 
         sequence.forEach((item) => {
             const index = item.index;
@@ -538,20 +532,11 @@ const GSAPDemo = () => {
         setDuration(timeline.current.labels.endTime);
     }, [config, data, sequence])
 
-    const { run: onChange } = useDebounceFn(
-        (e) => {
-            const val = e.target.value;
-            try {
-                JSON.parse(val);
-                setData(val);
-            } catch (e) {
-                message.error('请输入正确的JSON数据');
-            }
-        },
-        {
-            wait: 500,
-        },
-    );
+
+    const onChange = (e) => {
+        const val = e.target.value;
+        setData(val);
+    }
 
     const onPlay = () => {
         if (playing) {
@@ -642,12 +627,30 @@ const GSAPDemo = () => {
         message.success('修改列表排序成功');
     };
 
+    const [localDataList, setLocalDataList] = useLocalStorageState('localDataList', {
+        defaultValue: [],
+    })
+
+    const onSaveDataLocally = () => {
+        if (localDataList.length >= 10) {
+            message.warning('本地缓存只保存最近10条，最旧的数据将被删除')
+            localDataList.pop();
+        }
+        localDataList.unshift({ data: _data, time: dayjs().format('YYYY-MM-DD HH:mm:ss'), });
+        setLocalDataList([...localDataList]);
+    }
+
+    const onUseData = index => {
+        setData(localDataList[index].data);
+    }
+
     return (
         <Layout className={styles.container}>
             <Sider width={500} style={{
                 padding: 10,
                 background: '#fff',
-                height: '100%'
+                height: '100%',
+                overflowY: 'auto'
             }}>
                 <Form layout={'vertical'}>
                     {/*<FormItem label="Timestamp">*/}
@@ -667,17 +670,48 @@ const GSAPDemo = () => {
                         />
                     </FormItem>
                     <FormItem label="Data">
-                        <Input.TextArea
-                            autoSize={{minRows: 10, maxRows: 30}}
-                            defaultValue={_data}
-                            onChange={onChange}
-                        />
+                        <Space direction={'vertical'} style={{width: '100%'}}>
+                            <Input.TextArea
+                                autoSize={{minRows: 10, maxRows: 30}}
+                                value={_data}
+                                onChange={onChange}
+                            />
+                            <Button block type="primary" onClick={onSaveDataLocally}>Save data locally</Button>
+                        </Space>
+                        <ProList
+                            rowKey="time"
+                            headerTitle="本地数据列表"
+                            dataSource={localDataList}
+                            showActions="hover"
+                        //     editable={{
+                        //     onSave: async (key, record, originRow) => {
+                        //         console.log(key, record, originRow);
+                        //         return true;
+                        //     },
+                        // }}
+                            metas={{
+                            title: {
+                                dataIndex: 'time',
+                            },
+                            actions: {
+                                render: (text, row, index, action) => [
+                                    <a
+                                        onClick={() => {
+                                            onUseData(index);
+                                        }}
+                                        key="link"
+                                    >
+                                        use data
+                                    </a>,
+                                ],
+                            },
+                        }}
+                            />
                     </FormItem>
                     {/*<FormItem label="Action">*/}
                     {/*    <Space direction={'vertical'} style={{width: '100%'}}>*/}
-                    {/*        <Button block type="primary" onClick={onPlay}>Play</Button>*/}
-                    {/*        <Button block type="dashed" onClick={onPause}>Pause</Button>*/}
-                    {/*        <Button block onClick={onReversePlay}>Reverse Play</Button>*/}
+                    {/*        /!*<Button block type="dashed" onClick={onPause}>Pause</Button>*!/*/}
+                    {/*        /!*<Button block onClick={onReversePlay}>Reverse Play</Button>*!/*/}
                     {/*        /!*<Button block onClick={onSeek}>Seek</Button>*!/*/}
                     {/*    </Space>*/}
                     {/*</FormItem>*/}
@@ -782,6 +816,7 @@ const GSAPDemo = () => {
                                                                                         child.children.map((grandson, grandsonIndex) => {
                                                                                             return (
                                                                                                 <div
+                                                                                                    key={grandsonIndex}
                                                                                                     className={styles.sectorWrapper}>
                                                                                                     <div
                                                                                                         className={styles.sectorPositive}>间接利好
