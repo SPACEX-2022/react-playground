@@ -244,7 +244,7 @@ const GSAPDemo = () => {
         },
         [_data],
         {
-            wait: 500,
+            wait: 100,
         },
     );
 
@@ -528,9 +528,16 @@ const GSAPDemo = () => {
 
         timeline.current.addLabel('endTime');
         // timeline.current.seek(2.1)
-        console.log(999, timeline.current.duration(), timeline.current.totalTime(), timeline.current)
-        setDuration(timeline.current.labels.endTime);
-    }, [config, data, sequence])
+        console.log(999, timestamp, timeline.current.duration(), timeline.current.totalTime(), timeline.current)
+
+        const endTime = timeline.current.labels.endTime;
+        timeline.current.seek(Math.min(endTime, timestamp));
+        setDuration(endTime);
+    }, {
+        scope: refs['stage'],
+        dependencies: [config, data, sequence],
+        revertOnUpdate: true,
+    })
 
 
     const onChange = (e) => {
@@ -622,8 +629,10 @@ const GSAPDemo = () => {
     ) => {
         console.log('排序后的数据', newDataSource);
         // setDataSource(newDataSource);
-        setSequence(newDataSource)
         onSeek(0);
+        setTimeout(() => {
+            setSequence(newDataSource);
+        })
         message.success('修改列表排序成功');
     };
 
@@ -636,12 +645,17 @@ const GSAPDemo = () => {
             message.warning('本地缓存只保存最近10条，最旧的数据将被删除')
             localDataList.pop();
         }
-        localDataList.unshift({ data: _data, time: dayjs().format('YYYY-MM-DD HH:mm:ss'), });
+        localDataList.unshift({ name: 'name', data: _data, time: dayjs().format('YYYY-MM-DD HH:mm:ss'), });
         setLocalDataList([...localDataList]);
     }
 
     const onUseData = index => {
         setData(localDataList[index].data);
+    }
+
+    const onDeleteItem = index => {
+        localDataList.splice(index, 1);
+        setLocalDataList([...localDataList]);
     }
 
     return (
@@ -683,25 +697,47 @@ const GSAPDemo = () => {
                             headerTitle="本地数据列表"
                             dataSource={localDataList}
                             showActions="hover"
-                        //     editable={{
-                        //     onSave: async (key, record, originRow) => {
-                        //         console.log(key, record, originRow);
-                        //         return true;
-                        //     },
-                        // }}
+                            editable={{
+                                onSave: async (key, record, { index }) => {
+                                    console.log(key, record);
+                                    localDataList[index] = record;
+                                    setLocalDataList([...localDataList])
+                                    return true;
+                                },
+                            }}
                             metas={{
                             title: {
+                                dataIndex: 'name',
+                            },
+                            subTitle: {
                                 dataIndex: 'time',
+                                editable: false,
                             },
                             actions: {
                                 render: (text, row, index, action) => [
                                     <a
                                         onClick={() => {
+                                            action?.startEditable(row.time);
+                                        }}
+                                        key="edit"
+                                    >
+                                        edit
+                                    </a>,
+                                    <a
+                                        onClick={() => {
                                             onUseData(index);
                                         }}
-                                        key="link"
+                                        key="use"
                                     >
-                                        use data
+                                        use
+                                    </a>,
+                                    <a
+                                        onClick={() => {
+                                            onDeleteItem(index);
+                                        }}
+                                        key="delete"
+                                    >
+                                        delete
                                     </a>,
                                 ],
                             },
@@ -732,7 +768,7 @@ const GSAPDemo = () => {
                         </div>
                         <div className={styles.stageBorder} style={{transform: `scale(${1})`}}></div>
 
-                        <div className={styles.stageContent} style={{fontSize: `${resolutions[1] / 10}px`}}>
+                        <div ref={ref => refs['stage'] = ref} className={styles.stageContent} style={{fontSize: `${resolutions[1] / 10}px`}}>
                             <div ref={ref => refs['contentWrapper'] = ref} className={styles.contentWrapper}>
                                 <div className={styles.leftText}>
                                     <div className={styles.leftTextContent}>百模大战</div>

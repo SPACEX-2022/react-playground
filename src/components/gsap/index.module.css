@@ -111,7 +111,7 @@
     width: 482px;
     height: 150px;
     position: relative;
-    padding: 14px 27px 13px 98px;
+    padding: 14px 27px 14px 98px;
     /*font-weight: 700;*/
     font-size: 70px;
     color: #FFFFFF;
@@ -132,7 +132,7 @@
 }
 .titleContentMinFs {
     font-size: 49px;
-    line-height: 60px;
+    line-height: 55.5px;
 }
 
 
