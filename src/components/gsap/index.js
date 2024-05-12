@@ -8,9 +8,11 @@ import Sider from "antd/es/layout/Sider";
 import FormItem from "antd/es/form/FormItem";
 import {Content} from "antd/es/layout/layout";
 import { CaretRightFilled, PauseOutlined } from '@ant-design/icons';
-import {useDebounce, useDebounceEffect, useDebounceFn, useLocalStorageState} from "ahooks";
+import {useDebounce, useDebounceEffect, useDebounceFn, useKeyPress, useLocalStorageState} from "ahooks";
 import {DragSortTable, ProList} from "@ant-design/pro-components";
 import dayjs from "dayjs";
+import {nanoid} from "nanoid";
+import cloneDeep from 'lodash.clonedeep';
 // import { SplitText } from "gsap/SplitText";
 
 // console.log(DrawSVGPlugin, gsap)
@@ -62,9 +64,9 @@ const GSAPDemo = () => {
     })
 
     const [sequence, setSequence] = useState([
-        { index: 0, duration: 0 },
-        { index: 1, duration: 0 },
-        { index: 2, duration: 0 },
+        { id: nanoid(), index: 0, duration: 0 },
+        { id: nanoid(), index: 1, duration: 0 },
+        { id: nanoid(), index: 2, duration: 0 },
     ])
 
     const [_data, setData] = useState(JSON.stringify({
@@ -547,6 +549,12 @@ const GSAPDemo = () => {
         setData(val);
     }
 
+    useKeyPress('Space', () => {
+        onPlay();
+    }, {
+        exactMatch: true,
+    })
+
     const onPlay = () => {
         if (playing) {
             timeline.current.pause()
@@ -630,10 +638,11 @@ const GSAPDemo = () => {
             editable: true,
             valueType: 'digit',
             className: 'drag-visible',
-            // renderText: (_, record, index) => {
-            //     console.log(record)
-            //     return record.duration + 's'
-            // }
+            formItemProps: {
+                onKeyDown(e) {
+                    e.stopPropagation();
+                }
+            },
         },
         {
             title: '操作',
@@ -643,7 +652,7 @@ const GSAPDemo = () => {
                 <a
                     key="editable"
                     onClick={() => {
-                        action?.startEditable?.(record.index);
+                        action?.startEditable?.(record.id);
                     }}
                 >
                     edit
@@ -675,12 +684,22 @@ const GSAPDemo = () => {
             message.warning('本地缓存只保存最近10条，最旧的数据将被删除')
             localDataList.pop();
         }
-        localDataList.unshift({ name: 'name', data: _data, time: dayjs().format('YYYY-MM-DD HH:mm:ss'), });
+        localDataList.unshift({
+            id: nanoid(),
+            name: 'name',
+            data: {
+                sequence: cloneDeep(sequence),
+                data: _data,
+            },
+            time: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+        });
         setLocalDataList([...localDataList]);
     }
 
     const onUseData = index => {
-        setData(localDataList[index].data);
+        const { data, sequence } = localDataList[index].data;
+        setData(data);
+        setSequence(cloneDeep(sequence));
     }
 
     const onDeleteItem = index => {
@@ -705,7 +724,7 @@ const GSAPDemo = () => {
                         <DragSortTable
                             toolBarRender={false}
                             columns={columns}
-                            rowKey="index"
+                            rowKey="id"
                             search={false}
                             pagination={false}
                             dataSource={sequence}
@@ -728,11 +747,12 @@ const GSAPDemo = () => {
                                 autoSize={{minRows: 10, maxRows: 30}}
                                 value={_data}
                                 onChange={onChange}
+                                onKeyDown={e => e.stopPropagation()}
                             />
                             <Button block type="primary" onClick={onSaveDataLocally}>Save data locally</Button>
                         </Space>
                         <ProList
-                            rowKey="time"
+                            rowKey="id"
                             headerTitle="本地数据列表"
                             dataSource={localDataList}
                             showActions="hover"
@@ -747,6 +767,11 @@ const GSAPDemo = () => {
                             metas={{
                             title: {
                                 dataIndex: 'name',
+                                formItemProps: {
+                                    onKeyDown(e) {
+                                        e.stopPropagation();
+                                    }
+                                },
                             },
                             subTitle: {
                                 dataIndex: 'time',
@@ -756,7 +781,7 @@ const GSAPDemo = () => {
                                 render: (text, row, index, action) => [
                                     <a
                                         onClick={() => {
-                                            action?.startEditable(row.time);
+                                            action?.startEditable(row.id);
                                         }}
                                         key="edit"
                                     >
