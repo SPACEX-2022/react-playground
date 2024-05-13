@@ -388,7 +388,7 @@ const GSAPDemo = () => {
                 {
                         // display: 'flex',
                         duration: 0.5,
-                        height: `+=${height}`,
+                        height: `+=${height * 0.82}`,
                         // alpha: 1,
                         ease: 'power1.inOut',
                     },
@@ -398,7 +398,21 @@ const GSAPDemo = () => {
                     y: 0,
                     ease: 'power1.inOut',
                 })
-                .to(
+
+            const maxChildrenLength = 6;
+            if (item.children.length > maxChildrenLength) {
+                const overflowLength = item.children.length - maxChildrenLength;
+                timeline.to(
+                    item.listRef,
+                    {
+                        delay: 0.5,
+                        duration: 0.5 * overflowLength,
+                        scrollTop: `+=${(overflowLength) * 250}`,
+                        ease: 'power1.inOut',
+                    }
+                )
+            }
+            timeline.to(
                     item.listRef,
                     {
                         delay: 1.5 + delayTime,
@@ -522,8 +536,10 @@ const GSAPDemo = () => {
                 )
             })
 
-            timeline.current.set(data[index].listRef, {
+            timeline.current.to(data[index].listRef, {
+                duration: 0.5,
                 scrollTop: 0,
+                ease: 'power1.inOut',
             });
 
             timeline.current.add(showSectorList(index, extraDuration), '+=0.5')
