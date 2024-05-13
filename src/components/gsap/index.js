@@ -558,7 +558,6 @@ const GSAPDemo = () => {
 
 
         timeline.current.addLabel('endTime');
-        // timeline.current.seek(2.1)
         console.log(999, timestamp, timeline.current.duration(), timeline.current.totalTime(), timeline.current)
 
         const endTime = timeline.current.labels.endTime;
@@ -584,10 +583,10 @@ const GSAPDemo = () => {
 
     const onPlay = () => {
         if (playing) {
-            timeline.current.pause()
+            timeline.current.pause();
             setPlaying(false);
         } else {
-            timeline.current.play()
+            timeline.current.play();
             setPlaying(true);
         }
     }
@@ -749,10 +748,6 @@ const GSAPDemo = () => {
                 overflowY: 'auto'
             }}>
                 <Form layout={'vertical'}>
-                    {/*<FormItem label="Timestamp">*/}
-                    {/*    /!*<Input value={timestamp} onChange={(e) => setTimestamp(e.target.value)} suffix={'ms'} />*!/*/}
-                    {/*    <Slider step={0.1} min={0} max={duration} value={timestamp} onChange={onSeek}/>*/}
-                    {/*</FormItem>*/}
                     <FormItem label="Sequence">
                         <DragSortTable
                             toolBarRender={false}
@@ -841,20 +836,10 @@ const GSAPDemo = () => {
                         }}
                             />
                     </FormItem>
-                    {/*<FormItem label="Action">*/}
-                    {/*    <Space direction={'vertical'} style={{width: '100%'}}>*/}
-                    {/*        /!*<Button block type="dashed" onClick={onPause}>Pause</Button>*!/*/}
-                    {/*        /!*<Button block onClick={onReversePlay}>Reverse Play</Button>*!/*/}
-                    {/*        /!*<Button block onClick={onSeek}>Seek</Button>*!/*/}
-                    {/*    </Space>*/}
-                    {/*</FormItem>*/}
                 </Form>
             </Sider>
             <Layout>
                 <Content style={{position: 'relative'}}>
-                    {/*<div id={'box'} className={styles.text}>*/}
-                    {/*    GroupShopping List*/}
-                    {/*</div>*/}
                     <div className={styles.stage} style={{
                         transform: `translate(-50%, -50%) scale(${scale})`,
                         width: `${resolutions[0]}px`,
