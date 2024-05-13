@@ -270,7 +270,7 @@ const GSAPDemo = () => {
         // const scale = 1.2;
         const timeline = gsap.timeline();
         const x = (width + SCALE_TITLE_MOVE_DIS) * SCALE;
-        let y = 86 + (564 * index);
+        let y = 120 + (548 * index);
         // if (index === 0 || index % 1 !== 0) {
         //     y =  (y * SCALE) - (y + 75) * (SCALE)
         // }
@@ -278,7 +278,7 @@ const GSAPDemo = () => {
             // y =  (y * SCALE) - (y + 75) * (SCALE)
             timeline.set(
                 refs['contentWrapper'], {
-                    transformOrigin: `50% ${height / 2 - (index === 0 ? 564 : -564)}px`
+                    transformOrigin: `50% ${height / 2 - (index === 0 ? 548 : -548)}px`
                 }
             )
         } else {
@@ -366,7 +366,7 @@ const GSAPDemo = () => {
             .to(data[index].listRef, {
                 duration: 0.5,
                 // y: `-=200`,
-                height: `+=1200`,
+                height: `+=${Math.ceil(data[index].children.length / 6) * 1200}`,
                 ease: 'power1.inOut',
             }, '<')
 
@@ -436,7 +436,7 @@ const GSAPDemo = () => {
             .to(data[index].listRef, {
                 duration: 0.5,
                 // y: `-=200`,
-                height: '-=1200',
+                height: `-=${Math.ceil(data[index].children.length / 6) * 1200}`,
                 ease: 'power1.inOut',
             }, '<')
 
@@ -446,19 +446,6 @@ const GSAPDemo = () => {
     useGSAP(() => {
         console.log('useGSAP')
         const [width, height] = resolutions;
-
-
-        const showLeftText = gsap.to(`.${styles.leftText}`, {
-            duration: 0.5,
-            x: 0,
-            alpha: 1,
-            ease: 'power1.inOut',
-        })
-        const titleWrapperToRight = gsap.to(`.${styles.titleWrapper}`, {
-            duration: 0.5,
-            x: LEFT_TEXT_MOVE_DIS,
-            ease: 'power1.inOut',
-        })
 
         timeline.current = gsap.timeline({
             paused: true,
@@ -480,14 +467,23 @@ const GSAPDemo = () => {
         })
 
         timeline.current
-            .add(showLeftText)
-            .add(titleWrapperToRight, '<')
+            .to(refs['leftText'], {
+                duration: 0.5,
+                x: 0,
+                alpha: 1,
+                ease: 'power1.inOut',
+            })
+            .to(refs['titleWrapper'], {
+                duration: 0.5,
+                x: LEFT_TEXT_MOVE_DIS,
+                ease: 'power1.inOut',
+            }, '<')
             .fromTo(refs['leftTextLine'], { strokeDashoffset: 200 }, { strokeDashoffset: 400, duration: 3.5, repeat: -1, ease: 'none' })
             .fromTo(refs['leftTextLine'], { alpha: 0 }, { alpha: 1, ease: 'power1.inOut' }, '<')
 
         sequence.forEach((item) => {
             const index = item.index;
-            const extraDuration = item.duration;
+            const extraDuration = item.duration || 0;
             if (index === 0) {
                 timeline.current.add(createShowHotspotSVG('up'), '<+1')
             } else if (index === 2) {
@@ -497,11 +493,21 @@ const GSAPDemo = () => {
                 .add(createShowTitleTimeLine(index), '<+1')
                 .to(data[index].listRef, {
                     duration: 0.7,
-                    height: height * 0.5,
+                    height: height * 0.515,
                     ease: 'power1.inOut',
                 }, '>-0.1')
 
-            data[index].children.forEach((item, index) => {
+            const moveItemDis = 190;
+            data[index].children.forEach((item, _index) => {
+                let position = '+=0'
+                if (_index >= 6) {
+                    timeline.current.to(data[index].listRef, {
+                        duration: 0.5,
+                        scrollTop: `+=${moveItemDis}`,
+                        ease: 'power1.inOut',
+                    })
+                    position = '>-0.1'
+                }
                 timeline.current.fromTo(
                     item.ref,
                     {
@@ -512,8 +518,13 @@ const GSAPDemo = () => {
                         x: 0,
                         ease: 'power1.inOut',
                     },
+                    position
                 )
             })
+
+            timeline.current.set(data[index].listRef, {
+                scrollTop: 0,
+            });
 
             timeline.current.add(showSectorList(index, extraDuration), '+=0.5')
 
@@ -679,6 +690,12 @@ const GSAPDemo = () => {
         defaultValue: [],
     })
 
+    useEffect(() => {
+        if (localDataList.length) {
+            onUseData(0);
+        }
+    }, [])
+
     const onSaveDataLocally = () => {
         if (localDataList.length >= 10) {
             message.warning('本地缓存只保存最近10条，最旧的数据将被删除')
@@ -834,7 +851,7 @@ const GSAPDemo = () => {
 
                         <div ref={ref => refs['stage'] = ref} className={styles.stageContent} style={{fontSize: `${resolutions[1] / 10}px`}}>
                             <div ref={ref => refs['contentWrapper'] = ref} className={styles.contentWrapper}>
-                                <div className={styles.leftText}>
+                                <div ref={ref => refs['leftText'] = ref} className={styles.leftText}>
                                     <div className={styles.leftTextContent}>百模大战</div>
                                     <svg ref={ref => refs['leftTextLineSVG'] = ref} width="145.999233px" height="145.963574px" viewBox="0 0 145.999233 145.963574"
                                          version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -875,7 +892,7 @@ const GSAPDemo = () => {
                                         </g>
                                     </svg>
                                 </div>
-                                <div className={styles.titleWrapper}>
+                                <div ref={ref => refs['titleWrapper'] = ref} className={styles.titleWrapper}>
                                     {
                                         data.map((item, index) => {
                                             return (
