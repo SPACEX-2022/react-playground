@@ -270,7 +270,7 @@ const GSAPDemo = () => {
         // const scale = 1.2;
         const timeline = gsap.timeline();
         const x = (width + SCALE_TITLE_MOVE_DIS) * SCALE;
-        let y = 120 + (548 * index);
+        let y = 60 + (548 * index);
         // if (index === 0 || index % 1 !== 0) {
         //     y =  (y * SCALE) - (y + 75) * (SCALE)
         // }
@@ -353,7 +353,7 @@ const GSAPDemo = () => {
     const showSectorList = (index, extraDuration) => {
         const [width, height] = resolutions;
         const timeline = gsap.timeline();
-        const titleMoveDis = 150;
+        const titleMoveDis = 200;
         const contentWrapperMoveDis = 600;
         const contentWrapperMoveItemDis = ((94 + 60) * SCALE);
 
@@ -388,7 +388,7 @@ const GSAPDemo = () => {
                 {
                         // display: 'flex',
                         duration: 0.5,
-                        height: `+=${height * 0.82}`,
+                        height: `+=${height * 0.69}`,
                         // alpha: 1,
                         ease: 'power1.inOut',
                     },
@@ -399,7 +399,7 @@ const GSAPDemo = () => {
                     ease: 'power1.inOut',
                 })
 
-            const maxChildrenLength = 6;
+            const maxChildrenLength = 5;
             if (item.children.length > maxChildrenLength) {
                 const overflowLength = item.children.length - maxChildrenLength;
                 timeline.to(
@@ -507,14 +507,14 @@ const GSAPDemo = () => {
                 .add(createShowTitleTimeLine(index), '<+1')
                 .to(data[index].listRef, {
                     duration: 0.7,
-                    height: height * 0.515,
+                    height: height * 0.43,
                     ease: 'power1.inOut',
                 }, '>-0.1')
 
-            const moveItemDis = 190;
+            const moveItemDis = 155;
             data[index].children.forEach((item, _index) => {
                 let position = '+=0'
-                if (_index >= 6) {
+                if (_index >= 5) {
                     timeline.current.to(data[index].listRef, {
                         duration: 0.5,
                         scrollTop: `+=${moveItemDis}`,
