@@ -1,0 +1,24 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<svg width="99.116883px" height="1174.92153px" viewBox="0 0 99.116883 1174.92153" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">-->
+<!--    <title>编组 3</title>-->
+<!--    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">-->
+<!--        <g id="画板01" transform="translate(-925.6281, -315.3719)" stroke="#FFFFFF" stroke-width="10">-->
+<!--            <g id="01" transform="translate(-0, 0)">-->
+<!--                <g id="编组-3" transform="translate(930.6281, 320.3719)">-->
+<!--&lt;!&ndash;                    <polyline id="路径-4" points="0.37191985 1164.92153 89.116883 1164.92153 89.116883 23.6280802 0.37191985 23.6280802"></polyline>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <path d="M0.37191985,1164.92153 L89.116883,1164.92153"></path>&ndash;&gt;-->
+<!--                    <polyline id="路径-3" transform="translate(11.6281, 23.2562) rotate(90) translate(-11.6281, -23.2562)" points="-11.6280802 11.6280802 11.6280802 34.8842405 34.8842405 11.6280802"></polyline>-->
+<!--                </g>-->
+<!--            </g>-->
+<!--        </g>-->
+<!--    </g>-->
+<!--</svg>-->
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.117 1174.922">
+    <g fill="none" fill-rule="evenodd" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
+        <path d="M5.372 1169.922h88.745V28.628H5.372"/>
+<!--        <path d="M28.256 5 5 28.256l23.256 23.256"/>-->
+        <path d="M5 5 28.256 28.256l-23.256 23.256"/>
+    </g>
+</svg>
+

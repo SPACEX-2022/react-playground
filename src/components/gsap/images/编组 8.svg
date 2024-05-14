@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="102.000002px" height="56.5123206px" viewBox="0 0 102.000002 56.5123206" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="画板01" transform="translate(-250, -895.7438)" stroke="#FFFFFF" stroke-width="10">
+            <g id="01" transform="translate(-0, 0)">
+                <g id="编组" transform="translate(255, 900.7438)">
+                    <line x1="92" y1="23.6280802" x2="1.63424829e-13" y2="23.2561603" id="路径-2"></line>
+                    <polyline id="路径-3" transform="translate(80.2562, 23.2562) rotate(-90) translate(-80.2562, -23.2562)" points="57 11.6280802 80.2561603 34.8842405 103.512321 11.6280802"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
