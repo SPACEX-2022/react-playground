@@ -1,17 +1,17 @@
 import styles from './index.module.css';
-import { gsap } from "gsap";
+import {gsap} from "gsap";
 // import EaselPlugin from 'gsap/EaselPlugin';
 import MotionPathPlugin from 'gsap/MotionPathPlugin';
 import DrawSVGPlugin from 'gsap-trial/DrawSVGPlugin';
-import { useGSAP } from '@gsap/react';
+import {useGSAP} from '@gsap/react';
 // import * as createjs from 'createjs/builds/1.0.0/createjs';
-import {useEffect, useMemo, useRef, useState} from "react";
-import {Button, Col, Form, Input, Layout, List, message, Row, Slider, Space} from "antd";
+import {useEffect, useRef, useState} from "react";
+import {Button, Col, Form, Input, Layout, message, Row, Slider, Space} from "antd";
 import Sider from "antd/es/layout/Sider";
 import FormItem from "antd/es/form/FormItem";
 import {Content} from "antd/es/layout/layout";
-import { CaretRightFilled, PauseOutlined } from '@ant-design/icons';
-import {useDebounce, useDebounceEffect, useDebounceFn, useKeyPress, useLocalStorageState} from "ahooks";
+import {CaretRightFilled, PauseOutlined} from '@ant-design/icons';
+import {useDebounceEffect, useKeyPress, useLocalStorageState} from "ahooks";
 import {DragSortTable, ProList} from "@ant-design/pro-components";
 import dayjs from "dayjs";
 import {nanoid} from "nanoid";
@@ -50,6 +50,8 @@ const titleIndexData = [
     },
 ]
 
+const TOP_NODE_WEIGHT = 482;
+const TOP_NODE_HEIGHT = 150;
 const LEFT_TEXT_MOVE_DIS = 138;
 const SCALE_TITLE_MOVE_DIS = 138 - (75 / 2);
 const SCALE = 1.4;
@@ -256,6 +258,7 @@ const GSAPDemo = () => {
 
     const resolutions = [1080, 1920];
     const [scale, setScale] = useState(1);
+    const [width, height] = resolutions;
 
     useEffect(() => {
         const { offsetWidth, offsetHeight } = document.querySelector('.ant-layout-content')
@@ -304,49 +307,83 @@ const GSAPDemo = () => {
                 x: (reverse ? '-=' : '+=') + width,
                 ease: 'power1.inOut',
             }, '<')
-        if (index === 1) {
-            timeline.add(createShowHotspotMoveSVG('middle', reverse), '<')
-        }
         return timeline;
     }
 
-    const createShowHotspotSVG = (type) => {
-        return gsap.timeline().fromTo(refs[`${type}HotspotLine`], {
-            strokeDashoffset: 200
-        }, {
-            strokeDashoffset: 400,
-            duration: 3.5,
-            repeat: -1,
-            ease: 'none'
-        }).fromTo(refs[`${type}HotspotLine`], { alpha: 0 }, { alpha: 1, ease: 'power1.inOut' }, '<');
-    }
+    const animeEventArrow = () => {
+        const lineEl = refs['eventArrow'].querySelector('#line');
+        const arrowEl = refs['eventArrow'].querySelector('#arrow');
 
-    const createShowHotspotMoveSVG = (type, reverse = false) => {
-        const [width, height] = resolutions;
         const timeline = gsap.timeline();
-        if (type === 'middle') {
-            // timeline.to(refs['leftTextLineSVG'], {
-            //     duration: 0.5,
-            //     attr: {
-            //         width: `${reverse ? '-' : '+'}=${width + SCALE_TITLE_MOVE_DIS}`,
-            //         viewBox: `0 0 ${reverse ? '-' : '+'}=${width + SCALE_TITLE_MOVE_DIS} 145.963574`,
-            //     },
-            //     ease: 'power1.inOut',
-            // })
-            // .to(refs['leftTextLine'].querySelectorAll('line'), {
-            //     duration: 0.5,
-            //     attr: {
-            //         x1: `${reverse ? '-' : '+'}=${width + SCALE_TITLE_MOVE_DIS}`,
-            //     },
-            //     ease: 'power1.inOut',
-            // }, '<')
-        } else if (type === 'up') {
-            // refs[`${type}HotspotLine`]
-        } else if (type === 'down') {
+        return timeline
+            .set(lineEl, {
+                attr: {
+                    d: `M257 ${height / 2}h86`,
+                }
+            })
+            .set(arrowEl, { alpha: 1 })
+            .fromTo(lineEl,
+                {
+                    drawSVG: false,
+                },
+                {
+                    drawSVG: true,
+                    duration: 0.7,
+                    ease: 'power1.inOut',
+                }
+            )
+            .to(
+                arrowEl,
+                {
+                    motionPath: {
+                        path: lineEl,
+                        align: lineEl,
+                        alignOrigin: [0.5, 0.5],
+                        autoRotate: true,
+                    },
+                    // reversed: true,
+                    duration: 0.7,
+                    ease: 'power1.inOut',
+                },
+                '<'
+            );
+    }
 
-        }
+    const animeNodeArrow = (nodeIndex, diff) => {
+        const lineEl = refs[`nodeArrow${nodeIndex}`].querySelector('#line');
+        const arrowEl = refs[`nodeArrow${nodeIndex}`].querySelector('#arrow');
+        const timeline = gsap.timeline();
+        const reversed = diff < 0;
 
-        return timeline;
+        return timeline
+            .set(lineEl, { alpha: 1 })
+            .set(arrowEl, { alpha: 1 })
+            .fromTo(lineEl,
+                {
+                    drawSVG: reversed ? '100% 100%' : '0% 0%',
+                },
+                {
+                    drawSVG: '0% 100%',
+                    duration: 1,
+                    // reversed: diff < 0,
+                    ease: 'power1.inOut',
+                }
+            )
+            .to(
+                arrowEl,
+                {
+                    motionPath: {
+                        path: lineEl,
+                        align: lineEl,
+                        alignOrigin: [0.5, 0.5],
+                        autoRotate: Math.abs(diff) !== 1,
+                    },
+                    duration: 1,
+                    reversed,
+                    ease: 'power1.inOut',
+                },
+                '<'
+            )
     }
 
     const showSectorList = (index, extraDuration) => {
@@ -490,48 +527,16 @@ const GSAPDemo = () => {
                 x: LEFT_TEXT_MOVE_DIS,
                 ease: 'power1.inOut',
             }, '<')
-            .set(refs['eventArrow'].querySelector('#line'), {
-                attr: {
-                    d: `M257 ${height / 2}h96`,
-                }
-            })
-            .set(refs['eventArrow'].querySelector('#arrow'), { alpha: 1 })
-            .fromTo(refs['eventArrow'].querySelector('#line'),
-                {
-                    drawSVG: false,
-                },
-                {
-                    drawSVG: true,
-                    duration: 1,
-                    // ease: 'power1.inOut',
-                }
-            )
-            .fromTo(
-                refs['eventArrow'].querySelector('#arrow'),
-                {
-                    // alpha: 1,
-                },
-                {
-                    motionPath: {
-                        path: refs['eventArrow'].querySelector('#line'),
-                        align: refs['eventArrow'].querySelector('#line'),
-                        alignOrigin: [0.5, 0.5],
-                        autoRotate: true,
-                    },
-                    // reversed: true,
-                    duration: 1,
-                },
-                '<'
-            )
+            .add(animeEventArrow())
 
         // 展示各顶层节点
-        sequence.forEach((item) => {
+        sequence.forEach((item, _index) => {
             const index = item.index;
             const extraDuration = item.duration || 0;
-            if (index === 0) {
-                timeline.current.add(createShowHotspotSVG('up'), '<+1')
-            } else if (index === 2) {
-                timeline.current.add(createShowHotspotSVG('down'), '<+1')
+            if (_index !== sequence.length - 1) {
+                const nextNodeIndex = sequence[_index + 1].index;
+                const diff = nextNodeIndex - index;
+                timeline.current.add(animeNodeArrow(index, diff), '<+1')
             }
             timeline.current
                 .add(createShowTitleTimeLine(index), '<+1')
@@ -649,46 +654,6 @@ const GSAPDemo = () => {
         // timeline.current.pause();
     }
 
-    const createHotspotVerticalSVG = (type = 'up') => {
-        return (
-            <svg width="371.669664px" height="397.996543px" viewBox="0 0 371.669664 397.996543" version="1.1"
-                 style={{ transform: type === 'up' ? '' : 'rotate(180deg)' }}
-                 xmlns="http://www.w3.org/2000/svg">
-                <title>编组</title>
-                <defs>
-                    <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id={`${type}-linearGradient-1`}>
-                        <stop stopColor="#FFFFFF" offset="0%"></stop>
-                        <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
-                    </linearGradient>
-                    <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id={`${type}-linearGradient-2`}>
-                        <stop stopColor="#FFFFFF" offset="0%"></stop>
-                        <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
-                    </linearGradient>
-                </defs>
-                <g ref={ref => refs[`${type}HotspotLine`] = ref} id="页面-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeDasharray="20"
-                   strokeLinecap="round">
-                    <g id="画板02" transform="translate(-479.9998, -441.9992)" strokeWidth="6">
-                        <g id="编组" transform="translate(483, 445)">
-                            <path
-                                d="M-5.68434189e-14,0 C39.779569,52.0098794 59.6693534,114.468021 59.6693534,187.374424 C59.6693534,260.280827 39.779569,328.489352 -5.68434189e-14,392"
-                                id="路径" stroke={`url(#${type}-linearGradient-1)`}></path>
-                            <path
-                                d="M108,0 C132.418695,62.0946972 144.628042,127.428031 144.628042,196 C144.628042,264.571969 132.418695,329.905303 108,392"
-                                id="路径" stroke={`url(#${type}-linearGradient-2)`}></path>
-                            <path
-                                d="M306,0 C345.779569,52.0098794 365.669353,114.468021 365.669353,187.374424 C365.669353,260.280827 345.779569,328.489352 306,392"
-                                id="路径" stroke={`url(#${type}-linearGradient-1)`}
-                                transform="translate(335.8347, 196) scale(-1, 1) translate(-335.8347, -196)"></path>
-                            <path
-                                d="M221,0 C245.418695,62.0946972 257.628042,127.428031 257.628042,196 C257.628042,264.571969 245.418695,329.905303 221,392"
-                                id="路径" stroke={`url(#${type}-linearGradient-2)`}
-                                transform="translate(239.314, 196) scale(-1, 1) translate(-239.314, -196)"></path>
-                        </g>
-                    </g>
-                </g>
-            </svg>
-        )
-    }
     const columns = [
         {
             title: 'sort',
@@ -783,6 +748,58 @@ const GSAPDemo = () => {
     const onDeleteItem = index => {
         localDataList.splice(index, 1);
         setLocalDataList([...localDataList]);
+    }
+
+    const createArrow = (type) => {
+        switch (type) {
+            case 'left':
+                return (
+                    <path id="arrow" d="M28.256 5 5 28.256l23.256 23.256" style={{ opacity: 0 }} />
+                );
+            case 'right':
+                return (
+                    <path id="arrow" d="M5 5 28.256 28.256l-23.256 23.256" style={{ opacity: 0 }} />
+                );
+            case 'top':
+                return (
+                    <path id="arrow" d="M5 28.256 28.256 5l23.256 23.256" style={{ opacity: 0 }} />
+                );
+            case 'bottom':
+                return (
+                    <path id="arrow" d="M5 5 28.256 28.256l23.256 -23.256" style={{ opacity: 0 }} />
+                );
+        }
+    }
+
+    const arrowList = () => {
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const nodeGutter = 398;
+        const moveRightDis = 70;
+        return sequence.map((item, index) => {
+            if (index === sequence.length - 1) return null;
+            const currentIndex = item.index;
+            const nextIndex = sequence[index + 1].index;
+            const diff = nextIndex - currentIndex;
+            if (Math.abs(diff) === 1) {
+                const startY = centerY - (nodeGutter + TOP_NODE_HEIGHT / 2);
+                return (
+                    <g key={currentIndex} ref={ref => refs[`nodeArrow${currentIndex}`] = ref} fill="none" fillRule="evenodd" stroke="#FFF" strokeLinecap="round"
+                       strokeLinejoin="round" strokeWidth="10">
+                        <path id="line" d={`M${centerX + LEFT_TEXT_MOVE_DIS} ${startY + (index * (398 + TOP_NODE_HEIGHT) + 30)} l0 ${nodeGutter - 60}`} style={{ opacity: 0 }} />
+                        {createArrow(diff > 0 ? 'bottom' : 'top')}
+                    </g>
+                )
+            } else if (Math.abs(diff) > 1) {
+                return (
+                    <g key={currentIndex} ref={ref => refs[`nodeArrow${currentIndex}`] = ref} fill="none" fillRule="evenodd" stroke="#FFF" strokeLinecap="round"
+                       strokeLinejoin="round" strokeWidth="10">
+                        <path id="line" d={`M${centerX + LEFT_TEXT_MOVE_DIS + (TOP_NODE_WEIGHT / 2) + 20} ${centerY - nodeGutter - TOP_NODE_HEIGHT} l${moveRightDis} 0 v0 ${nodeGutter * 2 + TOP_NODE_HEIGHT * 2} h-${moveRightDis - 10} 0`}  style={{ opacity: 0 }} />
+                        {createArrow('right')}
+                    </g>
+                )
+            }
+        });
     }
 
     return (
@@ -907,15 +924,7 @@ const GSAPDemo = () => {
                                         <path id="arrow" d="M5 5 28.256 28.256l-23.256 23.256" style={{ opacity: 0 }} />
                                     </g>
                                     {
-                                        data.map((item, index) => {
-                                            return (
-                                                <g key={index} fill="none" fillRule="evenodd" stroke="#FFF" strokeLinecap="round"
-                                                   strokeLinejoin="round" strokeWidth="10">
-                                                    {/*<path id="line" d="M5.372 1169.922h88.745V28.628H5.372"/>*/}
-                                                    {/*<path id="arrow" d="M28.256 5 5 28.256l23.256 23.256"/>*/}
-                                                </g>
-                                            )
-                                        })
+                                        arrowList()
                                     }
                                 </svg>
                                 <div ref={ref => refs['leftText'] = ref} className={styles.leftText}>
@@ -987,7 +996,6 @@ const GSAPDemo = () => {
                                                             }
                                                         </div>
                                                     </div>
-                                                    {index !== data.length - 1 ? createHotspotVerticalSVG(index % 2 ? 'down' : 'up') : null}
                                                 </>
                                             )
                                         })

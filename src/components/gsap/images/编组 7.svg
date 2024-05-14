@@ -16,9 +16,11 @@
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.117 1174.922">
     <g fill="none" fill-rule="evenodd" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
-        <path d="M5.372 1169.922h88.745V28.628H5.372"/>
-<!--        <path d="M28.256 5 5 28.256l23.256 23.256"/>-->
-        <path d="M5 5 28.256 28.256l-23.256 23.256"/>
+<!--        <path d="M5.372 1169.922h88.745V28.628H5.372"/>-->
+<!--        <path d="M28.256 5 5 28.256l23.256 23.256"/> //left -->
+<!--        <path d="M5 5 28.256 28.256l-23.256 23.256"/>  //right -->
+<!--        <path d="M5 28.256 28.256 5l23.256 23.256"/> // top-->
+        <path id="arrow" d="M5 28.256 28.256 5l23.256 23.256" />
     </g>
 </svg>
 
