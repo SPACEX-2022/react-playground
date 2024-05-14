@@ -25,6 +25,18 @@
 */
 
 /*!
+ * DrawSVGPlugin 3.12.5
+ * https://gsap.com
+ * 
+ * @license Copyright 2024, GreenSock. All rights reserved.
+ * *** DO NOT DEPLOY THIS FILE ***
+ * This is a trial version that only works locally and on domains like codepen.io and codesandbox.io.
+ * Loading it on an unauthorized domain violates the license and will cause a redirect.
+ * Get the unrestricted file by joining Club GSAP at https://gsap.com/pricing
+ * @author: Jack Doyle, jack@greensock.com
+ */
+
+/*!
  * EasePack 3.12.5
  * https://gsap.com
  *
@@ -106,16 +118,6 @@
 
 /*!
  * matrix 3.12.5
- * https://gsap.com
- *
- * Copyright 2008-2024, GreenSock. All rights reserved.
- * Subject to the terms at https://gsap.com/standard-license or for
- * Club GSAP members, the agreement issued with that membership.
- * @author: Jack Doyle, jack@greensock.com
-*/
-
-/*!
- * paths 3.12.5
  * https://gsap.com
  *
  * Copyright 2008-2024, GreenSock. All rights reserved.
