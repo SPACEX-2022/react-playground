@@ -50,9 +50,10 @@ const titleIndexData = [
     },
 ]
 
-const TOP_NODE_WEIGHT = 546;
-const TOP_NODE_HEIGHT = 224;
+const TOP_NODE_WEIGHT = 482;
+const TOP_NODE_HEIGHT = 150;
 const LEFT_TEXT_MOVE_DIS = 138;
+const SCALE_TITLE_MOVE_DIS = 138 - (75 / 2);
 const SCALE = 1.4;
 
 const GSAPDemo = () => {
@@ -274,7 +275,7 @@ const GSAPDemo = () => {
     const createShowTitleTimeLine = (index, reverse = false) => {
         const [width, height] = resolutions;
         const timeline = gsap.timeline();
-        const x = (width + LEFT_TEXT_MOVE_DIS) * SCALE;
+        const x = (width + SCALE_TITLE_MOVE_DIS) * SCALE;
         let y = 60 + (548 * index);
         if (index === 0 || index === 2) {
             timeline.set(
@@ -598,10 +599,24 @@ const GSAPDemo = () => {
             )
             .to(refs['contentWrapper'], {
                 duration: 0.5,
-                scale: 0.8,
-                x: '-=200',
+                scale: 0.9,
+                x: '-=150',
                 ease: 'power1.inOut',
             }, '+=1')
+            .addLabel('summaryScaleEnd')
+
+        data.forEach((item, index) => {
+            const overflowCount = item.children.length - 4;
+            timeline.current.to(item.overlistRef, {
+                duration: 0.5,
+                alpha: 1,
+                ease: 'power1.inOut',
+            }, 'summaryScaleEnd').to(item.overlistRef, {
+                scrollTop: overflowCount * 105,
+                duration: 0.5 * overflowCount,
+                ease: 'power1.inOut',
+            })
+        })
 
 
         timeline.current.addLabel('endTime');
@@ -916,7 +931,7 @@ const GSAPDemo = () => {
                                     <g ref={ref => refs['eventArrow'] = ref} fill="none" fillRule="evenodd"
                                        stroke="#FFF" strokeLinecap="round"
                                        strokeLinejoin="round" strokeWidth="10">
-                                        <path id="line" d={`M257 ${height / 2}h126`} style={{ opacity: 0 }} />
+                                        <path id="line" d={`M257 ${height / 2}h86`} style={{ opacity: 0 }} />
                                         <path id="arrow" d="M5 5 28.256 28.256l-23.256 23.256" style={{ opacity: 0 }} />
                                     </g>
                                     {
@@ -946,7 +961,7 @@ const GSAPDemo = () => {
                                                                 className={styles.titleIndex}>{titleIndexData[index].label}</div>
                                                             <div className={styles.titleContentNode}>{item.title}</div>
                                                         </div>
-                                                        <div className={styles.overviewList}>
+                                                        <div ref={ref => item.overlistRef = ref} className={styles.overviewList}>
                                                             {
                                                                 item.children.map((child, childIndex) => {
                                                                     return (
