@@ -533,13 +533,14 @@ const GSAPDemo = () => {
         sequence.forEach((item, _index) => {
             const index = item.index;
             const extraDuration = item.duration || 0;
-            if (_index !== sequence.length - 1) {
-                const nextNodeIndex = sequence[_index + 1].index;
-                const diff = nextNodeIndex - index;
+            if (_index !== 0) {
+                const prevNodeIndex = sequence[_index - 1].index;
+                // const nextNodeIndex = sequence[_index + 1].index;
+                const diff = index - prevNodeIndex;
                 timeline.current.add(animeNodeArrow(index, diff), '<+1')
             }
             timeline.current
-                .add(createShowTitleTimeLine(index), '<+1')
+                .add(createShowTitleTimeLine(index))
                 .to(data[index].listRef, {
                     duration: 0.7,
                     height: height * 0.43,
@@ -784,7 +785,7 @@ const GSAPDemo = () => {
             if (Math.abs(diff) === 1) {
                 const startY = centerY - (nodeGutter + TOP_NODE_HEIGHT / 2);
                 return (
-                    <g key={currentIndex} ref={ref => refs[`nodeArrow${currentIndex}`] = ref} fill="none" fillRule="evenodd" stroke="#FFF" strokeLinecap="round"
+                    <g key={nextIndex} ref={ref => refs[`nodeArrow${nextIndex}`] = ref} fill="none" fillRule="evenodd" stroke="#FFF" strokeLinecap="round"
                        strokeLinejoin="round" strokeWidth="10">
                         <path id="line" d={`M${centerX + LEFT_TEXT_MOVE_DIS} ${startY + (index * (398 + TOP_NODE_HEIGHT) + 30)} l0 ${nodeGutter - 60}`} style={{ opacity: 0 }} />
                         {createArrow(diff > 0 ? 'bottom' : 'top')}
@@ -792,7 +793,7 @@ const GSAPDemo = () => {
                 )
             } else if (Math.abs(diff) > 1) {
                 return (
-                    <g key={currentIndex} ref={ref => refs[`nodeArrow${currentIndex}`] = ref} fill="none" fillRule="evenodd" stroke="#FFF" strokeLinecap="round"
+                    <g key={nextIndex} ref={ref => refs[`nodeArrow${nextIndex}`] = ref} fill="none" fillRule="evenodd" stroke="#FFF" strokeLinecap="round"
                        strokeLinejoin="round" strokeWidth="10">
                         <path id="line" d={`M${centerX + LEFT_TEXT_MOVE_DIS + (TOP_NODE_WEIGHT / 2) + 20} ${centerY - nodeGutter - TOP_NODE_HEIGHT} l${moveRightDis} 0 v0 ${nodeGutter * 2 + TOP_NODE_HEIGHT * 2} h-${moveRightDis - 10} 0`}  style={{ opacity: 0 }} />
                         {createArrow('right')}
