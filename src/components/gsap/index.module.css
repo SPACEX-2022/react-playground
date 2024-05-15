@@ -84,21 +84,23 @@
 }
 
 .titleIndex {
-    position: absolute;
-    top: -6px;
-    left: 0;
-    width: 150px;
-    height: 150px;
+    /*position: absolute;*/
+    /*top: -6px;*/
+    /*left: 0;*/
+    width: 100%;
+    /*height: 78px;*/
     /*font-weight: 700;*/
-    font-size: 80px;
-    line-height: 150px;
+    font-size: 50px;
+    line-height: 78px;
     color: #FFFFFF;
     text-align: center;
     background: var(--color);
-    border-radius: 50%;
-    transform: translateX(-50%);
+    border-radius: 20px 20px 0 0;
+    /*transform: translateX(-50%);*/
 }
 .titleContentNode {
+    height: 146px;
+    width: 100%;
     /*white-space: ;*/
     word-break: break-word;
     overflow: hidden;
@@ -106,33 +108,35 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+
+    border: 6px solid var(--color);
+    border-top: 0;
+    border-radius: 0 0 10px 10px;
+    background: #000000;
 }
 .titleContent {
-    width: 482px;
-    height: 150px;
+    width: 546px;
+    /*height: 150px;*/
     position: relative;
-    padding: 14px 27px 14px 98px;
+    /*padding: 14px 27px 14px 98px;*/
     /*font-weight: 700;*/
     font-size: 70px;
     color: #FFFFFF;
     letter-spacing: 0;
     text-align: center;
     line-height: 111px;
-    background: #000000;
-    border: 6px solid var(--color);
-    border-radius: 0 10px 10px 0;
 }
 .titleContentMaxFs {
     font-size: 70px;
-    line-height: 111px;
+    line-height: 140px;
 }
 .titleContentMiddleFs {
     font-size: 49px;
-    line-height: 111px;
+    line-height: 140px;
 }
 .titleContentMinFs {
     font-size: 49px;
-    line-height: 55.5px;
+    line-height: 70px;
 }
 
 

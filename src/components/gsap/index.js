@@ -50,10 +50,9 @@ const titleIndexData = [
     },
 ]
 
-const TOP_NODE_WEIGHT = 482;
-const TOP_NODE_HEIGHT = 150;
+const TOP_NODE_WEIGHT = 546;
+const TOP_NODE_HEIGHT = 224;
 const LEFT_TEXT_MOVE_DIS = 138;
-const SCALE_TITLE_MOVE_DIS = 138 - (75 / 2);
 const SCALE = 1.4;
 
 const GSAPDemo = () => {
@@ -275,7 +274,7 @@ const GSAPDemo = () => {
     const createShowTitleTimeLine = (index, reverse = false) => {
         const [width, height] = resolutions;
         const timeline = gsap.timeline();
-        const x = (width + SCALE_TITLE_MOVE_DIS) * SCALE;
+        const x = (width + LEFT_TEXT_MOVE_DIS) * SCALE;
         let y = 60 + (548 * index);
         if (index === 0 || index === 2) {
             timeline.set(
@@ -316,11 +315,7 @@ const GSAPDemo = () => {
 
         const timeline = gsap.timeline();
         return timeline
-            .set(lineEl, {
-                attr: {
-                    d: `M257 ${height / 2}h86`,
-                }
-            })
+            .set(lineEl, { alpha: 1 })
             .set(arrowEl, { alpha: 1 })
             .fromTo(lineEl,
                 {
@@ -921,7 +916,7 @@ const GSAPDemo = () => {
                                     <g ref={ref => refs['eventArrow'] = ref} fill="none" fillRule="evenodd"
                                        stroke="#FFF" strokeLinecap="round"
                                        strokeLinejoin="round" strokeWidth="10">
-                                        <path id="line"/>
+                                        <path id="line" d={`M257 ${height / 2}h126`} style={{ opacity: 0 }} />
                                         <path id="arrow" d="M5 5 28.256 28.256l-23.256 23.256" style={{ opacity: 0 }} />
                                     </g>
                                     {
@@ -946,7 +941,7 @@ const GSAPDemo = () => {
                                                              '--sector-font-color': titleIndexData[index].sectorFontColor,
                                                          }}>
                                                         <div ref={ref => item.titleRef = ref}
-                                                             className={styles.titleContent + ' ' + (item.title.length > 7 ? styles.titleContentMinFs : (item.title.length > 5 ? styles.titleContentMiddleFs : styles.titleContentMaxFs))}>
+                                                             className={styles.titleContent + ' ' + (item.title.length > 10 ? styles.titleContentMinFs : (item.title.length > 5 ? styles.titleContentMiddleFs : styles.titleContentMaxFs))}>
                                                             <div
                                                                 className={styles.titleIndex}>{titleIndexData[index].label}</div>
                                                             <div className={styles.titleContentNode}>{item.title}</div>
