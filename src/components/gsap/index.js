@@ -946,6 +946,18 @@ const GSAPDemo = () => {
                                                                 className={styles.titleIndex}>{titleIndexData[index].label}</div>
                                                             <div className={styles.titleContentNode}>{item.title}</div>
                                                         </div>
+                                                        <div className={styles.overviewList}>
+                                                            {
+                                                                item.children.map((child, childIndex) => {
+                                                                    return (
+                                                                        <div className={styles.overviewListItem}>
+                                                                            <div className={styles.overviewListItemLabel}>利好</div>
+                                                                            <div className={styles.overviewListItemTitle}>{ child.title }</div>
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
                                                         <div ref={ref => item.listRef = ref}
                                                              className={styles.listWrapper}>
                                                             {

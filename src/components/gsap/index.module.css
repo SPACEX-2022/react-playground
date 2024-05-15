@@ -139,6 +139,50 @@
     line-height: 70px;
 }
 
+.overviewList {
+    position: absolute;
+    max-height: 386px;
+    top: 50%;
+    right: -76px;
+    transform: translateY(-50%) translateX(100%);
+    overflow: hidden;
+
+}
+.overviewListItem {
+    display: flex;
+    align-items: center;
+    width: 260px;
+    height: 70px;
+    margin-bottom: 35px;
+    background-color: var(--title2-bg-color);
+}
+.overviewListItem:last-child {
+    margin-bottom: 0;
+}
+.overviewListItemLabel {
+    flex: 0 0 32.13px;
+    font-size: 22.41px;
+    line-height: 35px;
+    height: 100%;
+    /*writing-mode: vertical-lr;*/
+    background-color: var(--color);
+}
+.overviewListItemTitle {
+    flex: 1 1 auto;
+    width: 0;
+    text-align: center;
+
+    font-size: 26px;
+    line-height: 26px;
+
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
 
 .leftText {
     display: flex;
