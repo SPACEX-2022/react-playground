@@ -55,6 +55,7 @@ const TOP_NODE_HEIGHT = 150;
 const LEFT_TEXT_MOVE_DIS = 138;
 const SCALE_TITLE_MOVE_DIS = 138 - (75 / 2);
 const SCALE = 1.4;
+const OVERVIEW_SCALE = 0.7;
 
 const GSAPDemo = () => {
     const [duration, setDuration] = useState(0);
@@ -70,9 +71,9 @@ const GSAPDemo = () => {
     })
 
     const [sequence, setSequence] = useState([
-        { id: nanoid(), index: 0, duration: 0 },
-        { id: nanoid(), index: 1, duration: 0 },
-        { id: nanoid(), index: 2, duration: 0 },
+        { id: nanoid(), index: 0, duration: 0, eventAffected: true, },
+        { id: nanoid(), index: 1, duration: 0, eventAffected: true, },
+        { id: nanoid(), index: 2, duration: 0, eventAffected: true, },
     ])
 
     const [_data, setData] = useState(JSON.stringify({
@@ -311,38 +312,44 @@ const GSAPDemo = () => {
     }
 
     const animeEventArrow = () => {
-        const lineEl = refs['eventArrow'].querySelector('#line');
-        const arrowEl = refs['eventArrow'].querySelector('#arrow');
-
         const timeline = gsap.timeline();
-        return timeline
-            .set(lineEl, { alpha: 1 })
-            .set(arrowEl, { alpha: 1 })
-            .fromTo(lineEl,
-                {
-                    drawSVG: false,
-                },
-                {
-                    drawSVG: true,
-                    duration: 0.7,
-                    ease: 'power1.inOut',
-                }
-            )
-            .to(
-                arrowEl,
-                {
-                    motionPath: {
-                        path: lineEl,
-                        align: lineEl,
-                        alignOrigin: [0.5, 0.5],
-                        autoRotate: true,
+        timeline.addLabel('eventStart');
+        sequence.filter(i => i.eventAffected === true).forEach(item => {
+            const index = item.index;
+            const lineEl = refs[`eventArrow${index}`].querySelector('#line');
+            const arrowEl = refs[`eventArrow${index}`].querySelector('#arrow');
+
+            timeline
+                .set(lineEl, { alpha: 1 }, 'eventStart')
+                .set(arrowEl, { alpha: 1 }, 'eventStart')
+                .fromTo(lineEl,
+                    {
+                        drawSVG: false,
                     },
-                    // reversed: true,
-                    duration: 0.7,
-                    ease: 'power1.inOut',
-                },
-                '<'
-            );
+                    {
+                        drawSVG: true,
+                        duration: 0.7,
+                        ease: 'power1.inOut',
+                    },
+                    'eventStart',
+                )
+                .to(
+                    arrowEl,
+                    {
+                        motionPath: {
+                            path: lineEl,
+                            align: lineEl,
+                            alignOrigin: [0.5, 0.5],
+                            autoRotate: true,
+                        },
+                        // reversed: true,
+                        duration: 0.7,
+                        ease: 'power1.inOut',
+                    },
+                    'eventStart'
+                );
+        })
+        return timeline;
     }
 
     const animeNodeArrow = (nodeIndex, diff) => {
@@ -524,6 +531,8 @@ const GSAPDemo = () => {
                 ease: 'power1.inOut',
             }, '<')
             .add(animeEventArrow())
+            .set({}, {}, '+=1')
+            .addLabel('eventEnd')
 
         // 展示各顶层节点
         sequence.forEach((item, _index) => {
@@ -599,8 +608,8 @@ const GSAPDemo = () => {
             )
             .to(refs['contentWrapper'], {
                 duration: 0.5,
-                scale: 0.9,
-                x: '-=150',
+                scale: OVERVIEW_SCALE,
+                x: '-=200',
                 ease: 'power1.inOut',
             }, '+=1')
             .addLabel('summaryScaleEnd')
@@ -679,6 +688,14 @@ const GSAPDemo = () => {
             editable: false,
             className: 'drag-visible',
             renderText: (_, record, index) => (data[record.index].title)
+        },
+        {
+            title: 'eventAffected',
+            dataIndex: 'eventAffected',
+            editable: true,
+            valueType: 'switch',
+            className: 'drag-visible',
+            // renderText: (_, record, index) => (data[record.index].title)
         },
         {
             title: 'duration (s)',
@@ -928,12 +945,33 @@ const GSAPDemo = () => {
                             <div ref={ref => refs['contentWrapper'] = ref} className={styles.contentWrapper}>
                                 <canvas ref={ref => refs['canvas'] = ref} style={{ position: 'absolute', top: 0, left: 0, width: resolutions[0] + 'px', height: resolutions[1] + 'px' }} />
                                 <svg xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: 0, left: 0, width: resolutions[0] + 'px', height: resolutions[1] + 'px' }}>
-                                    <g ref={ref => refs['eventArrow'] = ref} fill="none" fillRule="evenodd"
-                                       stroke="#FFF" strokeLinecap="round"
-                                       strokeLinejoin="round" strokeWidth="10">
-                                        <path id="line" d={`M257 ${height / 2}h86`} style={{ opacity: 0 }} />
-                                        <path id="arrow" d="M5 5 28.256 28.256l-23.256 23.256" style={{ opacity: 0 }} />
-                                    </g>
+                                    {/*<g className={'eventArrow'} fill="none" fillRule="evenodd"*/}
+                                    {/*   stroke="#FFF" strokeLinecap="round"*/}
+                                    {/*   strokeLinejoin="round" strokeWidth="10">*/}
+                                    {/*    <path id="line" d={`M257 ${height / 2}l136 ${-398 - TOP_NODE_HEIGHT / 2}`} style={{ opacity: 0 }} />*/}
+                                    {/*    <path id="arrow" d="M5 5 28.256 28.256l-23.256 23.256" style={{ opacity: 0 }} />*/}
+                                    {/*</g>*/}
+                                    {
+                                        sequence.filter(i => i.eventAffected === true).map((item, index) => {
+                                            const endX = item.index === 1 ? 86 : 136;
+                                            const endY = item.index === 1 ? 0 : (-398 - TOP_NODE_HEIGHT / 2 + 20);
+                                            return (
+                                                <g key={item.id} ref={ref => refs[`eventArrow${item.index}`] = ref} fill="none" fillRule="evenodd"
+                                                   stroke="#FFF" strokeLinecap="round"
+                                                   strokeLinejoin="round" strokeWidth="10">
+                                                    <path id="line" d={`M257 ${height / 2}l${endX} ${item.index === 2 ? Math.abs(endY) : endY}`} style={{opacity: 0}}/>
+                                                    <path id="arrow" d="M5 5 28.256 28.256l-23.256 23.256"
+                                                          style={{opacity: 0}}/>
+                                                </g>
+                                            )
+                                        })
+                                    }
+                                    {/*<g ref={ref => refs['eventArrow'] = ref} fill="none" fillRule="evenodd"*/}
+                                    {/*   stroke="#FFF" strokeLinecap="round"*/}
+                                    {/*   strokeLinejoin="round" strokeWidth="10">*/}
+                                    {/*    <path id="line" d={`M257 ${height / 2}h86`} style={{opacity: 0}}/>*/}
+                                    {/*    <path id="arrow" d="M5 5 28.256 28.256l-23.256 23.256" style={{ opacity: 0 }} />*/}
+                                    {/*</g>*/}
                                     {
                                         arrowList()
                                     }
@@ -961,7 +999,7 @@ const GSAPDemo = () => {
                                                                 className={styles.titleIndex}>{titleIndexData[index].label}</div>
                                                             <div className={styles.titleContentNode}>{item.title}</div>
                                                         </div>
-                                                        <div ref={ref => item.overlistRef = ref} className={styles.overviewList}>
+                                                        <div ref={ref => item.overlistRef = ref} className={styles.overviewList} style={{ transform: `scale(${1 / OVERVIEW_SCALE}) translateY(-50%) translateX(100%)` }}>
                                                             {
                                                                 item.children.map((child, childIndex) => {
                                                                     return (
