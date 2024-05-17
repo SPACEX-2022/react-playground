@@ -16,7 +16,7 @@ import {DragSortTable, ProList} from "@ant-design/pro-components";
 import dayjs from "dayjs";
 import {nanoid} from "nanoid";
 import cloneDeep from 'lodash.clonedeep';
-import { testData } from "./data";
+import {testData, testData2} from "./data";
 import Crunker from 'crunker';
 // import Color from 'color';
 // import { SplitText } from "gsap/SplitText";
@@ -70,6 +70,29 @@ const SCALE_TITLE_MOVE_DIS = 138 - (75 / 2);
 const SCALE = 1.4;
 const OVERVIEW_SCALE = 0.7;
 
+let list = [];
+let seq = [];
+testData2.children.forEach((item, index) => {
+    let _index = 0;
+    if (item.name.startsWith('上')) {
+        _index = 0;
+    } else if (item.name.startsWith('中')) {
+        _index = 1;
+    } else if (item.name.startsWith('下')) {
+        _index = 2;
+    }
+
+    seq.push({
+        id: nanoid(),
+        index: _index,
+        duration: 0,
+        eventAffected: index === 0,
+    })
+    list[_index] = {};
+    list[_index].title = item.name.split('\r\n\t\t')[1];
+    list[_index].children = item?.children.map(i => ({ title: i.name, children: [] }));
+})
+console.log(seq)
 const GSAPDemo = () => {
     const [duration, setDuration] = useState(0);
     const [timestamp, setTimestamp] = useState(0);
@@ -85,174 +108,12 @@ const GSAPDemo = () => {
     const [audioSrc, setAudioSrc] = useState('');
     const audioRef = useRef();
 
+    const [eventName] = useState(testData2.name);
     const [ttsData, setTtsData] = useState([]);
-    const [sequence, setSequence] = useState([
-        { id: nanoid(), index: 0, duration: 0, eventAffected: true, },
-        { id: nanoid(), index: 1, duration: 0, eventAffected: true, },
-        { id: nanoid(), index: 2, duration: 0, eventAffected: true, },
-    ])
+    const [sequence, setSequence] = useState(seq)
 
     const [_data, setData] = useState(JSON.stringify({
-        // sequence: [1, 2, 3],
-        data: [
-            {
-                title: '基础层',
-                children: [
-                    {
-                        title: '大模型大模型',
-                        desc: '描述描述描述描述描述描述描述描述',
-                        children: [
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                        ]
-                    }
-                ]
-            },
-            {
-                title: '技术层',
-                children: [
-                    {
-                        title: '大模型大模型大模型大模型大模型大模型',
-                        desc: '描述描述描述描述描述描述描述描述',
-                        children: [
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                        ]
-                    },
-                    {
-                        title: '大模型大模型',
-                        desc: '描述描述描述描述描述描述描述描述',
-                        children: [
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                        ]
-                    },
-                    {
-                        title: '大模型大模型',
-                        desc: '描述描述描述描述描述描述描述描述',
-                        children: [
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                        ]
-                    },
-                ]
-            },
-            {
-                title: '应用层',
-                children: [
-                    {
-                        title: '大模型大模型',
-                        desc: '描述描述描述描述描述描述描述描述',
-                        children: [
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                        ]
-                    },
-                    {
-                        title: '大模型大模型',
-                        desc: '描述描述描述描述描述描述描述描述',
-                        children: [
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                        ]
-                    },
-                    {
-                        title: '大模型大模型',
-                        desc: '描述描述描述描述描述描述描述描述',
-                        children: [
-                            {
-                                title: '智能计算平台',
-                                desc: '描述描述描述描述描述描述描述描述',
-                            },
-                        ]
-                    },
-                ]
-            },
-        ]
+        data: list,
     }, null, 2))
 
     // const demoData = useMemo(() => JSON.parse(_data), [_data]);
@@ -549,21 +410,24 @@ const GSAPDemo = () => {
             .add(animeEventArrow())
             .addLabel('eventEnd')
 
+        const eventCost = timeline.current.labels.eventEnd - timeline.current.labels.start;
         console.log('以下单位皆为秒')
-        console.log(`事件动画耗费时间：${timeline.current.labels.eventEnd - timeline.current.labels.start}`)
+        console.log(`事件动画耗费时间：${eventCost}`, timeline.current)
 
-        timeline.current.set({}, {}, '+=1')
+        timeline.current.set({}, {}, `+=${(testData[0].duration / 1000) - eventCost}`)
 
         // 展示各顶层节点
         sequence.forEach((item, _index) => {
             const index = item.index;
             const extraDuration = item.duration || 0;
-            timeline.current.addLabel(`topNodeStart${index}`)
+            const label = `topNodeStart${index}`;
+            timeline.current.addLabel(label)
+            timeline.current.set({}, {}, 0)
             if (_index !== 0) {
                 const prevNodeIndex = sequence[_index - 1].index;
                 // const nextNodeIndex = sequence[_index + 1].index;
                 const diff = index - prevNodeIndex;
-                timeline.current.add(animeNodeArrow(index, diff), '<+1')
+                timeline.current.add(animeNodeArrow(index, diff))
             }
             timeline.current
                 .add(createShowTitleTimeLine(index))
@@ -574,9 +438,10 @@ const GSAPDemo = () => {
                 }, '>-0.1')
 
             const moveItemDis = 155;
+            const scrollChildrenLength = 5;
             data[index].children.forEach((item, _index) => {
                 let position = '+=0'
-                if (_index >= 5) {
+                if (_index >= scrollChildrenLength) {
                     timeline.current.to(data[index].listRef, {
                         duration: 0.5,
                         scrollTop: `+=${moveItemDis}`,
@@ -598,27 +463,33 @@ const GSAPDemo = () => {
                 )
             })
 
-            timeline.current.to(data[index].listRef, {
-                duration: 0.5,
-                scrollTop: 0,
-                ease: 'power1.inOut',
-            });
+            if (data[index].children.length >= scrollChildrenLength) {
+                timeline.current.to(data[index].listRef, {
+                    duration: 0.5,
+                    scrollTop: 0,
+                    ease: 'power1.inOut',
+                });
+            }
 
-            timeline.current.add(showSectorList(index, extraDuration), '+=0.5')
+            // timeline.current.add(showSectorList(index, extraDuration), '+=0.5')
 
+
+
+            timeline.current.addLabel(`topNodeEnd${index}`);
+            const map = [2,1,3]
+
+            const costTime = timeline.current.labels[`topNodeEnd${index}`] - timeline.current.labels[label];
+            console.log(`第${index + 1}个节点动画耗费时间：${(costTime).toFixed(2)} ${testData[map[index]].duration / 1000} ${testData[map[index]].duration / 1000 - costTime}`);
+
+
+            timeline.current.set({}, {}, `+=${testData[map[index]].duration / 1000 - costTime - 1}`)
             timeline.current
                 .to(data[index].listRef, {
                     duration: 0.3,
                     height: 0,
                     ease: 'power1.inOut',
                 }, '+=1')
-
-            timeline.current
-                .add(createShowTitleTimeLine(index, true), '<')
-                .delay(1)
-                .addLabel(`topNodeEnd${index}`);
-
-            console.log(`第${index + 1}个节点动画耗费时间：${(timeline.current.labels[`topNodeEnd${index}`] - timeline.current.labels[`topNodeStart${index}`]).toFixed(2)}`)
+            timeline.current.add(createShowTitleTimeLine(index, true), '<');
         })
 
 
@@ -653,8 +524,10 @@ const GSAPDemo = () => {
         })
 
         timeline.current.addLabel('summaryEnd');
+        const summaryCost = timeline.current.labels.summaryEnd - timeline.current.labels.summaryStart;
+        console.log(`总结动画耗费时间：${summaryCost}`)
+        timeline.current.set({}, {}, `+=${testData[4].duration / 1000 - summaryCost}`)
 
-        console.log(`总结动画耗费时间：${timeline.current.labels.summaryEnd - timeline.current.labels.summaryStart}`)
 
         timeline.current.addLabel('endTime');
 
@@ -777,9 +650,28 @@ const GSAPDemo = () => {
     })
 
     useEffect(() => {
-        if (localDataList.length) {
-            onUseData(0);
-        }
+        // if (localDataList.length) {
+        //     onUseData(0);
+        // }
+        // console.log('data', data)
+        //
+        // let list = cloneDeep(data);
+        // testData2.children.forEach((item, index) => {
+        //     let _index = 0;
+        //     if (item.name.startsWith('上')) {
+        //         _index = 0;
+        //     } else if (item.name.startsWith('中')) {
+        //         _index = 1;
+        //     } else if (item.name.startsWith('下')) {
+        //         _index = 2;
+        //     }
+        //
+        //     list[_index].title = item.name.split('\r\n\t\t')[1];
+        //     list[_index].children = item?.children.map(i => ({ title: i.name, children: [] }));
+        // })
+        //
+        // console.log('list', list)
+        // setUseData([...list]);
     }, [])
 
     const onSaveDataLocally = () => {
@@ -913,7 +805,7 @@ const GSAPDemo = () => {
                 height: '100%',
                 overflowY: 'auto'
             }}>
-                <Form layout={'vertical'}>
+                <Form layout={'vertical'} style={{ display: 'none' }}>
                     <FormItem label="Sequence">
                         <DragSortTable
                             toolBarRender={false}
@@ -1025,6 +917,7 @@ const GSAPDemo = () => {
                         <div className={styles.stageBorder} style={{transform: `scale(${1})`}}></div>
 
                         <div ref={ref => refs['stage'] = ref} className={styles.stageContent} style={{fontSize: `${resolutions[1] / 10}px`}}>
+                            <video muted={true} autoPlay={true} loop={true} src="https://dl-test-1309667514.cos.ap-shanghai.myqcloud.com/visual/mavideo/飞书20240517-144640-1163727985224563854.mp4" className={styles.stageBg} />
                             <div ref={ref => refs['contentWrapper'] = ref} className={styles.contentWrapper}>
                                 <canvas ref={ref => refs['canvas'] = ref} style={{ position: 'absolute', top: 0, left: 0, width: resolutions[0] + 'px', height: resolutions[1] + 'px' }} />
                                 <svg xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: 0, left: 0, width: resolutions[0] + 'px', height: resolutions[1] + 'px' }}>
@@ -1052,7 +945,7 @@ const GSAPDemo = () => {
                                     }
                                 </svg>
                                 <div ref={ref => refs['leftText'] = ref} className={styles.leftText}>
-                                    <div className={styles.leftTextContent}>百模大战</div>
+                                    <div className={styles.leftTextContent}>{ eventName }</div>
                                 </div>
                                 <div ref={ref => refs['titleWrapper'] = ref} className={styles.titleWrapper}>
                                     {
@@ -1068,7 +961,7 @@ const GSAPDemo = () => {
                                                                 className={styles.titleIndex}>{titleIndexData[index].label}</div>
                                                             <div className={styles.titleContentNode}>{item.title}</div>
                                                         </div>
-                                                        <div ref={ref => item.overlistRef = ref} className={styles.overviewList} style={{ transform: `scale(${1 / OVERVIEW_SCALE}) translateY(-50%) translateX(100%)` }}>
+                                                        <div ref={ref => item.overlistRef = ref} className={styles.overviewList} style={{ transform: `scale(${1 / OVERVIEW_SCALE}) translateY(-${50 / (1 / OVERVIEW_SCALE)}%) translateX(100%)` }}>
                                                             {
                                                                 item.children.map((child, childIndex) => {
                                                                     return (
