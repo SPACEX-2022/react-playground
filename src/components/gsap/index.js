@@ -1093,9 +1093,9 @@ const GSAPDemo = () => {
                                                                             <div
                                                                                 className={styles.listItemTitle}>
                                                                                 {child.title}
-                                                                                <div className={styles.listItemDesc}>
-                                                                                    {child.desc}
-                                                                                </div>
+                                                                                {/*<div className={styles.listItemDesc}>*/}
+                                                                                {/*    {child.desc}*/}
+                                                                                {/*</div>*/}
                                                                             </div>
                                                                             <div style={{overflow: 'hidden'}}>
                                                                                 <div ref={ref => child.listRef = ref}
@@ -1111,9 +1111,9 @@ const GSAPDemo = () => {
                                                                                                     </div>
                                                                                                     <div
                                                                                                         className={styles.sectorTitle}>{grandson.title}</div>
-                                                                                                    <div
-                                                                                                        className={styles.sectorDesc}>{grandson.desc}
-                                                                                                    </div>
+                                                                                                    {/*<div*/}
+                                                                                                    {/*    className={styles.sectorDesc}>{grandson.desc}*/}
+                                                                                                    {/*</div>*/}
                                                                                                 </div>
                                                                                             )
                                                                                         })
