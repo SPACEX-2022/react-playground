@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="42.9737294px" height="402.5px" viewBox="0 0 42.9737294 402.5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组备份</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="画板09" transform="translate(-350.0263, -472.2363)" stroke-width="6">
+            <g id="01" transform="translate(-0, 0)">
+                <g id="编组备份" transform="translate(371.5131, 673.2363) scale(1, -1) translate(-371.5131, -673.2363)translate(353.0263, 474.7363)">
+                    <line x1="18.8373623" y1="396.5" x2="18.9579774" y2="0" id="路径-2" stroke="url(#linearGradient-1)"></line>
+                    <polyline id="路径-3" stroke="#FFFFFF" points="0 377.5 18.486863 396.5 36.9737259 377.5"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

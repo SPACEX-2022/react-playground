@@ -16,6 +16,8 @@ import {DragSortTable, ProList} from "@ant-design/pro-components";
 import dayjs from "dayjs";
 import {nanoid} from "nanoid";
 import cloneDeep from 'lodash.clonedeep';
+import { testData } from "./data";
+import Crunker from 'crunker';
 // import Color from 'color';
 // import { SplitText } from "gsap/SplitText";
 
@@ -23,31 +25,41 @@ import cloneDeep from 'lodash.clonedeep';
 gsap.registerPlugin(DrawSVGPlugin, MotionPathPlugin)
 // gsap.registerPlugin();
 const mindMapData = {"layout":"logicalStructure","root":{"data":{"text":"\u003Cp\u003E\u003Cstrong style=\"font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(255, 255, 255); font-size: 24px;\"\u003E光刻机\u003C/strong\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"470e7df9-b8c6-4b3a-ac54-2b2dc82dca7f"},"children":[{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(255, 255, 255); font-size: 18px;\"\u003E材料及设备\u003C/span\u003E\u003C/p\u003E","generalization":null,"richText":true,"expand":true,"isActive":false,"uid":"5e486721-0563-4ef1-9ac7-e674d576d7aa"},"children":[{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86); font-size: 14px;\"\u003E光刻机\u003C/span\u003E\u003C/p\u003E","richText":true,"expand":true,"isActive":false,"uid":"db9817b7-7fc7-4bf4-9cc7-91814d9d53b7"},"children":[{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E彤程新材\u003C/span\u003E\u003C/p\u003E","uid":"8211c7b7-af8c-4170-a7f6-450415d2df5a","expand":true,"richText":true,"isActive":false},"children":[{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E从事新材料的研发生产，光刻胶专利保证光刻胶回刻的平坦化程度\u003C/span\u003E\u003C/p\u003E","uid":"389d7647-5806-4e5a-a783-22b853170201","expand":true,"richText":true,"isActive":false},"children":[]}]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E晶瑞电材\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"2cc7afc0-0e66-4bab-a737-d6141c9f300c"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E南大光电\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"cd9f569f-b471-4f7b-9f60-03e37ada553d"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E容大感光\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"dfdb34bb-0d48-4a18-b6c3-e8385676c524"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E同益股份\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"584774a3-5b17-4e8e-8508-abce2147d2da"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E华丰科技\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"f3fec018-e9fd-4599-bfcc-2416fe8b1d6a"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E上海新阳\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"188d1823-6754-4a47-9156-aff813403d3f"},"children":[]}]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86); font-size: 14px;\"\u003E电子特气\u003C/span\u003E\u003C/p\u003E","richText":true,"expand":true,"isActive":false,"uid":"a0762b35-db88-4d58-a976-fcf6b79c8831"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E涂胶显影设备\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"bd7e58fc-0363-42a7-b70e-97bf29c3f32e"},"children":[]}]}]},"theme":{"template":"classic4","config":{}},"view":{"transform":{"scaleX":1,"scaleY":1,"shear":0,"rotate":0,"translateX":-355,"translateY":-20,"originX":0,"originY":0,"a":1,"b":0,"c":0,"d":1,"e":-355,"f":-20},"state":{"scale":1,"x":-355,"y":-20,"sx":-355,"sy":-20}}}
-
+// '--color': titleIndexData[index].themeColor,
+//     '--font-color': titleIndexData[index].fontColor,
+//     '--title2-bg-color': titleIndexData[index].title2BgColor,
+//     '--sector-bg-color': titleIndexData[index].sectorBgColor,
+//     '--sector-font-color': titleIndexData[index].sectorFontColor,
 const titleIndexData = [
     {
         label: '上',
-        themeColor: '#009FFF',
-        fontColor: '#084C75',
-        title2BgColor: '#54BFFF',
-        sectorBgColor: '#D7F0FF',
-        sectorFontColor: '#2277A9',
+        cssVars: {
+            '--color': '#009FFF',
+            '--font-color': '#084C75',
+            '--title2-bg-color': '#54BFFF',
+            '--sector-bg-color': '#D7F0FF',
+            '--sector-font-color': '#2277A9',
+        },
     },
     {
         label: '中',
-        themeColor: '#EFBB35',
-        fontColor: '#6D4F03',
-        title2BgColor: '#FFD977',
-        sectorBgColor: '#FFF0C9',
-        sectorFontColor: '#BA932D',
+        cssVars: {
+            '--color': '#EFBB35',
+            '--font-color': '#6D4F03',
+            '--title2-bg-color': '#FFD977',
+            '--sector-bg-color': '#FFF0C9',
+            '--sector-font-color': '#BA932D',
+        },
     },
     {
         label: '下',
-        themeColor: '#0C8B75',
-        fontColor: '#023E34',
-        title2BgColor: '#25BFA5',
-        sectorBgColor: '#D3FFF8',
-        sectorFontColor: '#4D8B81',
+        cssVars: {
+            '--color': '#0C8B75',
+            '--font-color': '#023E34',
+            '--title2-bg-color': '#25BFA5',
+            '--sector-bg-color': '#D3FFF8',
+            '--sector-font-color': '#4D8B81',
+        },
     },
 ]
 
@@ -70,7 +82,10 @@ const GSAPDemo = () => {
         width: 0,
         height: 0,
     })
+    const [audioSrc, setAudioSrc] = useState('');
+    const audioRef = useRef();
 
+    const [ttsData, setTtsData] = useState([]);
     const [sequence, setSequence] = useState([
         { id: nanoid(), index: 0, duration: 0, eventAffected: true, },
         { id: nanoid(), index: 1, duration: 0, eventAffected: true, },
@@ -497,7 +512,7 @@ const GSAPDemo = () => {
     }
 
     useGSAP(() => {
-        console.log('useGSAP')
+        // console.log('useGSAP')
         const [width, height] = resolutions;
 
         timeline.current = gsap.timeline({
@@ -506,7 +521,7 @@ const GSAPDemo = () => {
                 // console.log(timeline.current)
                 setTimestamp(timeline.current.time())
             }
-        });
+        }).addLabel('start');
 
         data.forEach((item, index) => {
             timeline.current.add(
@@ -532,13 +547,18 @@ const GSAPDemo = () => {
                 ease: 'power1.inOut',
             }, '<')
             .add(animeEventArrow())
-            .set({}, {}, '+=1')
             .addLabel('eventEnd')
+
+        console.log('以下单位皆为秒')
+        console.log(`事件动画耗费时间：${timeline.current.labels.eventEnd - timeline.current.labels.start}`)
+
+        timeline.current.set({}, {}, '+=1')
 
         // 展示各顶层节点
         sequence.forEach((item, _index) => {
             const index = item.index;
             const extraDuration = item.duration || 0;
+            timeline.current.addLabel(`topNodeStart${index}`)
             if (_index !== 0) {
                 const prevNodeIndex = sequence[_index - 1].index;
                 // const nextNodeIndex = sequence[_index + 1].index;
@@ -595,12 +615,16 @@ const GSAPDemo = () => {
 
             timeline.current
                 .add(createShowTitleTimeLine(index, true), '<')
-                .delay(1);
+                .delay(1)
+                .addLabel(`topNodeEnd${index}`);
+
+            console.log(`第${index + 1}个节点动画耗费时间：${(timeline.current.labels[`topNodeEnd${index}`] - timeline.current.labels[`topNodeStart${index}`]).toFixed(2)}`)
         })
 
 
         // 总结片段
         timeline.current
+            .addLabel('summaryStart')
             .set(
                 refs['contentWrapper'],
                 {
@@ -628,13 +652,16 @@ const GSAPDemo = () => {
             })
         })
 
+        timeline.current.addLabel('summaryEnd');
+
+        console.log(`总结动画耗费时间：${timeline.current.labels.summaryEnd - timeline.current.labels.summaryStart}`)
 
         timeline.current.addLabel('endTime');
-        console.log(999, timestamp, timeline.current.duration(), timeline.current.totalTime(), timeline.current)
 
         const endTime = timeline.current.labels.endTime;
         timeline.current.seek(Math.min(endTime, timestamp));
         setDuration(endTime);
+        console.log(`当前 seek 时间点：${timestamp}，动画总时长：${endTime}`)
     }, {
         scope: refs['stage'],
         dependencies: [config, data, sequence],
@@ -655,9 +682,11 @@ const GSAPDemo = () => {
 
     const onPlay = () => {
         if (playing) {
+            audioRef.current.pause();
             timeline.current.pause();
             setPlaying(false);
         } else {
+            audioRef.current.play();
             timeline.current.play();
             setPlaying(true);
         }
@@ -670,6 +699,8 @@ const GSAPDemo = () => {
     const onSeek = (timestamp) => {
         console.log(timestamp)
         setTimestamp(timestamp);
+        audioRef.current.pause();
+        audioRef.current.currentTime = timestamp;
         timeline.current.seek(timestamp).pause();
         setPlaying(false);
         // timeline.current.pause();
@@ -831,8 +862,51 @@ const GSAPDemo = () => {
         });
     }
 
+    const createLinear = (attr) => {
+        return (
+            <defs>
+                <linearGradient { ...attr }>
+                    <stop stopColor="#FFFFFF" offset="0%"></stop>
+                    <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
+                </linearGradient>
+            </defs>
+        )
+    }
+
+    const [ttsDataString, setTtsDataString] = useState(JSON.stringify(testData, null, 2));
+
+    useDebounceEffect(() => {
+        try {
+            if (!ttsDataString) return;
+            console.log('setTtsData');
+            const data = JSON.parse(ttsDataString);
+            const mp3UrlList = data.map(i => i.url);
+            const crunker = new Crunker();
+            message.open({
+                content: '正在加载音频，请稍后...',
+                key: 'loading',
+                type: 'loading',
+                // icon: <PauseOutlined />,
+                duration: 0,
+            })
+            crunker.fetchAudio(...mp3UrlList).then(buffers => {
+                return crunker.concatAudio(buffers);
+            }).then(concatAudio => {
+                return crunker.export(concatAudio, 'audio/mp3')
+            }).then(exported => {
+                console.log('concat audio result: ', exported);
+                setAudioSrc(exported.url);
+                message.destroy();
+            })
+            setTtsData(data);
+        } catch (e) {
+            message.error('数据格式错误');
+        }
+    }, 500, [ttsDataString])
+
     return (
         <Layout className={styles.container}>
+            <audio ref={audioRef} src={audioSrc} loop={false}></audio>
             <Sider width={500} style={{
                 padding: 10,
                 background: '#fff',
@@ -859,6 +933,14 @@ const GSAPDemo = () => {
                                     return true;
                                 },
                             }}
+                        />
+                    </FormItem>
+                    <FormItem label="TTS Data">
+                        <Input.TextArea
+                            autoSize={{minRows: 10, maxRows: 30}}
+                            value={ttsDataString}
+                            onChange={e => setTtsDataString(e.target.value)}
+                            onKeyDown={e => e.stopPropagation()}
                         />
                     </FormItem>
                     <FormItem label="Data">
@@ -946,20 +1028,18 @@ const GSAPDemo = () => {
                             <div ref={ref => refs['contentWrapper'] = ref} className={styles.contentWrapper}>
                                 <canvas ref={ref => refs['canvas'] = ref} style={{ position: 'absolute', top: 0, left: 0, width: resolutions[0] + 'px', height: resolutions[1] + 'px' }} />
                                 <svg xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: 0, left: 0, width: resolutions[0] + 'px', height: resolutions[1] + 'px' }}>
-                                    {/*<g className={'eventArrow'} fill="none" fillRule="evenodd"*/}
-                                    {/*   stroke="#FFF" strokeLinecap="round"*/}
-                                    {/*   strokeLinejoin="round" strokeWidth="10">*/}
-                                    {/*    <path id="line" d={`M257 ${height / 2}l136 ${-398 - TOP_NODE_HEIGHT / 2}`} style={{ opacity: 0 }} />*/}
-                                    {/*    <path id="arrow" d="M5 5 28.256 28.256l-23.256 23.256" style={{ opacity: 0 }} />*/}
-                                    {/*</g>*/}
                                     {
                                         sequence.filter(i => i.eventAffected === true).map((item, index) => {
+                                            const linearDefId = 'linearDef_item' + item.id;
+
                                             const endX = item.index === 1 ? 86 : 136;
                                             const endY = item.index === 1 ? 0 : (-398 - TOP_NODE_HEIGHT / 2 + 20);
                                             return (
                                                 <g key={item.id} ref={ref => refs[`eventArrow${item.index}`] = ref} fill="none" fillRule="evenodd"
                                                    stroke="#FFF" strokeLinecap="round"
                                                    strokeLinejoin="round" strokeWidth="10">
+                                                    { createLinear({ x1: '', y1: '', x2: '', y2: '', id: linearDefId }) }
+
                                                     <path id="line" d={`M257 ${height / 2}l${endX} ${item.index === 2 ? Math.abs(endY) : endY}`} style={{opacity: 0}}/>
                                                     <path id="arrow" d="M5 5 28.256 28.256l-23.256 23.256"
                                                           style={{opacity: 0}}/>
@@ -967,12 +1047,6 @@ const GSAPDemo = () => {
                                             )
                                         })
                                     }
-                                    {/*<g ref={ref => refs['eventArrow'] = ref} fill="none" fillRule="evenodd"*/}
-                                    {/*   stroke="#FFF" strokeLinecap="round"*/}
-                                    {/*   strokeLinejoin="round" strokeWidth="10">*/}
-                                    {/*    <path id="line" d={`M257 ${height / 2}h86`} style={{opacity: 0}}/>*/}
-                                    {/*    <path id="arrow" d="M5 5 28.256 28.256l-23.256 23.256" style={{ opacity: 0 }} />*/}
-                                    {/*</g>*/}
                                     {
                                         arrowList()
                                     }
@@ -987,13 +1061,7 @@ const GSAPDemo = () => {
                                                 <>
                                                     <div key={index} ref={ref => item.ref = ref}
                                                          className={styles.title}
-                                                         style={{
-                                                             '--color': titleIndexData[index].themeColor,
-                                                             '--font-color': titleIndexData[index].fontColor,
-                                                             '--title2-bg-color': titleIndexData[index].title2BgColor,
-                                                             '--sector-bg-color': titleIndexData[index].sectorBgColor,
-                                                             '--sector-font-color': titleIndexData[index].sectorFontColor,
-                                                         }}>
+                                                         style={titleIndexData[index].cssVars}>
                                                         <div ref={ref => item.titleRef = ref}
                                                              className={styles.titleContent + ' ' + (item.title.length > 10 ? styles.titleContentMinFs : (item.title.length > 5 ? styles.titleContentMiddleFs : styles.titleContentMaxFs))}>
                                                             <div
@@ -1004,7 +1072,7 @@ const GSAPDemo = () => {
                                                             {
                                                                 item.children.map((child, childIndex) => {
                                                                     return (
-                                                                        <div className={styles.overviewListItem}>
+                                                                        <div key={childIndex} className={styles.overviewListItem}>
                                                                             <div className={styles.overviewListItemLabel}>利好</div>
                                                                             <div className={styles.overviewListItemTitle}>{ child.title }</div>
                                                                         </div>
