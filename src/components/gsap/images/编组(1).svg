@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="242.9737294px" height="402.5px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="442.9737294px" height="802.5px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>编组</title>
-    <defs>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
-            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
-            <stop stop-color="#FFFFFF" offset="100%"></stop>
-        </linearGradient>
-    </defs>
     <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
         <g id="画板09" stroke-width="6">
             <g id="01">
                 <g id="编组">
-<!--                    <path d="M-108 0 L18.2878788 396.5 L18.4084939 0" stroke="url(#linearGradient-1)"></path>-->
-                    <line x1="180.2878788" y1="396.5" x2="0.4084939" y2="0" id="路径-2" stroke="url(#linearGradient-1)"></line>
+                    <defs>
+                        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+                            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+                            <stop stop-color="#FFFFFF" offset="100%"></stop>
+                        </linearGradient>
+                    </defs>
+                    <path d="M-108 0 L18.2878788 396.5 L18.4084939 0" stroke="url(#linearGradient-1)"></path>
+<!--                    <line x1="180.2878788" y1="396.5" x2="0.4084939" y2="0" id="路径-2" stroke="url(#linearGradient-1)"></line>-->
                     <polyline id="路径-3" stroke="#FFFFFF" points="0 377 18.486863 396 36.9737259 377"></polyline>
                 </g>
             </g>

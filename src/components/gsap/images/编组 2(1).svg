@@ -2,7 +2,7 @@
 <svg width="119.000001px" height="37.0000006px" viewBox="0 0 119.000001 37.0000006" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>编组 2</title>
     <defs>
-        <linearGradient x1="0%" y1="49.9843371%" x2="100%" y2="50.0156629%" id="linearGradient-1">
+        <linearGradient x1="0%" y1="49.9843371%" x2="100%" y2="50.0156629%" id="linearGradient-1" gradientUnits="userSpaceOnUse">
             <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
             <stop stop-color="#FFFFFF" offset="100%"></stop>
         </linearGradient>

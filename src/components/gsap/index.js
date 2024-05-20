@@ -150,7 +150,7 @@ const GSAPDemo = () => {
         setScale(Math.min(widthRadio, heightRadio))
     }, [])
 
-    const createShowTitleTimeLine = (index, reverse = false) => {
+    const createShowTitleTimeLine = (index, reverse = false, set = false) => {
         const [width, height] = resolutions;
         const timeline = gsap.timeline();
         const x = (width + SCALE_TITLE_MOVE_DIS) * SCALE;
@@ -169,19 +169,20 @@ const GSAPDemo = () => {
             )
         }
         const prefix = reverse ? '+=' : '-=';
+        const func = set ? 'set' : 'to';
         timeline
-            .to(refs['contentWrapper'], {
-                duration: 0.5,
+            [func](refs['contentWrapper'], {
+                duration: set ? 0 : 0.5,
                 x: prefix + x,
                 y: prefix + y,
                 ease: 'power1.inOut',
             })
-            .to(refs['contentWrapper'], {
-                duration: 0.5,
+            [func](refs['contentWrapper'], {
+                duration: set ? 0 : 0.5,
                 scale: reverse ? 1 : SCALE,
             }, '<')
-            .to(data[index].ref, {
-                duration: 0.5,
+            [func](data[index].ref, {
+                duration: set ? 0 : 0.5,
                 x: (reverse ? '-=' : '+=') + width,
                 ease: 'power1.inOut',
             }, '<')
@@ -483,31 +484,56 @@ const GSAPDemo = () => {
 
 
             timeline.current.set({}, {}, `+=${testData[map[index]].duration / 1000 - costTime - 1}`)
+
+            const isLast = _index === sequence.length - 1;
             timeline.current
                 .to(data[index].listRef, {
-                    duration: 0.3,
+                    duration: isLast ? 0 : 0.3,
                     height: 0,
                     ease: 'power1.inOut',
                 }, '+=1')
-            timeline.current.add(createShowTitleTimeLine(index, true), '<');
+            timeline.current.add(createShowTitleTimeLine(index, true, isLast), '<');
         })
 
 
         // 总结片段
         timeline.current
             .addLabel('summaryStart')
-            .set(
-                refs['contentWrapper'],
-                {
-                    transformOrigin: 'center center'
-                }
-            )
-            .to(refs['contentWrapper'], {
-                duration: 0.5,
-                scale: OVERVIEW_SCALE,
-                x: '-=200',
-                ease: 'power1.inOut',
-            }, '+=1')
+            // .set(
+            //     refs['contentWrapper'],
+            //     {
+            //         transformOrigin: 'center center'
+            //     }
+            // );
+
+        data.forEach((item, index) => {
+            timeline.current
+                .set(item.titleRef, {
+                // alpha: 0,
+                    width: 0,
+                }, 'summaryStart')
+                .set(item.labelRef, {
+                // alpha: 0,
+                    scale: 0,
+                }, 'summaryStart')
+                .to(item.labelRef, {
+                    duration: 0.5,
+                    scale: 1,
+                    ease: 'power1.inOut',
+                }, 'summaryStart').to(item.titleRef, {
+                    width: 482,
+                    duration: 0.5,
+                    ease: 'power1.inOut',
+                }, '+=0')
+        })
+
+        timeline.current
+            // .to(refs['contentWrapper'], {
+            //     duration: 0.5,
+            //     scale: OVERVIEW_SCALE,
+            //     x: '-=200',
+            //     ease: 'power1.inOut',
+            // }, '+=1')
             .addLabel('summaryScaleEnd')
 
         data.forEach((item, index) => {
@@ -733,21 +759,25 @@ const GSAPDemo = () => {
             const currentIndex = item.index;
             const nextIndex = sequence[index + 1].index;
             const diff = nextIndex - currentIndex;
+
+            const linearDefId = 'nodeLinearDef_item' + item.id;
             if (Math.abs(diff) === 1) {
                 const startY = centerY - (nodeGutter + TOP_NODE_HEIGHT / 2);
                 return (
                     <g key={nextIndex} ref={ref => refs[`nodeArrow${nextIndex}`] = ref} fill="none" fillRule="evenodd" stroke="#FFF" strokeLinecap="round"
                        strokeLinejoin="round" strokeWidth="10">
-                        <path id="line" d={`M${centerX + LEFT_TEXT_MOVE_DIS} ${startY + (index * (398 + TOP_NODE_HEIGHT) + 30)} l0 ${nodeGutter - 60}`} style={{ opacity: 0 }} />
-                        {createArrow(diff > 0 ? 'bottom' : 'top')}
+                        { createLinear({ x1: '50%', y1: diff > 0 ? '0%' : '100%', x2: '50%', y2: diff > 0 ? '100%' : '0%', id: linearDefId }) }
+                        <path id="line" d={`M${centerX + LEFT_TEXT_MOVE_DIS} ${startY + (index * (398 + TOP_NODE_HEIGHT) + 30)} l0.1 ${nodeGutter - 60}`} stroke={`url(#${linearDefId})`} style={{ opacity: 0 }} />
+                        { createArrow(diff > 0 ? 'bottom' : 'top') }
                     </g>
                 )
             } else if (Math.abs(diff) > 1) {
                 return (
                     <g key={nextIndex} ref={ref => refs[`nodeArrow${nextIndex}`] = ref} fill="none" fillRule="evenodd" stroke="#FFF" strokeLinecap="round"
                        strokeLinejoin="round" strokeWidth="10">
-                        <path id="line" d={`M${centerX + LEFT_TEXT_MOVE_DIS + (TOP_NODE_WEIGHT / 2) + 20} ${centerY - nodeGutter - TOP_NODE_HEIGHT} l${moveRightDis} 0 v0 ${nodeGutter * 2 + TOP_NODE_HEIGHT * 2} h-${moveRightDis - 10} 0`}  style={{ opacity: 0 }} />
-                        {createArrow('right')}
+                        { createLinear({ x1: '50%', y1: diff > 0 ? '-20%' : '100%', x2: '50%', y2: diff > 0 ? '100%' : '-20%', id: linearDefId }) }
+                        <path id="line" stroke={`url(#${linearDefId})`} d={`M${centerX + LEFT_TEXT_MOVE_DIS + (TOP_NODE_WEIGHT / 2) + 20} ${centerY - nodeGutter - TOP_NODE_HEIGHT} l${moveRightDis} 0 v0 ${nodeGutter * 2 + TOP_NODE_HEIGHT * 2} h-${moveRightDis - 10} 0`}  style={{ opacity: 0 }} />
+                        { createArrow('right') }
                     </g>
                 )
             }
@@ -758,8 +788,8 @@ const GSAPDemo = () => {
         return (
             <defs>
                 <linearGradient { ...attr }>
-                    <stop stopColor="#FFFFFF" offset="0%"></stop>
-                    <stop stopColor="#FFFFFF" stopOpacity="0" offset="100%"></stop>
+                    <stop stopColor="#FFFFFF" stopOpacity="0" offset="0%"></stop>
+                    <stop stopColor="#FFFFFF" offset="100%"></stop>
                 </linearGradient>
             </defs>
         )
@@ -926,14 +956,14 @@ const GSAPDemo = () => {
                                             const linearDefId = 'linearDef_item' + item.id;
 
                                             const endX = item.index === 1 ? 86 : 136;
-                                            const endY = item.index === 1 ? 0 : (-398 - TOP_NODE_HEIGHT / 2 + 20);
+                                            const endY = item.index === 1 ? 0.1 : (-398 - TOP_NODE_HEIGHT / 2 + 20);
                                             return (
                                                 <g key={item.id} ref={ref => refs[`eventArrow${item.index}`] = ref} fill="none" fillRule="evenodd"
                                                    stroke="#FFF" strokeLinecap="round"
                                                    strokeLinejoin="round" strokeWidth="10">
-                                                    { createLinear({ x1: '', y1: '', x2: '', y2: '', id: linearDefId }) }
+                                                    { createLinear({ x1: '0%', y1: '50%', x2: '100%', y2: '50%', id: linearDefId }) }
 
-                                                    <path id="line" d={`M257 ${height / 2}l${endX} ${item.index === 2 ? Math.abs(endY) : endY}`} style={{opacity: 0}}/>
+                                                    <path id="line" d={`M257 ${height / 2}l${endX} ${item.index === 2 ? Math.abs(endY) : endY}`} stroke={`url(#${linearDefId})`} style={{opacity: 0}}/>
                                                     <path id="arrow" d="M5 5 28.256 28.256l-23.256 23.256"
                                                           style={{opacity: 0}}/>
                                                 </g>
@@ -957,8 +987,7 @@ const GSAPDemo = () => {
                                                          style={titleIndexData[index].cssVars}>
                                                         <div ref={ref => item.titleRef = ref}
                                                              className={styles.titleContent + ' ' + (item.title.length > 10 ? styles.titleContentMinFs : (item.title.length > 5 ? styles.titleContentMiddleFs : styles.titleContentMaxFs))}>
-                                                            <div
-                                                                className={styles.titleIndex}>{titleIndexData[index].label}</div>
+                                                            <div ref={ref => item.labelRef = ref} className={styles.titleIndex}>{titleIndexData[index].label}</div>
                                                             <div className={styles.titleContentNode}>{item.title}</div>
                                                         </div>
                                                         <div ref={ref => item.overlistRef = ref} className={styles.overviewList} style={{ transform: `scale(${1 / OVERVIEW_SCALE}) translateY(-${50 / (1 / OVERVIEW_SCALE)}%) translateX(100%)` }}>
