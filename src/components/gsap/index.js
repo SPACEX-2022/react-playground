@@ -68,7 +68,7 @@ const TOP_NODE_HEIGHT = 150;
 const LEFT_TEXT_MOVE_DIS = 138;
 const SCALE_TITLE_MOVE_DIS = 138 - (75 / 2);
 const SCALE = 1.4;
-const OVERVIEW_SCALE = 0.7;
+const OVERVIEW_SCALE = 1.4;
 
 let list = [];
 let seq = [];
@@ -499,54 +499,154 @@ const GSAPDemo = () => {
         // 总结片段
         timeline.current
             .addLabel('summaryStart')
-            // .set(
-            //     refs['contentWrapper'],
-            //     {
-            //         transformOrigin: 'center center'
-            //     }
-            // );
+            .set(
+                refs['contentWrapper'],
+                {
+                    transformOrigin: 'center center',
+                    x: '-=100',
+                }
+            );
+
+        Object.keys(refs).forEach(key => {
+            if (key.startsWith('eventArrow') || key.startsWith('nodeArrow')) {
+                timeline.current.set([refs[key].querySelector('#line'), refs[key].querySelector('#arrow')], {
+                    alpha: 0
+                })
+            }
+        })
 
         data.forEach((item, index) => {
             timeline.current
-                .set(item.titleRef, {
-                // alpha: 0,
+                .set(item.titleRef.querySelector(`.${styles.titleContentNodeWrapper}`), {
                     width: 0,
                 }, 'summaryStart')
                 .set(item.labelRef, {
-                // alpha: 0,
                     scale: 0,
                 }, 'summaryStart')
+        })
+
+        timeline.current.fromTo(refs['leftText'], {
+            x: -200,
+            alpha: 0,
+        }, {
+            duration: 0.5,
+            x: 0,
+            alpha: 1,
+            ease: 'power1.inOut',
+        }).add(animeEventArrow())
+
+        sequence.forEach((_, _index) => {
+            const index = _.index;
+            const item = data[index];
+            timeline.current
+                .set(item.titleRef, {
+                    // alpha: 0,
+                    width: 0,
+                    borderWidth: 0,
+                })
+                .set(item.labelRef, {
+                    // alpha: 0,
+                    scale: 0,
+                })
                 .to(item.labelRef, {
                     duration: 0.5,
                     scale: 1,
                     ease: 'power1.inOut',
-                }, 'summaryStart').to(item.titleRef, {
+                })
+                .to(item.titleRef.querySelector(`.${styles.titleContentNodeWrapper}`), {
+                    // borderWidth: 6,
+                    // x: 0,
                     width: 482,
                     duration: 0.5,
                     ease: 'power1.inOut',
                 }, '+=0')
+
+            if (_index !== sequence.length - 1) {
+                const nextNodeIndex = sequence[_index + 1].index;
+                const diff = nextNodeIndex - index;
+                timeline.current.add(animeNodeArrow(nextNodeIndex, diff))
+            }
         })
 
         timeline.current
-            // .to(refs['contentWrapper'], {
-            //     duration: 0.5,
-            //     scale: OVERVIEW_SCALE,
-            //     x: '-=200',
-            //     ease: 'power1.inOut',
-            // }, '+=1')
             .addLabel('summaryScaleEnd')
-
-        data.forEach((item, index) => {
-            const overflowCount = item.children.length - 4;
-            timeline.current.to(item.overlistRef, {
+            .to(refs['contentWrapper'], {
                 duration: 0.5,
-                alpha: 1,
-                ease: 'power1.inOut',
-            }, 'summaryScaleEnd').to(item.overlistRef, {
-                scrollTop: overflowCount * 105,
-                duration: 0.5 * overflowCount,
+                // scale: OVERVIEW_SCALE,
+                x: '-=260',
                 ease: 'power1.inOut',
             })
+
+        data.forEach((item, index) => {
+            // const overflowCount = item.children.length - 4;
+            timeline.current.fromTo(item.overlistRef, { scale: 0 }, {
+                    scale: OVERVIEW_SCALE,
+                    duration: 0.5,
+                    alpha: 1,
+                    ease: 'power1.inOut',
+                }, 'summaryScaleEnd')
+                // .to(item.overlistRef, {
+                //     scrollTop: overflowCount * 105,
+                //     duration: 0.5 * overflowCount,
+                //     ease: 'power1.inOut',
+                // })
+        })
+
+        timeline.current.addLabel('summary2Start')
+
+
+        timeline.current
+            .to(refs['contentWrapper'], {
+                duration: 0.5,
+                // scale: OVERVIEW_SCALE,
+                x: '+=300',
+                ease: 'power1.inOut',
+            }, 'summary2Start')
+
+        data.forEach((item, index) => {
+            timeline.current
+                .to(item.titleRef.querySelector(`.${styles.titleContentNodeWrapper}`), {
+                    width: 0,
+                    duration: 0.5,
+                    ease: 'power1.inOut',
+                }, 'summary2Start')
+        })
+
+        sequence.forEach((_, _index) => {
+            const index = _.index;
+            if (_index !== sequence.length - 1) {
+                const nextNodeIndex = sequence[_index + 1].index;
+                const diff = nextNodeIndex - index;
+                if (Math.abs(diff) === 1) {
+                    timeline.current.to(refs[`nodeArrow${nextNodeIndex}`], {
+                        x: `-=${(TOP_NODE_WEIGHT / 2)}`,
+                        duration: 0.5,
+                        ease: 'power1.inOut',
+                    }, 'summary2Start')
+                } else {
+                    timeline.current.to(refs[`nodeArrow${nextNodeIndex}`], {
+                        x: `-=${TOP_NODE_WEIGHT - 75}`,
+                        duration: 0.5,
+                        ease: 'power1.inOut',
+                    }, 'summary2Start')
+                }
+            }
+        })
+
+        data.forEach((item, index) => {
+            timeline.current.to(item.overlistRef, {
+                x: `-=${TOP_NODE_WEIGHT - 75}`,
+                duration: 0.5,
+                ease: 'power1.inOut',
+            }, 'summary2Start')
+            const overflowCount = item.children.length - 4;
+            if (overflowCount > 0) {
+                timeline.current.to(item.overlistRef, {
+                    scrollTop: overflowCount * 105,
+                    duration: 0.5 * overflowCount,
+                    ease: 'power1.inOut',
+                })
+            }
         })
 
         timeline.current.addLabel('summaryEnd');
@@ -986,11 +1086,14 @@ const GSAPDemo = () => {
                                                          className={styles.title}
                                                          style={titleIndexData[index].cssVars}>
                                                         <div ref={ref => item.titleRef = ref}
-                                                             className={styles.titleContent + ' ' + (item.title.length > 10 ? styles.titleContentMinFs : (item.title.length > 5 ? styles.titleContentMiddleFs : styles.titleContentMaxFs))}>
+                                                             className={styles.titleContent}>
                                                             <div ref={ref => item.labelRef = ref} className={styles.titleIndex}>{titleIndexData[index].label}</div>
-                                                            <div className={styles.titleContentNode}>{item.title}</div>
+                                                            <div className={styles.titleContentNodeWrapper + ' ' + (item.title.length > 10 ? styles.titleContentMinFs : (item.title.length > 5 ? styles.titleContentMiddleFs : styles.titleContentMaxFs))}>
+                                                                <div className={styles.titleContentNode}>{ item.title }</div>
+                                                            </div>
+                                                            {/*<div className={styles.titleContentBorder}></div>*/}
                                                         </div>
-                                                        <div ref={ref => item.overlistRef = ref} className={styles.overviewList} style={{ transform: `scale(${1 / OVERVIEW_SCALE}) translateY(-${50 / (1 / OVERVIEW_SCALE)}%) translateX(100%)` }}>
+                                                        <div ref={ref => item.overlistRef = ref} className={styles.overviewList} style={{ transform: `translateY(-${50}%) translateX(100%)` }}>
                                                             {
                                                                 item.children.map((child, childIndex) => {
                                                                     return (
