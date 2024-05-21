@@ -517,7 +517,7 @@ const GSAPDemo = () => {
 
         data.forEach((item, index) => {
             timeline.current
-                .set(item.titleRef.querySelector(`.${styles.titleContentNodeWrapper}`), {
+                .set(item.titleContentNodeRef, {
                     width: 0,
                 }, 'summaryStart')
                 .set(item.labelRef, {
@@ -539,11 +539,11 @@ const GSAPDemo = () => {
             const index = _.index;
             const item = data[index];
             timeline.current
-                .set(item.titleRef, {
-                    // alpha: 0,
-                    width: 0,
-                    borderWidth: 0,
-                })
+                // .set(item.titleRef, {
+                //     // alpha: 0,
+                //     width: 0,
+                //     borderWidth: 0,
+                // })
                 .set(item.labelRef, {
                     // alpha: 0,
                     scale: 0,
@@ -553,7 +553,7 @@ const GSAPDemo = () => {
                     scale: 1,
                     ease: 'power1.inOut',
                 })
-                .to(item.titleRef.querySelector(`.${styles.titleContentNodeWrapper}`), {
+                .to(item.titleContentNodeRef, {
                     // borderWidth: 6,
                     // x: 0,
                     width: 482,
@@ -605,7 +605,7 @@ const GSAPDemo = () => {
 
         data.forEach((item, index) => {
             timeline.current
-                .to(item.titleRef.querySelector(`.${styles.titleContentNodeWrapper}`), {
+                .to(item.titleContentNodeRef, {
                     width: 0,
                     duration: 0.5,
                     ease: 'power1.inOut',
@@ -1088,7 +1088,7 @@ const GSAPDemo = () => {
                                                         <div ref={ref => item.titleRef = ref}
                                                              className={styles.titleContent}>
                                                             <div ref={ref => item.labelRef = ref} className={styles.titleIndex}>{titleIndexData[index].label}</div>
-                                                            <div className={styles.titleContentNodeWrapper + ' ' + (item.title.length > 10 ? styles.titleContentMinFs : (item.title.length > 5 ? styles.titleContentMiddleFs : styles.titleContentMaxFs))}>
+                                                            <div ref={ref => item.titleContentNodeRef = ref} className={styles.titleContentNodeWrapper + ' ' + (item.title.length > 10 ? styles.titleContentMinFs : (item.title.length > 5 ? styles.titleContentMiddleFs : styles.titleContentMaxFs))}>
                                                                 <div className={styles.titleContentNode}>{ item.title }</div>
                                                             </div>
                                                             {/*<div className={styles.titleContentBorder}></div>*/}
