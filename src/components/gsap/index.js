@@ -68,7 +68,7 @@ const TOP_NODE_HEIGHT = 150;
 const LEFT_TEXT_MOVE_DIS = 138;
 const SCALE_TITLE_MOVE_DIS = 138 - (75 / 2);
 const SCALE = 1.4;
-const OVERVIEW_SCALE = 1.4;
+const OVERVIEW_SCALE = 1;
 
 let list = [];
 let seq = [];
@@ -1098,8 +1098,10 @@ const GSAPDemo = () => {
                                                                 item.children.map((child, childIndex) => {
                                                                     return (
                                                                         <div key={childIndex} className={styles.overviewListItem}>
-                                                                            <div className={styles.overviewListItemLabel}>利好</div>
                                                                             <div className={styles.overviewListItemTitle}>{ child.title }</div>
+                                                                            <div className={styles.overviewListItemLabel + ' ' + (child.label === '利' ? styles.overviewListItemLabelGood : styles.overviewListItemLabelBad)}>
+                                                                                <div>利好</div>
+                                                                            </div>
                                                                         </div>
                                                                     )
                                                                 })

@@ -41,3 +41,51 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+@font-face {
+  font-family: 'AlibabaPuHuiTi-Thin';
+  src: local('AlibabaPuHuiTi_2_35_Thin'), local('Alibaba PuHuiTi 2 35 Thin'), url('https://webres.dinglitec.com/fonts/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%99%AE%E6%83%A02.0/AlibabaPuHuiTi-2-35-Thin.otf');
+}
+
+@font-face {
+  font-family: 'AlibabaPuHuiTi-Light';
+  src: local('AlibabaPuHuiTi_2_45_Light'),local('Alibaba PuHuiTi 2 45 Light'), url('https://webres.dinglitec.com/fonts/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%99%AE%E6%83%A02.0/AlibabaPuHuiTi-2-45-Light.otf');
+}
+
+@font-face {
+  font-family: 'AlibabaPuHuiTi-SemiBold';
+  src: local('AlibabaPuHuiTi_2_75_SemiBold'), local('Alibaba PuHuiTi 2 75 SemiBold'),url('https://webres.dinglitec.com/fonts/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%99%AE%E6%83%A02.0/AlibabaPuHuiTi-2-75-SemiBold.otf');
+}
+
+@font-face {
+  font-family: 'AlibabaPuHuiTi-ExtraBold';
+  src: local('AlibabaPuHuiTi_2_95_ExtraBold'), local('Alibaba PuHuiTi 2 95 ExtraBold'),url('https://webres.dinglitec.com/fonts/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%99%AE%E6%83%A02.0/AlibabaPuHuiTi-2-95-ExtraBold.otf');
+}
+
+@font-face {
+  font-family: 'AlibabaPuHuiTi-Regular';
+  src: local('AlibabaPuHuiTi_2_55_Regular'), local('Alibaba PuHuiTi 2 55 Regular'), url('https://webres.dinglitec.com/fonts/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%99%AE%E6%83%A02.0/AlibabaPuHuiTi-2-55-Regular.otf');
+}
+
+@font-face {
+  font-family: 'AlibabaPuHuiTi-Medium';
+  src: local('AlibabaPuHuiTi_2_65_Medium'), local('Alibaba PuHuiTi 2 65 Medium'),url('https://webres.dinglitec.com/fonts/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%99%AE%E6%83%A02.0/AlibabaPuHuiTi-2-65-Medium.otf');
+}
+
+
+@font-face {
+  font-family: 'AlibabaPuHuiTi-Bold';
+  src: local('AlibabaPuHuiTi_2_85_Bold'), local('Alibaba PuHuiTi 2 85 Bold'),url('https://webres.dinglitec.com/fonts/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%99%AE%E6%83%A02.0/AlibabaPuHuiTi-2-85-Bold.otf');
+}
+
+@font-face {
+  font-family: 'AlibabaPuHuiTi-Heavy';
+  src: local('AlibabaPuHuiTi_2_105_Heavy'), local('Alibaba PuHuiTi 2 105 Heavy'), url('https://webres.dinglitec.com/fonts/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%99%AE%E6%83%A02.0/AlibabaPuHuiTi-2-105-Heavy.otf');
+}
+
+@font-face {
+  font-family: 'AlibabaPuHuiTi-Black';
+  src: local('AlibabaPuHuiTi_2_115_Black'), local('Alibaba PuHuiTi 2 115 Black'), url('https://webres.dinglitec.com/fonts/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%99%AE%E6%83%A02.0/AlibabaPuHuiTi-2-115-Black.otf');
+}
