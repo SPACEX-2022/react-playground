@@ -81,7 +81,9 @@ class Comp1 extends Component {
 const ComponentTest = () => {
 
     const [loading, setLoading] = useState(true);
+    const componentRef = useRef(null);
     const component = useRef(null);
+    const componentProps = useRef({});
 
     useEffect(() => {
         Promise.all([
@@ -94,6 +96,7 @@ const ComponentTest = () => {
             console.log(222, TreeThemeLibrary)
             // setComponent(TreeThemeLibrary);
             component.current = TreeThemeLibrary;
+            componentProps.current = TreeThemeLibrary.defaultProps;
             setLoading(false);
         })
     }, [])
@@ -102,7 +105,7 @@ const ComponentTest = () => {
 
     return (
         <div style={{ width: '1080px', height: '1920px' }}>
-            { !loading ? <Comp /> : null }
+            { !loading ? <Comp ref={componentRef} { ...componentProps.current } timestamp={0} playing={false} /> : null }
         </div>
     )
 }
