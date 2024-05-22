@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {Component, useEffect, useRef, useState} from "react";
 
 
 export function loadJS(url,defaultUrl) {
@@ -72,8 +72,16 @@ export function loadCss(url,defaultUrl) {
     });
 }
 
+class Comp1 extends Component {
+    render() {
+        return <div>111</div>
+    }
+}
 
 const ComponentTest = () => {
+
+    const [loading, setLoading] = useState(true);
+    const component = useRef(null);
 
     useEffect(() => {
         Promise.all([
@@ -81,12 +89,20 @@ const ComponentTest = () => {
             loadCss('https://magictest.dinglitec.com/components/index.css'),
         ]).then(() => {
             console.log(111, window['@datav/news-components'])
+            const Component  = window['@datav/news-components'];
+            const TreeThemeLibrary = Component.TreeThemeLibrary;
+            console.log(222, TreeThemeLibrary)
+            // setComponent(TreeThemeLibrary);
+            component.current = TreeThemeLibrary;
+            setLoading(false);
         })
-    })
+    }, [])
+
+    const Comp = component.current;
 
     return (
-        <div>
-
+        <div style={{ width: '1080px', height: '1920px' }}>
+            { !loading ? <Comp /> : null }
         </div>
     )
 }
