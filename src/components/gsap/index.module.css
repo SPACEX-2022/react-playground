@@ -191,7 +191,7 @@
 }
 .overviewListItemLabel {
     font-family: AlibabaPuHuiTiBold;
-    flex: 0 0 32.13px;
+    flex: 0 0 44px;
     font-size: 25px;
     /*line-height: 35px;*/
     height: 100%;
@@ -202,7 +202,7 @@
     /*background-color: var(--color);*/
 }
 .overviewListItemLabel div {
-
+    line-height: 40px;
 }
 .overviewListItemLabelGood {
     background: rgb(124,185, 61);
@@ -216,8 +216,8 @@
     text-align: center;
 
     font-family: AlibabaPuHuiTi-Bold;
-    font-size: 50px;
-    /*line-height: 26px;*/
+    font-size: 44px;
+    line-height: 40px;
 
     color: var(--font-color);
     word-break: break-word;
