@@ -929,111 +929,111 @@ const GSAPDemo = () => {
     return (
         <Layout className={styles.container}>
             <audio ref={audioRef} src={audioSrc} loop={false}></audio>
-            <Sider width={500} style={{
-                padding: 10,
-                background: '#fff',
-                height: '100%',
-                overflowY: 'auto'
-            }}>
-                <Form layout={'vertical'} style={{ display: 'none' }}>
-                    <FormItem label="Sequence">
-                        <DragSortTable
-                            toolBarRender={false}
-                            columns={columns}
-                            rowKey="id"
-                            search={false}
-                            pagination={false}
-                            dataSource={sequence}
-                            dragSortKey="sort"
-                            onDragSortEnd={handleDragSortEnd}
-                            editable={{
-                                onSave: async (key, record, { index }) => {
-                                    console.log(key, record);
-                                    sequence[index] = record;
-                                    setSequence([...sequence])
-                                    // setLocalDataList([...localDataList])
-                                    return true;
-                                },
-                            }}
-                        />
-                    </FormItem>
-                    <FormItem label="TTS Data">
-                        <Input.TextArea
-                            autoSize={{minRows: 10, maxRows: 30}}
-                            value={ttsDataString}
-                            onChange={e => setTtsDataString(e.target.value)}
-                            onKeyDown={e => e.stopPropagation()}
-                        />
-                    </FormItem>
-                    <FormItem label="Data">
-                        <Space direction={'vertical'} style={{width: '100%'}}>
-                            <Input.TextArea
-                                autoSize={{minRows: 10, maxRows: 30}}
-                                value={_data}
-                                onChange={onChange}
-                                onKeyDown={e => e.stopPropagation()}
-                            />
-                            <Button block type="primary" onClick={onSaveDataLocally}>Save data locally</Button>
-                        </Space>
-                        <ProList
-                            rowKey="id"
-                            headerTitle="本地数据列表"
-                            dataSource={localDataList}
-                            showActions="hover"
-                            editable={{
-                                onSave: async (key, record, { index }) => {
-                                    console.log(key, record);
-                                    localDataList[index] = record;
-                                    setLocalDataList([...localDataList])
-                                    return true;
-                                },
-                            }}
-                            metas={{
-                            title: {
-                                dataIndex: 'name',
-                                formItemProps: {
-                                    onKeyDown(e) {
-                                        e.stopPropagation();
-                                    }
-                                },
-                            },
-                            subTitle: {
-                                dataIndex: 'time',
-                                editable: false,
-                            },
-                            actions: {
-                                render: (text, row, index, action) => [
-                                    <a
-                                        onClick={() => {
-                                            action?.startEditable(row.id);
-                                        }}
-                                        key="edit"
-                                    >
-                                        edit
-                                    </a>,
-                                    <a
-                                        onClick={() => {
-                                            onUseData(index);
-                                        }}
-                                        key="use"
-                                    >
-                                        use
-                                    </a>,
-                                    <a
-                                        onClick={() => {
-                                            onDeleteItem(index);
-                                        }}
-                                        key="delete"
-                                    >
-                                        delete
-                                    </a>,
-                                ],
-                            },
-                        }}
-                            />
-                    </FormItem>
-                </Form>
-            </Sider>
+            {/*<Sider width={500} style={{*/}
+            {/*    padding: 10,*/}
+            {/*    background: '#fff',*/}
+            {/*    height: '100%',*/}
+            {/*    overflowY: 'auto'*/}
+            {/*}}>*/}
+            {/*    <Form layout={'vertical'} style={{ display: 'none' }}>*/}
+            {/*        <FormItem label="Sequence">*/}
+            {/*            <DragSortTable*/}
+            {/*                toolBarRender={false}*/}
+            {/*                columns={columns}*/}
+            {/*                rowKey="id"*/}
+            {/*                search={false}*/}
+            {/*                pagination={false}*/}
+            {/*                dataSource={sequence}*/}
+            {/*                dragSortKey="sort"*/}
+            {/*                onDragSortEnd={handleDragSortEnd}*/}
+            {/*                editable={{*/}
+            {/*                    onSave: async (key, record, { index }) => {*/}
+            {/*                        console.log(key, record);*/}
+            {/*                        sequence[index] = record;*/}
+            {/*                        setSequence([...sequence])*/}
+            {/*                        // setLocalDataList([...localDataList])*/}
+            {/*                        return true;*/}
+            {/*                    },*/}
+            {/*                }}*/}
+            {/*            />*/}
+            {/*        </FormItem>*/}
+            {/*        <FormItem label="TTS Data">*/}
+            {/*            <Input.TextArea*/}
+            {/*                autoSize={{minRows: 10, maxRows: 30}}*/}
+            {/*                value={ttsDataString}*/}
+            {/*                onChange={e => setTtsDataString(e.target.value)}*/}
+            {/*                onKeyDown={e => e.stopPropagation()}*/}
+            {/*            />*/}
+            {/*        </FormItem>*/}
+            {/*        <FormItem label="Data">*/}
+            {/*            <Space direction={'vertical'} style={{width: '100%'}}>*/}
+            {/*                <Input.TextArea*/}
+            {/*                    autoSize={{minRows: 10, maxRows: 30}}*/}
+            {/*                    value={_data}*/}
+            {/*                    onChange={onChange}*/}
+            {/*                    onKeyDown={e => e.stopPropagation()}*/}
+            {/*                />*/}
+            {/*                <Button block type="primary" onClick={onSaveDataLocally}>Save data locally</Button>*/}
+            {/*            </Space>*/}
+            {/*            <ProList*/}
+            {/*                rowKey="id"*/}
+            {/*                headerTitle="本地数据列表"*/}
+            {/*                dataSource={localDataList}*/}
+            {/*                showActions="hover"*/}
+            {/*                editable={{*/}
+            {/*                    onSave: async (key, record, { index }) => {*/}
+            {/*                        console.log(key, record);*/}
+            {/*                        localDataList[index] = record;*/}
+            {/*                        setLocalDataList([...localDataList])*/}
+            {/*                        return true;*/}
+            {/*                    },*/}
+            {/*                }}*/}
+            {/*                metas={{*/}
+            {/*                title: {*/}
+            {/*                    dataIndex: 'name',*/}
+            {/*                    formItemProps: {*/}
+            {/*                        onKeyDown(e) {*/}
+            {/*                            e.stopPropagation();*/}
+            {/*                        }*/}
+            {/*                    },*/}
+            {/*                },*/}
+            {/*                subTitle: {*/}
+            {/*                    dataIndex: 'time',*/}
+            {/*                    editable: false,*/}
+            {/*                },*/}
+            {/*                actions: {*/}
+            {/*                    render: (text, row, index, action) => [*/}
+            {/*                        <a*/}
+            {/*                            onClick={() => {*/}
+            {/*                                action?.startEditable(row.id);*/}
+            {/*                            }}*/}
+            {/*                            key="edit"*/}
+            {/*                        >*/}
+            {/*                            edit*/}
+            {/*                        </a>,*/}
+            {/*                        <a*/}
+            {/*                            onClick={() => {*/}
+            {/*                                onUseData(index);*/}
+            {/*                            }}*/}
+            {/*                            key="use"*/}
+            {/*                        >*/}
+            {/*                            use*/}
+            {/*                        </a>,*/}
+            {/*                        <a*/}
+            {/*                            onClick={() => {*/}
+            {/*                                onDeleteItem(index);*/}
+            {/*                            }}*/}
+            {/*                            key="delete"*/}
+            {/*                        >*/}
+            {/*                            delete*/}
+            {/*                        </a>,*/}
+            {/*                    ],*/}
+            {/*                },*/}
+            {/*            }}*/}
+            {/*                />*/}
+            {/*        </FormItem>*/}
+            {/*    </Form>*/}
+            {/*</Sider>*/}
             <Layout>
                 <Content style={{position: 'relative'}}>
                     <div className={styles.stage} style={{
