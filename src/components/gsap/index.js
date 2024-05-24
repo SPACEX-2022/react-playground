@@ -16,7 +16,12 @@ import {DragSortTable, ProList} from "@ant-design/pro-components";
 import dayjs from "dayjs";
 import {nanoid} from "nanoid";
 import cloneDeep from 'lodash.clonedeep';
-import {testData, testData2} from "./data";
+import {
+    // testData,
+    // testData2,
+    ttsData,
+    testData3,
+} from "./data";
 import Crunker from 'crunker';
 // import Color from 'color';
 // import { SplitText } from "gsap/SplitText";
@@ -63,6 +68,9 @@ const titleIndexData = [
     },
 ]
 
+const testData = ttsData[0]
+const testData2 = testData3[0];
+
 const TOP_NODE_WEIGHT = 482;
 const TOP_NODE_HEIGHT = 150;
 const LEFT_TEXT_MOVE_DIS = 138;
@@ -89,8 +97,8 @@ testData2.children.forEach((item, index) => {
         eventAffected: index === 0,
     })
     list[_index] = {};
-    list[_index].title = item.name.split('\r\n\t\t')[1];
-    list[_index].children = item?.children.map(i => ({ title: i.name, children: [] }));
+    list[_index].title = item.name.split('\n')[1];
+    list[_index].children = item?.children.map(i => ({ title: i.name, children: i.children }));
 })
 console.log(seq)
 const GSAPDemo = () => {
@@ -267,7 +275,7 @@ const GSAPDemo = () => {
             )
     }
 
-    const showSectorList = (index, extraDuration) => {
+    const showSectorList = (index, currentClipDuration) => {
         const [width, height] = resolutions;
         const timeline = gsap.timeline();
         const titleMoveDis = 200;
@@ -275,6 +283,7 @@ const GSAPDemo = () => {
         const contentWrapperMoveItemDis = ((94 + 60) * SCALE);
 
         timeline
+            .addLabel(`sectorList${index}Start`)
             .to(refs['contentWrapper'], {
                 duration: 0.5,
                 y: `-=${contentWrapperMoveDis}`,
@@ -287,9 +296,12 @@ const GSAPDemo = () => {
                 ease: 'power1.inOut',
             }, '<')
 
-        const delayTime = extraDuration / data[index].children.length;
+        const avgTime = (currentClipDuration - 4) / data[index].children.filter(i => i.children && i.children.length > 0).length;
+        console.log('showSectorList', index, avgTime, currentClipDuration, data[index].children.filter(i => i.children && i.children.length > 0).length)
 
         data[index].children.forEach((item, _index) => {
+            if (!item.children || !item.children.length) return;
+            timeline.addLabel(`sectorList${index}Start${_index}`)
             timeline
                 .to(
                     item.ref,
@@ -329,10 +341,15 @@ const GSAPDemo = () => {
                     }
                 )
             }
+            timeline.addLabel(`sectorList${index}End${_index}`)
+            const costTime = timeline.labels[`sectorList${index}Start${_index}`] - timeline.labels[`sectorList${index}End${_index}`];
+
+            timeline.set({}, {}, `+=${Math.max(1.5, avgTime - costTime - 0.5)}`);
+
             timeline.to(
                     item.listRef,
                     {
-                        delay: 1.5 + delayTime,
+                        // delay: 0 + Math.max(1.5, avgTime - costTime - 0.5),
                         duration: 0.5,
                         height: 0,
                         alpha: 0,
@@ -350,6 +367,7 @@ const GSAPDemo = () => {
                     timeline.to(
                         refs['contentWrapper'],
                         {
+                            duration: 0.5,
                             y: `-=${contentWrapperMoveItemDis}`,
                             ease: 'power1.inOut',
                         },
@@ -472,18 +490,20 @@ const GSAPDemo = () => {
                 });
             }
 
-            // timeline.current.add(showSectorList(index, extraDuration), '+=0.5')
-
-
+            const map = sequence.map(i => i.index + 1);
 
             timeline.current.addLabel(`topNodeEnd${index}`);
-            const map = [2,1,3]
-
             const costTime = timeline.current.labels[`topNodeEnd${index}`] - timeline.current.labels[label];
-            console.log(`第${index + 1}个节点动画耗费时间：${(costTime).toFixed(2)} ${testData[map[index]].duration / 1000} ${testData[map[index]].duration / 1000 - costTime}`);
+            const currentClipDuration = testData[map[index]].duration / 1000 - costTime;
 
 
-            timeline.current.set({}, {}, `+=${testData[map[index]].duration / 1000 - costTime - 1}`)
+            if (data[index].children.filter(i => i.children && i.children.length > 0).length > 0) {
+                timeline.current.add(showSectorList(index, currentClipDuration), '+=0.5')
+            } else {
+                console.log(`第${index + 1}个节点动画耗费时间：${(costTime).toFixed(2)} ${testData[map[index]].duration / 1000} ${testData[map[index]].duration / 1000 - costTime}`);
+
+                timeline.current.set({}, {}, `+=${currentClipDuration - 1.5}`)
+            }
 
             const isLast = _index === sequence.length - 1;
             timeline.current
@@ -491,7 +511,7 @@ const GSAPDemo = () => {
                     duration: isLast ? 0 : 0.3,
                     height: 0,
                     ease: 'power1.inOut',
-                }, '+=1')
+                }, '+=0.5')
             timeline.current.add(createShowTitleTimeLine(index, true, isLast), '<');
         })
 
@@ -1089,7 +1109,9 @@ const GSAPDemo = () => {
                                                              className={styles.titleContent}>
                                                             <div ref={ref => item.labelRef = ref} className={styles.titleIndex}>{titleIndexData[index].label}</div>
                                                             <div ref={ref => item.titleContentNodeRef = ref} className={styles.titleContentNodeWrapper + ' ' + (item.title.length > 10 ? styles.titleContentMinFs : (item.title.length > 5 ? styles.titleContentMiddleFs : styles.titleContentMaxFs))}>
-                                                                <div className={styles.titleContentNode}>{ item.title }</div>
+                                                                <div className={styles.titleContentNode}>
+                                                                    <div>{ item.title }</div>
+                                                                </div>
                                                             </div>
                                                             {/*<div className={styles.titleContentBorder}></div>*/}
                                                         </div>
@@ -1099,8 +1121,8 @@ const GSAPDemo = () => {
                                                                     return (
                                                                         <div key={childIndex} className={styles.overviewListItem}>
                                                                             <div className={styles.overviewListItemTitle}>{ child.title }</div>
-                                                                            <div className={styles.overviewListItemLabel + ' ' + (child.label === '利' ? styles.overviewListItemLabelGood : styles.overviewListItemLabelBad)}>
-                                                                                <div>利好</div>
+                                                                            <div className={styles.overviewListItemLabel + ' ' + (child.effectResult && child.effectResult.includes('利好') ? styles.overviewListItemLabelGood : styles.overviewListItemLabelBad)}>
+                                                                                <div>{ child.effectResult }</div>
                                                                             </div>
                                                                         </div>
                                                                     )
@@ -1128,19 +1150,19 @@ const GSAPDemo = () => {
                                                                                 <div ref={ref => child.listRef = ref}
                                                                                      className={styles.listItemContent}>
                                                                                     {
-                                                                                        child.children.map((grandson, grandsonIndex) => {
+                                                                                        child.children && child.children.map((grandson, grandsonIndex) => {
                                                                                             return (
                                                                                                 <div
                                                                                                     key={grandsonIndex}
                                                                                                     className={styles.sectorWrapper}>
                                                                                                     <div
-                                                                                                        className={styles.sectorPositive}>间接利好
+                                                                                                        className={styles.sectorPositive}>{ grandson.effectResult }
                                                                                                     </div>
                                                                                                     <div
-                                                                                                        className={styles.sectorTitle}>{grandson.title}</div>
-                                                                                                    {/*<div*/}
-                                                                                                    {/*    className={styles.sectorDesc}>{grandson.desc}*/}
-                                                                                                    {/*</div>*/}
+                                                                                                        className={styles.sectorTitle}>{grandson.name}</div>
+                                                                                                    <div
+                                                                                                        className={styles.sectorDesc}>{grandson.effectReason}
+                                                                                                    </div>
                                                                                                 </div>
                                                                                             )
                                                                                         })

@@ -16,10 +16,54 @@ import { TextPlugin } from "gsap/TextPlugin";
 import {useLocalStorageState} from "ahooks";
 import {Button, Layout, List} from "antd";
 import ComponentTest from "./components/ComponentTest";
+import {Component} from "react";
 // import { SplitText } from "gsap/SplitText";
 
 
 gsap.registerPlugin(useGSAP,Flip,Observer,MotionPathPlugin,EaselPlugin,PixiPlugin,TextPlugin,RoughEase,ExpoScaleEase,SlowMo,CustomEase, window.SplitText);
+
+class ErrorBoundary extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError(error) {
+        // 更新 state 使下一次渲染能够显示降级后的 UI
+        return { hasError: true };
+    }
+
+    componentDidCatch(error, errorInfo) {
+        // 你同样可以将错误日志上报给服务器
+        console.error(error, errorInfo);
+    }
+
+    render() {
+        const {
+            state: {
+                hasError
+            },
+            props: {
+                height
+            }
+        } = this;
+
+        if (hasError) {
+            // 你可以自定义降级后的 UI 并渲染
+            return <div style={{
+                color: 'red',
+                fontSize: '42px',
+                textAlign: 'center',
+                width: '100%',
+                height,
+                border: '2px solid red',
+                lineHeight: height
+            }}>组件发生错误</div>;
+        }
+
+        return this.props.children;
+    }
+}
 
 function App() {
 
@@ -52,7 +96,9 @@ function App() {
                 </List>
             </Layout.Sider>
             <Layout.Content>
-                <Tag />
+                <ErrorBoundary>
+                    <Tag />
+                </ErrorBoundary>
             </Layout.Content>
         </Layout>
       {/*<GSAPDemo />*/}
