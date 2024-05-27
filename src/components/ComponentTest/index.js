@@ -1,4 +1,5 @@
 import {Component, useEffect, useRef, useState} from "react";
+import {Button} from "antd";
 
 
 export function loadJS(url,defaultUrl) {
@@ -72,12 +73,6 @@ export function loadCss(url,defaultUrl) {
     });
 }
 
-class Comp1 extends Component {
-    render() {
-        return <div>111</div>
-    }
-}
-
 const ComponentTest = () => {
 
     const [loading, setLoading] = useState(true);
@@ -87,8 +82,10 @@ const ComponentTest = () => {
 
     useEffect(() => {
         Promise.all([
-            loadJS('https://magictest.dinglitec.com/components/index.js'),
-            loadCss('https://magictest.dinglitec.com/components/index.css'),
+            // loadJS('https://magictest.dinglitec.com/components/index.js'),
+            // loadCss('https://magictest.dinglitec.com/components/index.css'),
+            loadJS('http://127.0.0.1:8080/js/index.js'),
+            loadCss('http://127.0.0.1:8080/css/index.css'),
         ]).then(() => {
             console.log(111, window['@datav/news-components'])
             const Component  = window['@datav/news-components'];
@@ -103,9 +100,20 @@ const ComponentTest = () => {
 
     const Comp = component.current;
 
+    const [playing, setPlaying] = useState(false);
+
+    const togglePlay = () => {
+        setPlaying(!playing);
+    }
+
     return (
-        <div style={{ width: '1080px', height: '1920px' }}>
-            { !loading ? <Comp ref={componentRef} { ...componentProps.current } timestamp={0} playing={false} /> : null }
+        <div>
+            <div style={{width: '540px', height: '960px', background: '#ccc'}}>
+                {!loading ?
+                    <Comp ref={componentRef} {...componentProps.current} playing={playing} width={"540px"} height={"960px"} timestamp={0}
+                          /> : null}
+            </div>
+            <Button onClick={togglePlay}>play</Button>
         </div>
     )
 }
