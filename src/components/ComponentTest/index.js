@@ -94,6 +94,106 @@ const ComponentTest = () => {
             // setComponent(TreeThemeLibrary);
             component.current = TreeThemeLibrary;
             componentProps.current = TreeThemeLibrary.defaultProps;
+            componentProps.current.data.value.animationData = {
+                "level": 1,
+                "parentId": "0",
+                "children": [
+                    {
+                        "level": 2,
+                        "parentId": "1001",
+                        "children": [
+                            {
+                                "level": 3,
+                                "parentId": "1163728981296039756",
+                                "name": "纯电车",
+                                "bizId": "1163728981296039757",
+                                "effectResult": "利空",
+                                "effectReason": "海外补贴限制"
+                            }
+                        ],
+                        "name": "下游\n整车",
+                        "bizId": "1163728981296039756",
+                        "tts": {
+                            "ttsText": "贸易壁垒的出现，首先对下游纯电车市场带来利空影响。海外市场补贴限制，将直接影响出口量和利润空间。",
+                            "duration": 7488
+                        }
+                    },
+                    {
+                        "level": 2,
+                        "parentId": "1001",
+                        "children": [
+                            {
+                                "level": 3,
+                                "parentId": "1163728981296039760",
+                                "name": "电解液",
+                                "bizId": "1163728981296039768",
+                                "effectResult": "利空",
+                                "effectReason": "重点限制对象"
+                            },
+                            {
+                                "level": 3,
+                                "parentId": "1163728981296039760",
+                                "name": "稀土",
+                                "bizId": "1163728981296039762",
+                                "effectResult": "利空",
+                                "effectReason": "关键原材料"
+                            },
+                            {
+                                "level": 3,
+                                "parentId": "1163728981296039760",
+                                "name": "盐湖/锂矿石",
+                                "bizId": "1163728981296039761",
+                                "effectResult": "利空",
+                                "effectReason": "关键原材料"
+                            },
+                            {
+                                "level": 3,
+                                "parentId": "1163728981296039760",
+                                "name": "正负极",
+                                "bizId": "1163728981296039767",
+                                "effectResult": "利空",
+                                "effectReason": "重点限制对象"
+                            }
+                        ],
+                        "name": "上游\n原材料",
+                        "bizId": "1163728981296039760",
+                        "tts": {
+                            "ttsText": "上游原材料市场同样面临利空。盐湖/锂矿石和稀土作为关键原材料，受到贸易限制影响，供应可能受限。正负极材料和电解液作为重点限制对象，其生产和出口也将受到冲击。",
+                            "duration": 13068
+                        }
+                    },
+                    {
+                        "level": 2,
+                        "parentId": "1001",
+                        "children": [
+                            {
+                                "level": 3,
+                                "parentId": "1163728981050672971",
+                                "name": "电池",
+                                "bizId": "1163728981296039750",
+                                "effectResult": "利空",
+                                "effectReason": "重点限制对象"
+                            }
+                        ],
+                        "name": "中游\n零部件制造",
+                        "bizId": "1163728981050672971",
+                        "tts": {
+                            "ttsText": "中游电池制造环节，作为新能源汽车的核心部件，同样成为贸易限制的重点对象。电池技术和产能受限，将对整个产业链产生连锁反应。",
+                            "duration": 9504
+                        }
+                    }
+                ],
+                "name": "贸易壁垒的出现",
+                "bizId": "1001",
+                "tts": {
+                    "ttsText": "新能源汽车产业链包括上游原材料、中游零部件制造和下游整车。",
+                    "duration": 3108
+                },
+                "summary": {
+                    "ttsText": "贸易壁垒的出现，对新能源汽车产业链的上中下游均带来利空影响，从原材料供应到整车出口，整个产业链面临严峻挑战。",
+                    "duration": 8027
+                }
+            };
             setLoading(false);
         })
     }, [])
