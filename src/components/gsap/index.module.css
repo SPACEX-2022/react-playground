@@ -269,15 +269,24 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     padding: 0 73px 0 20px;
-    background: var(--title2-bg-color);
+    /*background: var(--title2-bg-color);*/
     /*text-indent: .3em;*/
     /*transform-origin: 0 0;*/
 
     text-align: left;
     line-height: 155px;
     font-size: 64px;
-    color: var(--font-color);
+    color: #fff;
     font-family: AlibabaPuHuiTi-Bold;
+}
+.listItemBgVideo {
+    position: absolute;
+    left: -364px;
+    top: -425px;
+    width: 1500px;
+    height: 1000px;
+    object-fit: none;
+    z-index: -1;
 }
 .listItemDesc {
 

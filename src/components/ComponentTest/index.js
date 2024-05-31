@@ -1,5 +1,7 @@
 import {Component, useEffect, useRef, useState} from "react";
-import {Button} from "antd";
+import {Button, Col, Layout, Row, Slider} from "antd";
+import {CaretRightFilled, PauseOutlined} from "@ant-design/icons";
+import {Content} from "antd/es/layout/layout";
 
 
 export function loadJS(url,defaultUrl) {
@@ -79,6 +81,8 @@ const ComponentTest = () => {
     const componentRef = useRef(null);
     const component = useRef(null);
     const componentProps = useRef({});
+    const [duration, setDuration] = useState(0);
+    const [timestamp, setTimestamp] = useState(0);
 
     useEffect(() => {
         Promise.all([
@@ -194,6 +198,11 @@ const ComponentTest = () => {
                     "duration": 8027
                 }
             };
+            setDuration(
+                componentProps.current.data.value.animationData.tts.duration
+                + componentProps.current.data.value.animationData.children.reduce((t, c) => t + c.tts.duration, 0)
+                + componentProps.current.data.value.animationData.summary.duration
+            )
             setLoading(false);
         })
     }, [])
@@ -202,18 +211,46 @@ const ComponentTest = () => {
 
     const [playing, setPlaying] = useState(false);
 
-    const togglePlay = () => {
-        setPlaying(!playing);
+    // const togglePlay = () => {
+    //     setPlaying(!playing);
+    // }
+
+    const onSeek = (t) => {
+        setTimestamp(t * 1000)
+    }
+
+    const onPlay = () => {
+        if (playing) {
+            setPlaying(false);
+        } else {
+            setPlaying(true);
+        }
     }
 
     return (
         <div>
-            <div style={{width: '540px', height: '960px', background: '#ccc'}}>
-                {!loading ?
-                    <Comp ref={componentRef} {...componentProps.current} playing={playing} width={"540px"} height={"960px"} timestamp={0}
-                          /> : null}
-            </div>
-            <Button onClick={togglePlay}>play</Button>
+            <Layout>
+                <Content style={{ display: 'flex', justifyContent: 'center'}}>
+                    <div style={{width: '540px', height: '960px', background: '#ccc'}}>
+                        {!loading ?
+                            <Comp ref={componentRef} {...componentProps.current} playing={playing} width={"540px"}
+                                  height={"960px"} timestamp={timestamp}
+                            /> : null}
+                    </div>
+                </Content>
+                <Layout.Footer>
+                    <Row>
+                        <Col span={24}>
+                            <Slider step={0.1} min={0} max={duration / 1000} value={timestamp / 1000} onChange={onSeek}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={24}>
+                            <Button icon={playing ? <PauseOutlined /> : <CaretRightFilled />} type="text" size="large" onClick={onPlay}></Button>
+                        </Col>
+                    </Row>
+                </Layout.Footer>
+            </Layout>
         </div>
     )
 }

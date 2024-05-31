@@ -1145,6 +1145,7 @@ const GSAPDemo = () => {
                                                                                 {/*<div className={styles.listItemDesc}>*/}
                                                                                 {/*    {child.desc}*/}
                                                                                 {/*</div>*/}
+                                                                                <video ref={ref => child.listItemBgVideoRef = ref} muted={true} autoPlay={false} className={styles.listItemBgVideo} src="https://dl-test-1309667514.cos.ap-shanghai.myqcloud.com/visual/mavideo/上游-利好-3级-2.mov-1163729254373729616.webm"></video>
                                                                             </div>
                                                                             <div style={{overflow: 'hidden'}}>
                                                                                 <div ref={ref => child.listRef = ref}
