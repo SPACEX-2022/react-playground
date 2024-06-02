@@ -3,6 +3,7 @@ import {gsap} from "gsap";
 // import EaselPlugin from 'gsap/EaselPlugin';
 import MotionPathPlugin from 'gsap/MotionPathPlugin';
 import DrawSVGPlugin from 'gsap-trial/DrawSVGPlugin';
+import GSDevTools from 'gsap-trial/GSDevTools';
 import {useGSAP} from '@gsap/react';
 // import * as createjs from 'createjs/builds/1.0.0/createjs';
 import {useEffect, useRef, useState} from "react";
@@ -480,6 +481,33 @@ const GSAPDemo = () => {
                     },
                     position
                 )
+
+                timeline.current.to(item.listItemBgVideoRef, {
+                    currentTime: item.listItemBgVideoRef.duration,
+                    duration: item.listItemBgVideoRef.duration,
+                    ease: "none",
+                }).call(() => item.listItemBgVideoRef.play())
+
+                // timeline.current.add(gsap.timeline({
+                //     // paused: true,
+                //     // duration: 1,
+                //     onStart() {
+                //         console.log(9999999999999999999999999, item.listItemBgVideoRef)
+                //         item.listItemBgVideoRef.play()
+                //     },
+                //     onUpdate() {
+                //         console.log('onUpdate')
+                //     },
+                //     onInterrupt() {
+                //         console.log('onInterrupt')
+                //     },
+                //     onComplete() {
+                //         console.log('onComplete')
+                //     },
+                // }).to(item.listItemBgVideoRef, {
+                //     duration: 1,
+                //     alpha: 1
+                // }))
             })
 
             if (data[index].children.length >= scrollChildrenLength) {
@@ -680,6 +708,7 @@ const GSAPDemo = () => {
         const endTime = timeline.current.labels.endTime;
         timeline.current.seek(Math.min(endTime, timestamp));
         setDuration(endTime);
+        // GSDevTools.create();
         console.log(`当前 seek 时间点：${timestamp}，动画总时长：${endTime}`)
     }, {
         scope: refs['stage'],
@@ -1145,7 +1174,7 @@ const GSAPDemo = () => {
                                                                                 {/*<div className={styles.listItemDesc}>*/}
                                                                                 {/*    {child.desc}*/}
                                                                                 {/*</div>*/}
-                                                                                <video ref={ref => child.listItemBgVideoRef = ref} muted={true} autoPlay={false} className={styles.listItemBgVideo} src="https://dl-test-1309667514.cos.ap-shanghai.myqcloud.com/visual/mavideo/上游-利好-3级-2.mov-1163729254373729616.webm"></video>
+                                                                                <video ref={ref => child.listItemBgVideoRef = ref} muted={true} autoPlay={false} loop={true} className={styles.listItemBgVideo} src="https://dl-test-1309667514.cos.ap-shanghai.myqcloud.com/visual/mavideo/上游-利好-3级-2.mov-1163729254373729616.webm"></video>
                                                                             </div>
                                                                             <div style={{overflow: 'hidden'}}>
                                                                                 <div ref={ref => child.listRef = ref}
