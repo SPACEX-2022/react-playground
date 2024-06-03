@@ -281,10 +281,12 @@
 }
 .listItemBgVideo {
     position: absolute;
-    left: -364px;
-    top: -425px;
-    width: 1500px;
-    height: 1000px;
+    left: 0;
+    top: 0;
+    /*left: -364px;*/
+    /*top: -425px;*/
+    /*width: 1500px;*/
+    /*height: 1000px;*/
     object-fit: none;
     z-index: -1;
 }

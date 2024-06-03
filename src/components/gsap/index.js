@@ -24,8 +24,10 @@ import {
     testData3,
 } from "./data";
 import Crunker from 'crunker';
+import {PngAnimation} from "./PngAnimation";
 // import Color from 'color';
 // import { SplitText } from "gsap/SplitText";
+import imgSrc from './images/bgImgSprite.png';
 
 // console.log(DrawSVGPlugin, gsap)
 gsap.registerPlugin(DrawSVGPlugin, MotionPathPlugin)
@@ -460,6 +462,8 @@ const GSAPDemo = () => {
             const moveItemDis = 155;
             const scrollChildrenLength = 5;
             data[index].children.forEach((item, _index) => {
+                const label = `listItem${index}Start${_index}`;
+                timeline.current.addLabel(label)
                 let position = '+=0'
                 if (_index >= scrollChildrenLength) {
                     timeline.current.to(data[index].listRef, {
@@ -482,11 +486,34 @@ const GSAPDemo = () => {
                     position
                 )
 
-                timeline.current.to(item.listItemBgVideoRef, {
-                    currentTime: item.listItemBgVideoRef.duration,
-                    duration: item.listItemBgVideoRef.duration,
+                item.bgFrame = 0;
+                timeline.current.to(item, {
+                    // repeat: -1,
+                    bgFrame: 100,
+                    duration: 5,
                     ease: "none",
-                }).call(() => item.listItemBgVideoRef.play())
+                }, label)
+
+                // console.log(222, item, _index)
+                // const videDuration = item.listItemBgVideoRef.duration || 0
+                // timeline.current.to(item.listItemBgVideoRef, {
+                //     // repeat: -1,
+                //     currentTime: 20,
+                //     duration: 20,
+                //     ease: "none",
+                // }, label)
+                // const playhead = { frame: 0 };
+                // timeline.current.to(playhead, {
+                //     // repeat: -1,
+                //     frame: 100,
+                //     // currentTime: 20,
+                //     duration: 20,
+                //     onUpdate() {
+                //         console.log(playhead)
+                //       // console.log(88888888)
+                //     },
+                //     ease: "none",
+                // }, label)
 
                 // timeline.current.add(gsap.timeline({
                 //     // paused: true,
@@ -509,6 +536,10 @@ const GSAPDemo = () => {
                 //     alpha: 1
                 // }))
             })
+
+            // const label = `listItem${index}DisplayEnd`;
+            // timeline.current.addLabel(label);
+            timeline.current.set({}, {}, '=+0');
 
             if (data[index].children.length >= scrollChildrenLength) {
                 timeline.current.to(data[index].listRef, {
@@ -1174,7 +1205,9 @@ const GSAPDemo = () => {
                                                                                 {/*<div className={styles.listItemDesc}>*/}
                                                                                 {/*    {child.desc}*/}
                                                                                 {/*</div>*/}
-                                                                                <video ref={ref => child.listItemBgVideoRef = ref} muted={true} autoPlay={false} loop={true} className={styles.listItemBgVideo} src="https://dl-test-1309667514.cos.ap-shanghai.myqcloud.com/visual/mavideo/上游-利好-3级-2.mov-1163729254373729616.webm"></video>
+                                                                                <PngAnimation src={imgSrc} imgWidth={600.36} frame={child.bgFrame || 0} offset={[0, -100]} className={styles.listItemBgVideo} />
+                                                                                {/*<img className={styles.listItemBgVideo} ref={ref => child.listItemBgVideoRef = ref} src="./images/bgImgSprite.png" alt=""/>*/}
+                                                                                {/*<video ref={ref => child.listItemBgVideoRef = ref} muted={true} autoPlay={false} loop={true} onSeeked={() => console.log('onSeeked')} className={styles.listItemBgVideo} src="https://dl-test-1309667514.cos.ap-shanghai.myqcloud.com/visual/mavideo/上游-利好-3级-2.mov-1163729254373729616.webm"></video>*/}
                                                                             </div>
                                                                             <div style={{overflow: 'hidden'}}>
                                                                                 <div ref={ref => child.listRef = ref}
