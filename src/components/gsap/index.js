@@ -490,10 +490,11 @@ const GSAPDemo = () => {
                 timeline.current.to(item, {
                     // repeat: -1,
                     bgFrame: 100,
-                    duration: 5,
+                    duration: 4,
                     ease: "none",
                 }, label)
 
+                timeline.current.set({}, {}, '+=0')
                 // console.log(222, item, _index)
                 // const videDuration = item.listItemBgVideoRef.duration || 0
                 // timeline.current.to(item.listItemBgVideoRef, {
@@ -1205,7 +1206,7 @@ const GSAPDemo = () => {
                                                                                 {/*<div className={styles.listItemDesc}>*/}
                                                                                 {/*    {child.desc}*/}
                                                                                 {/*</div>*/}
-                                                                                <PngAnimation src={imgSrc} imgWidth={600.36} frame={child.bgFrame || 0} offset={[0, -100]} className={styles.listItemBgVideo} />
+                                                                                <PngAnimation src={imgSrc} imgWidth={1500} imgHeight={1000} grid={[5, 20]} scale={0.5} frame={child.bgFrame || 0} offset={[0, 0]} className={styles.listItemBgVideo} />
                                                                                 {/*<img className={styles.listItemBgVideo} ref={ref => child.listItemBgVideoRef = ref} src="./images/bgImgSprite.png" alt=""/>*/}
                                                                                 {/*<video ref={ref => child.listItemBgVideoRef = ref} muted={true} autoPlay={false} loop={true} onSeeked={() => console.log('onSeeked')} className={styles.listItemBgVideo} src="https://dl-test-1309667514.cos.ap-shanghai.myqcloud.com/visual/mavideo/上游-利好-3级-2.mov-1163729254373729616.webm"></video>*/}
                                                                             </div>
