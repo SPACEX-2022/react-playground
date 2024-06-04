@@ -30,7 +30,7 @@ import {PngAnimation} from "./PngAnimation";
 import imgSrc from './images/bgImgSprite.png';
 
 // console.log(DrawSVGPlugin, gsap)
-gsap.registerPlugin(DrawSVGPlugin, MotionPathPlugin)
+gsap.registerPlugin(DrawSVGPlugin, MotionPathPlugin, GSDevTools)
 // gsap.registerPlugin();
 const mindMapData = {"layout":"logicalStructure","root":{"data":{"text":"\u003Cp\u003E\u003Cstrong style=\"font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(255, 255, 255); font-size: 24px;\"\u003E光刻机\u003C/strong\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"470e7df9-b8c6-4b3a-ac54-2b2dc82dca7f"},"children":[{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(255, 255, 255); font-size: 18px;\"\u003E材料及设备\u003C/span\u003E\u003C/p\u003E","generalization":null,"richText":true,"expand":true,"isActive":false,"uid":"5e486721-0563-4ef1-9ac7-e674d576d7aa"},"children":[{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86); font-size: 14px;\"\u003E光刻机\u003C/span\u003E\u003C/p\u003E","richText":true,"expand":true,"isActive":false,"uid":"db9817b7-7fc7-4bf4-9cc7-91814d9d53b7"},"children":[{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E彤程新材\u003C/span\u003E\u003C/p\u003E","uid":"8211c7b7-af8c-4170-a7f6-450415d2df5a","expand":true,"richText":true,"isActive":false},"children":[{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E从事新材料的研发生产，光刻胶专利保证光刻胶回刻的平坦化程度\u003C/span\u003E\u003C/p\u003E","uid":"389d7647-5806-4e5a-a783-22b853170201","expand":true,"richText":true,"isActive":false},"children":[]}]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E晶瑞电材\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"2cc7afc0-0e66-4bab-a737-d6141c9f300c"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E南大光电\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"cd9f569f-b471-4f7b-9f60-03e37ada553d"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E容大感光\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"dfdb34bb-0d48-4a18-b6c3-e8385676c524"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E同益股份\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"584774a3-5b17-4e8e-8508-abce2147d2da"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E华丰科技\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"f3fec018-e9fd-4599-bfcc-2416fe8b1d6a"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E上海新阳\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"188d1823-6754-4a47-9156-aff813403d3f"},"children":[]}]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86); font-size: 14px;\"\u003E电子特气\u003C/span\u003E\u003C/p\u003E","richText":true,"expand":true,"isActive":false,"uid":"a0762b35-db88-4d58-a976-fcf6b79c8831"},"children":[]},{"data":{"text":"\u003Cp\u003E\u003Cspan style=\"font-size: 14px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(30, 53, 86);\"\u003E涂胶显影设备\u003C/span\u003E\u003C/p\u003E","expand":true,"richText":true,"isActive":false,"uid":"bd7e58fc-0363-42a7-b70e-97bf29c3f32e"},"children":[]}]}]},"theme":{"template":"classic4","config":{}},"view":{"transform":{"scaleX":1,"scaleY":1,"shear":0,"rotate":0,"translateX":-355,"translateY":-20,"originX":0,"originY":0,"a":1,"b":0,"c":0,"d":1,"e":-355,"f":-20},"state":{"scale":1,"x":-355,"y":-20,"sx":-355,"sy":-20}}}
 // '--color': titleIndexData[index].themeColor,
@@ -281,8 +281,8 @@ const GSAPDemo = () => {
     const showSectorList = (index, currentClipDuration) => {
         const [width, height] = resolutions;
         const timeline = gsap.timeline();
-        const titleMoveDis = 200;
-        const contentWrapperMoveDis = 600;
+        const titleMoveDis = 100;
+        const contentWrapperMoveDis = 500;
         const contentWrapperMoveItemDis = ((94 + 60) * SCALE);
 
         timeline
@@ -295,7 +295,7 @@ const GSAPDemo = () => {
             .to(data[index].listRef, {
                 duration: 0.5,
                 // y: `-=200`,
-                height: `+=${Math.ceil(data[index].children.length / 6) * 1200}`,
+                height: height / SCALE,
                 ease: 'power1.inOut',
             }, '<')
 
@@ -310,7 +310,7 @@ const GSAPDemo = () => {
                     item.ref,
                     {
                         duration: 0.5,
-                        y: titleMoveDis,
+                        y: titleMoveDis - _index * (contentWrapperMoveItemDis - 60),
                     }, '<')
                 .fromTo(
                     item.listRef,
@@ -363,31 +363,36 @@ const GSAPDemo = () => {
                     item.ref,
                     {
                         duration: 0.5,
-                        y: 0,
+                        y: -contentWrapperMoveItemDis - (90 + 60) * SCALE * _index,
                     }, '<')
 
-                if (_index !== data[index].children.length - 1) {
-                    timeline.to(
-                        refs['contentWrapper'],
-                        {
-                            duration: 0.5,
-                            y: `-=${contentWrapperMoveItemDis}`,
-                            ease: 'power1.inOut',
-                        },
-                        '<'
-                    )
-                }
+                // if (_index !== data[index].children.length - 1) {
+                //     timeline.to(
+                //         refs['contentWrapper'],
+                //         {
+                //             duration: 0.5,
+                //             y: `-=${contentWrapperMoveItemDis}`,
+                //             ease: 'power1.inOut',
+                //         },
+                //         '<'
+                //     )
+                // }
         })
 
         timeline
             .to(refs['contentWrapper'], {
                 duration: 0.5,
-                y: `+=${contentWrapperMoveDis + (contentWrapperMoveItemDis * (data[index].children.length - 1))}`,
+                y: `+=${contentWrapperMoveDis}`,
+                ease: 'power1.inOut',
+            }, '<')
+            .to(data[index].children.map(i => i.ref), {
+                duration: 0.5,
+                y: 0,
                 ease: 'power1.inOut',
             }, '<')
             .to(data[index].listRef, {
                 duration: 0.5,
-                height: `-=${Math.ceil(data[index].children.length / 6) * 1200}`,
+                height: height * 0.43,
                 ease: 'power1.inOut',
             }, '<')
 
@@ -407,13 +412,14 @@ const GSAPDemo = () => {
         }).addLabel('start');
 
         data.forEach((item, index) => {
-            timeline.current.add(
-                gsap.to(item.ref, {
+            timeline.current.to(
+                item.ref,
+                {
                     duration: 0.5,
                     x: 0,
                     alpha: 1,
                     ease: 'power1.inOut',
-                })
+                }
             )
         })
 
@@ -444,7 +450,7 @@ const GSAPDemo = () => {
             const extraDuration = item.duration || 0;
             const label = `topNodeStart${index}`;
             timeline.current.addLabel(label)
-            timeline.current.set({}, {}, 0)
+            timeline.current.set({}, {}, label)
             if (_index !== 0) {
                 const prevNodeIndex = sequence[_index - 1].index;
                 // const nextNodeIndex = sequence[_index + 1].index;
@@ -461,17 +467,21 @@ const GSAPDemo = () => {
 
             const moveItemDis = 155;
             const scrollChildrenLength = 5;
+
+            let _endLabel = `listItem${index}DisplayStart`
+            timeline.current.addLabel(_endLabel)
             data[index].children.forEach((item, _index) => {
-                const label = `listItem${index}Start${_index}`;
-                timeline.current.addLabel(label)
-                let position = '+=0'
+                // const startLabel = `listItem${index}Start${_index}`;
+                timeline.current.set({}, {}, _endLabel)
+
+                let position = `${_endLabel}+=0`;
                 if (_index >= scrollChildrenLength) {
                     timeline.current.to(data[index].listRef, {
                         duration: 0.5,
                         scrollTop: `+=${moveItemDis}`,
                         ease: 'power1.inOut',
                     })
-                    position = '>-0.1'
+                    position = `${_endLabel}>-0.1`
                 }
                 timeline.current.fromTo(
                     item.ref,
@@ -486,61 +496,24 @@ const GSAPDemo = () => {
                     position
                 )
 
+                const endLabel = `listItem${index}End${_index}`;
+                timeline.current.addLabel(endLabel)
+                _endLabel = endLabel;
+
                 item.bgFrame = 0;
                 timeline.current.to(item, {
-                    // repeat: -1,
+                    repeat: -1,
                     bgFrame: 100,
                     duration: 4,
                     ease: "none",
-                }, label)
-
-                timeline.current.set({}, {}, '+=0')
-                // console.log(222, item, _index)
-                // const videDuration = item.listItemBgVideoRef.duration || 0
-                // timeline.current.to(item.listItemBgVideoRef, {
-                //     // repeat: -1,
-                //     currentTime: 20,
-                //     duration: 20,
-                //     ease: "none",
-                // }, label)
-                // const playhead = { frame: 0 };
-                // timeline.current.to(playhead, {
-                //     // repeat: -1,
-                //     frame: 100,
-                //     // currentTime: 20,
-                //     duration: 20,
-                //     onUpdate() {
-                //         console.log(playhead)
-                //       // console.log(88888888)
-                //     },
-                //     ease: "none",
-                // }, label)
-
-                // timeline.current.add(gsap.timeline({
-                //     // paused: true,
-                //     // duration: 1,
-                //     onStart() {
-                //         console.log(9999999999999999999999999, item.listItemBgVideoRef)
-                //         item.listItemBgVideoRef.play()
-                //     },
-                //     onUpdate() {
-                //         console.log('onUpdate')
-                //     },
-                //     onInterrupt() {
-                //         console.log('onInterrupt')
-                //     },
-                //     onComplete() {
-                //         console.log('onComplete')
-                //     },
-                // }).to(item.listItemBgVideoRef, {
-                //     duration: 1,
-                //     alpha: 1
-                // }))
+                })
             })
 
             // const label = `listItem${index}DisplayEnd`;
-            // timeline.current.addLabel(label);
-            timeline.current.set({}, {}, '=+0');
+            timeline.current.addLabel(`listItem${index}DisplayEnd`);
+            console.log(11111, timeline.current.labels)
+
+            timeline.current.set({}, {}, _endLabel);
 
             if (data[index].children.length >= scrollChildrenLength) {
                 timeline.current.to(data[index].listRef, {
@@ -740,7 +713,7 @@ const GSAPDemo = () => {
         const endTime = timeline.current.labels.endTime;
         timeline.current.seek(Math.min(endTime, timestamp));
         setDuration(endTime);
-        // GSDevTools.create();
+        GSDevTools.create({ animation: timeline.current });
         console.log(`当前 seek 时间点：${timestamp}，动画总时长：${endTime}`)
     }, {
         scope: refs['stage'],

@@ -86,10 +86,10 @@ const ComponentTest = () => {
 
     useEffect(() => {
         Promise.all([
-            loadJS('https://magictest.dinglitec.com/components/index.js'),
-            loadCss('https://magictest.dinglitec.com/components/index.css'),
-            // loadJS('http://127.0.0.1:8080/js/index.js'),
-            // loadCss('http://127.0.0.1:8080/css/index.css'),
+            // loadJS('https://magictest.dinglitec.com/components/index.js'),
+            // loadCss('https://magictest.dinglitec.com/components/index.css'),
+            loadJS('http://127.0.0.1:8080/js/index.js'),
+            loadCss('http://127.0.0.1:8080/css/index.css'),
         ]).then(() => {
             console.log(111, window['@datav/news-components'])
             const Component  = window['@datav/news-components'];
