@@ -2,6 +2,7 @@ import {Component, useEffect, useRef, useState} from "react";
 import {Button, Col, Layout, Row, Slider} from "antd";
 import {CaretRightFilled, PauseOutlined} from "@ant-design/icons";
 import {Content} from "antd/es/layout/layout";
+import {useKeyPress} from "ahooks";
 
 
 export function loadJS(url,defaultUrl) {
@@ -356,6 +357,12 @@ const ComponentTest = () => {
         }
     }
 
+    useKeyPress('Space', () => {
+        onPlay();
+    }, {
+        exactMatch: true,
+    })
+
     return (
         <div>
             <Layout>
@@ -364,6 +371,7 @@ const ComponentTest = () => {
                         {!loading ?
                             <Comp ref={componentRef} {...componentProps.current} playing={playing} width={"540px"}
                                   height={"960px"} timestamp={timestamp}
+                                  onTimestampChange={(time) => setTimestamp(time * 1000)}
                             /> : null}
                     </div>
                 </Content>
