@@ -80,6 +80,7 @@ const ComponentTest = () => {
 
     const [loading, setLoading] = useState(true);
     const componentRef = useRef(null);
+
     const component = useRef(null);
     const componentProps = useRef({});
     const [duration, setDuration] = useState(0);
@@ -473,11 +474,12 @@ const ComponentTest = () => {
             //         "duration": 8027
             //     }
             // };
-            setDuration(
-                componentProps.current.data.value.animationData.tts.duration
-                + componentProps.current.data.value.animationData.children.reduce((t, c) => t + c.tts.duration, 0)
-                + componentProps.current.data.value.animationData.summary.duration
-            )
+            // setDuration(
+            //     componentProps.current.data.value.animationData.tts.duration
+            //     + componentProps.current.data.value.animationData.children.reduce((t, c) => t + c.tts.duration, 0)
+            //     + componentProps.current.data.value.animationData.summary.duration
+            // )
+            setDuration(78000)
             setLoading(false);
         })
     }, [])
