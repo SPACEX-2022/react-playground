@@ -152,7 +152,7 @@ const ComponentTest = () => {
                                                         "parentId": "1163728615639352810",
                                                         "name": "传感器",
                                                         "bizId": "1163728615639352814",
-                                                        "effectResult": "间接利好",
+                                                        "effectResult": "间接利空",
                                                         "effectReason": "优化能效"
                                                     },
                                                     {
@@ -160,7 +160,7 @@ const ComponentTest = () => {
                                                         "parentId": "1163728615639352810",
                                                         "name": "芯片",
                                                         "bizId": "1163728615639352813",
-                                                        "effectResult": "间接利好",
+                                                        "effectResult": "中性",
                                                         "effectReason": "优化能效"
                                                     },
                                                     {
@@ -168,7 +168,7 @@ const ComponentTest = () => {
                                                         "parentId": "1163728615639352810",
                                                         "name": "电机",
                                                         "bizId": "1163728615639352812",
-                                                        "effectResult": "间接利好",
+                                                        "effectResult": "",
                                                         "effectReason": "优化能效"
                                                     },
                                                     {
@@ -479,7 +479,7 @@ const ComponentTest = () => {
             //     + componentProps.current.data.value.animationData.children.reduce((t, c) => t + c.tts.duration, 0)
             //     + componentProps.current.data.value.animationData.summary.duration
             // )
-            setDuration(78000)
+            setDuration(100000)
             setLoading(false);
         })
     }, [])
