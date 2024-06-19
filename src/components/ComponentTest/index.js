@@ -80,9 +80,11 @@ const ComponentTest = () => {
 
     const [loading, setLoading] = useState(true);
     const componentRef = useRef(null);
+    const audioRef = useRef(null);
 
     const component = useRef(null);
     const componentProps = useRef({});
+    const [audioSrc, setAudioSrc] = useState('');
     const [duration, setDuration] = useState(0);
     const [timestamp, setTimestamp] = useState(0);
 
@@ -696,6 +698,13 @@ const ComponentTest = () => {
             componentProps.current.data.value.animationData.children = componentProps.current.data.value.animationData.children.slice(0, 3);
             setDuration(100000)
             setLoading(false);
+
+            setTimeout(async () => {
+                console.log(111, componentRef.current);
+                const res = await componentRef.current.generateAudio();
+                // console.log(222, res, res.url);
+                setAudioSrc(res.url)
+            }, 1000)
         })
     }, [])
 
@@ -713,8 +722,11 @@ const ComponentTest = () => {
 
     const onPlay = () => {
         if (playing) {
+            audioRef.current.pause();
             setPlaying(false);
         } else {
+            audioRef.current.currentTime = timestamp / 1000;
+            audioRef.current.play();
             setPlaying(true);
         }
     }
@@ -727,24 +739,27 @@ const ComponentTest = () => {
 
     return (
         <div>
+            <audio ref={audioRef} src={audioSrc} loop={false}></audio>
             <Layout>
-                <Content style={{ display: 'flex', justifyContent: 'center'}}>
+                <Content style={{display: 'flex', justifyContent: 'center'}}>
                     <div style={{width: '540px', height: '960px', background: '#ccc'}}>
                         {!loading ?
                             <Comp ref={componentRef} {...componentProps.current} playing={playing} width={"540px"}
-                                  height={"960px"} timestamp={timestamp}
+                                  height={"960px"} timestamp={timestamp} delay={0}
                             /> : null}
                     </div>
                 </Content>
                 <Layout.Footer>
                     <Row>
                         <Col span={24}>
-                            <Slider step={0.1} min={0} max={duration / 1000} value={timestamp / 1000} onChange={onSeek}/>
+                            <Slider step={0.1} min={0} max={duration / 1000} value={timestamp / 1000}
+                                    onChange={onSeek}/>
                         </Col>
                     </Row>
                     <Row>
                         <Col span={24}>
-                            <Button icon={playing ? <PauseOutlined /> : <CaretRightFilled />} type="text" size="large" onClick={onPlay}></Button>
+                            <Button icon={playing ? <PauseOutlined/> : <CaretRightFilled/>} type="text" size="large"
+                                    onClick={onPlay}></Button>
                         </Col>
                     </Row>
                 </Layout.Footer>
