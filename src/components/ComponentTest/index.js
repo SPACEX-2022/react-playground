@@ -387,189 +387,12 @@ const ComponentTest = () => {
             // };
 
             componentProps.current = {
-                "width": "1080px",
-                "height": "1920px",
                 "left": "0px",
                 "top": "0px",
-                "delay": 5032,
-                "duration": 68910,
-                "data": {
-                    "value": {
-                        "animationData": {
-                            "level": 1,
-                            "parentId": "0",
-                            "children": [
-                                {
-                                    "level": 2,
-                                    "parentId": "1163729884696022143",
-                                    "children": [
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752129731672410",
-                                            "name": "油运",
-                                            "bizId": "1190752129731672411",
-                                            "effectResult": "间接利空",
-                                            "effectReason": "影响油轮的装卸和运输效率"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752129731672410",
-                                            "name": "集运",
-                                            "bizId": "1190752129731672412",
-                                            "effectResult": "直接利空",
-                                            "effectReason": "运输延迟和成本上升"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752129731672410",
-                                            "name": "干散货运输",
-                                            "bizId": "1190752129731672413",
-                                            "effectResult": "间接利空",
-                                            "effectReason": "效率较低"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752129731672410",
-                                            "name": "干散货运输",
-                                            "bizId": "1190752129731672413",
-                                            "effectResult": "间接利空",
-                                            "effectReason": "效率较低"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752129731672410",
-                                            "name": "干散货运输",
-                                            "bizId": "1190752129731672413",
-                                            "effectResult": "间接利空",
-                                            "effectReason": "效率较低"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752129731672410",
-                                            "name": "干散货运输",
-                                            "bizId": "1190752129731672413",
-                                            "effectResult": "间接利空",
-                                            "effectReason": "效率较低"
-                                        }
-                                    ],
-                                    "name": "中游\n运输",
-                                    "bizId": "1190752129731672410",
-                                    "tts": {
-                                        "ttsText": "首先，上游供应环节影响相对较小。船舶设计与制造行业受到的影响有限，而集装箱制造和其它设备配套制造行业虽然面临一定的压力，但整体影响可控。",
-                                        "duration": 12600
-                                    }
-                                },
-                                {
-                                    "level": 2,
-                                    "parentId": "1163729884696022143",
-                                    "children": [
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752129731672414",
-                                            "name": "制造业",
-                                            "bizId": "1190752129731672415",
-                                            "effectResult": "间接利空",
-                                            "effectReason": "影响生产和交货"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752129731672414",
-                                            "name": "化工业",
-                                            "bizId": "1190752129731672416",
-                                            "effectResult": "间接利空",
-                                            "effectReason": "影响收入"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752129731672414",
-                                            "name": "能源业",
-                                            "bizId": "1190752129731672417",
-                                            "effectResult": "间接利空",
-                                            "effectReason": "导致能源产品的供应延迟"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752129731672414",
-                                            "name": "农业",
-                                            "bizId": "1190752129731672418",
-                                            "effectResult": "间接利空",
-                                            "effectReason": "贸易受阻"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752129731672414",
-                                            "name": "消费业",
-                                            "bizId": "1190752129731672419",
-                                            "effectResult": "间接利空",
-                                            "effectReason": "影响利润"
-                                        }
-                                    ],
-                                    "name": "下游\n应用",
-                                    "bizId": "1190752129731672414",
-                                    "tts": {
-                                        "ttsText": "然而，中游运输环节将受到较大冲击。油运行业将面临装卸和运输效率的下降，集运行业则可能面临运输延迟和成本上升的问题。干散货运输同样难以幸免，效率降低成为不可避免的现实。",
-                                        "duration": 15443
-                                    }
-                                },
-                                {
-                                    "level": 2,
-                                    "parentId": "1163729884696022143",
-                                    "children": [
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752128893860182",
-                                            "name": "船舶设计",
-                                            "bizId": "1190752129731672406",
-                                            "effectResult": "中性",
-                                            "effectReason": "影响较小"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752128893860182",
-                                            "name": "船舶制造",
-                                            "bizId": "1190752129731672407",
-                                            "effectResult": "中性",
-                                            "effectReason": "影响较小"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752128893860182",
-                                            "name": "集装箱制造",
-                                            "bizId": "1190752129731672408",
-                                            "effectResult": "间接利空",
-                                            "effectReason": "降低集装箱的周转率和需求"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1190752128893860182",
-                                            "name": "其他设备配套制造",
-                                            "bizId": "1190752129731672409",
-                                            "effectResult": "中性",
-                                            "effectReason": "影响较小"
-                                        }
-                                    ],
-                                    "name": "上游\n供应",
-                                    "bizId": "1190752128893860182",
-                                    "tts": {
-                                        "ttsText": "此外，下游应用领域也将受到波及。制造业、化工业、能源业等行业的生产和交货将受到影响，农业贸易受阻，消费业的利润也将受到冲击。整个产业链的运作效率和盈利能力都将面临考验。",
-                                        "duration": 15335
-                                    }
-                                }
-                            ],
-                            "name": "美港口工人或大罢工",
-                            "bizId": "1163729884696022143",
-                            "tts": {
-                                "ttsText": "航运产业链，受此次事件影响的主要是上游供应、中游运输和下游应用。",
-                                "duration": 4544
-                            },
-                            "summary": {
-                                "ttsText": "综上所述，美港口工人或大罢工事件对航运产业链的影响广泛而深远。从上游供应到中游运输，再到下游应用，整个行业都将面临不同程度的挑战。如何在危机中寻找机遇，将是航运产业链各环节需要共同思考的问题。好了，这期就到这里，我们下期再见",
-                                "duration": 20988
-                            }
-                        }
-                    }
-                },
-                "zIndex": 14,
+                "width": "1080px",
+                "height": "1920px",
+                "delay": 5437,
+                "duration": 70700,
                 "enterDuration": 500,
                 "leaveDuration": 500,
                 "style": {},
@@ -588,7 +411,150 @@ const ComponentTest = () => {
                 "animateType": null,
                 "animateLeaveType": null,
                 "rotate": "0deg",
-                "lastDuration": 68910
+                "data": {
+                    "value": {
+                        "animationData": {
+                            "level": 1,
+                            "parentId": "0",
+                            "children": [
+                                {
+                                    "level": 2,
+                                    "parentId": "1163729512358028624",
+                                    "children": [
+                                        {
+                                            "level": 3,
+                                            "parentId": "1163730442778371591",
+                                            "children": [
+                                                {
+                                                    "level": 4,
+                                                    "parentId": "1163730442778371592",
+                                                    "name": "智能手机",
+                                                    "bizId": "1163730442778371593",
+                                                    "effectResult": "直接利好",
+                                                    "effectReason": "技术创新引起的需求"
+                                                }
+                                            ],
+                                            "name": "产品组装与封测",
+                                            "bizId": "1163730442778371592"
+                                        }
+                                    ],
+                                    "name": "中游\n产品制造",
+                                    "bizId": "1163730442778371591",
+                                    "tts": {
+                                        "ttsText": "首先，中游智能手机制造业将直接受益。华为P70系列的技术创新引起了市场对智能手机的新一轮需求，为智能手机制造业带来了直接的利好。",
+                                        "duration": 11447
+                                    }
+                                },
+                                {
+                                    "level": 2,
+                                    "parentId": "1163729512358028624",
+                                    "children": [
+                                        {
+                                            "level": 3,
+                                            "parentId": "1163730442760545791",
+                                            "children": [
+                                                {
+                                                    "level": 4,
+                                                    "parentId": "1163730442778371579",
+                                                    "name": "半导体",
+                                                    "bizId": "1163730442778371580",
+                                                    "effectResult": "间接利好",
+                                                    "effectReason": "需求提升+技术突破"
+                                                },
+                                                {
+                                                    "level": 4,
+                                                    "parentId": "1163730442778371579",
+                                                    "name": "被动元件",
+                                                    "bizId": "1163730442778371581",
+                                                    "effectResult": "间接利好",
+                                                    "effectReason": "需求提升"
+                                                },
+                                                {
+                                                    "level": 4,
+                                                    "parentId": "1163730442778371579",
+                                                    "name": "PCB/FPC",
+                                                    "bizId": "1163730442778371582",
+                                                    "effectResult": "间接利好",
+                                                    "effectReason": "需求提升"
+                                                }
+                                            ],
+                                            "name": "零部件",
+                                            "bizId": "1163730442778371579"
+                                        },
+                                        {
+                                            "level": 3,
+                                            "parentId": "1163730442760545791",
+                                            "children": [
+                                                {
+                                                    "level": 4,
+                                                    "parentId": "1163730442778371583",
+                                                    "name": "显示屏",
+                                                    "bizId": "1163730442778371584",
+                                                    "effectResult": "间接利好",
+                                                    "effectReason": "需求提升"
+                                                },
+                                                {
+                                                    "level": 4,
+                                                    "parentId": "1163730442778371583",
+                                                    "name": "锂电池",
+                                                    "bizId": "1163730442778371585",
+                                                    "effectResult": "间接利好",
+                                                    "effectReason": "技术突破+需求提升"
+                                                },
+                                                {
+                                                    "level": 4,
+                                                    "parentId": "1163730442778371583",
+                                                    "name": "光学器件",
+                                                    "bizId": "1163730442778371587",
+                                                    "effectResult": "间接利好",
+                                                    "effectReason": "技术突破+需求提升"
+                                                }
+                                            ],
+                                            "name": "组件",
+                                            "bizId": "1163730442778371583"
+                                        }
+                                    ],
+                                    "name": "上游\n原材部件",
+                                    "bizId": "1163730442760545791",
+                                    "tts": {
+                                        "ttsText": "随着中游智能手机需求的提升，上游原材部件和组件供应商也将受益。半导体、被动元件、PCB/FPC等零部件的需求将得到提升，同时显示屏、锂电池、光学器件等组件的技术突破和需求提升也将为上游供应商带来间接的利好。",
+                                        "duration": 18828
+                                    }
+                                },
+                                {
+                                    "level": 2,
+                                    "parentId": "1163729512358028624",
+                                    "children": [
+                                        {
+                                            "level": 3,
+                                            "parentId": "1163730442778371599",
+                                            "name": "零售渠道",
+                                            "bizId": "1163730442778371600",
+                                            "effectResult": "间接利好",
+                                            "effectReason": "销量提升"
+                                        }
+                                    ],
+                                    "name": "下游\n渠道",
+                                    "bizId": "1163730442778371599",
+                                    "tts": {
+                                        "ttsText": "此外，下游零售渠道也将受到此次事件的积极影响。随着华为P70系列的热销，零售渠道的销量也将得到提升，为零售商带来间接的利好。",
+                                        "duration": 10835
+                                    }
+                                }
+                            ],
+                            "name": "华为发布P70",
+                            "bizId": "1163729512358028624",
+                            "tts": {
+                                "ttsText": "消费电子产业链，受此次事件影响的主要是上游原材部件与组件、中游产品制造、下游渠道。",
+                                "duration": 5794
+                            },
+                            "summary": {
+                                "duration": 5794
+
+                            }
+                        }
+                    }
+                }
             }
             // componentProps.current.data.value.animationData = {
             //     "level": 1,
