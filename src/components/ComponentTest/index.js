@@ -387,12 +387,126 @@ const ComponentTest = () => {
             // };
 
             componentProps.current = {
-                "left": "0px",
-                "top": "0px",
                 "width": "1080px",
                 "height": "1920px",
-                "delay": 5437,
-                "duration": 70700,
+                "left": "0px",
+                "top": "0px",
+                "delay": 5702,
+                "duration": 63452,
+                "data": {
+                    "value": {
+                        "animationData": {
+                            "level": 1,
+                            "parentId": "0",
+                            "children": [
+                                {
+                                    "level": 2,
+                                    "parentId": "1001",
+                                    "children": [
+                                        {
+                                            "level": 3,
+                                            "parentId": "1163730441816827399",
+                                            "name": "纯电车",
+                                            "bizId": "1163730441816827400",
+                                            "effectResult": "直接利好",
+                                            "effectReason": "关注度提升"
+                                        }
+                                    ],
+                                    "name": "下游\n整车",
+                                    "bizId": "1163730441816827399",
+                                    "tts": {
+                                        "ttsText": "首先，下游整车市场将直接受益。小米汽车的热卖，将提升纯电车的关注度，为整个新能源汽车市场带来更多消费者的目光。",
+                                        "duration": 9755
+                                    }
+                                },
+                                {
+                                    "level": 2,
+                                    "parentId": "1001",
+                                    "children": [
+                                        {
+                                            "level": 3,
+                                            "parentId": "1163730441816827392",
+                                            "name": "电池",
+                                            "bizId": "1163730441816827393",
+                                            "effectResult": "直接利好",
+                                            "effectReason": "需求增加"
+                                        },
+                                        {
+                                            "level": 3,
+                                            "parentId": "1163730441816827392",
+                                            "name": "内饰",
+                                            "bizId": "1163730441816827396",
+                                            "effectResult": "直接利好",
+                                            "effectReason": "需求增加"
+                                        },
+                                        {
+                                            "level": 3,
+                                            "parentId": "1163730441816827392",
+                                            "name": "底盘",
+                                            "bizId": "1163730441816827397",
+                                            "effectResult": "直接利好",
+                                            "effectReason": "轻量化需求"
+                                        }
+                                    ],
+                                    "name": "中游\n零部件制造",
+                                    "bizId": "1163730441816827392",
+                                    "tts": {
+                                        "ttsText": "随着下游需求的增长，中游零部件制造业也将迎来发展机遇。电池作为新能源汽车的核心部件，其需求量将显著增加。同时，内饰和底盘的需求也将随之上升，特别是底盘的轻量化需求，将成为未来汽车设计的重要趋势。",
+                                        "duration": 17820
+                                    }
+                                },
+                                {
+                                    "level": 2,
+                                    "parentId": "1001",
+                                    "children": [
+                                        {
+                                            "level": 3,
+                                            "parentId": "1163730441773835771",
+                                            "name": "隔膜",
+                                            "bizId": "1163730441816827388",
+                                            "effectResult": "间接利好",
+                                            "effectReason": "间接增需"
+                                        },
+                                        {
+                                            "level": 3,
+                                            "parentId": "1163730441773835771",
+                                            "name": "正负极",
+                                            "bizId": "1163730441816827389",
+                                            "effectResult": "间接利好",
+                                            "effectReason": "间接增需"
+                                        },
+                                        {
+                                            "level": 3,
+                                            "parentId": "1163730441773835771",
+                                            "name": "电解液",
+                                            "bizId": "1163730441816827390",
+                                            "effectResult": "间接利好",
+                                            "effectReason": "间接增需"
+                                        }
+                                    ],
+                                    "name": "上游\n原材料",
+                                    "bizId": "1163730441773835771",
+                                    "tts": {
+                                        "ttsText": "此外，上游原材料供应商也将间接受益。随着中游零部件需求的增加，对隔膜、正负极材料和电解液等原材料的需求也将随之增长，推动原材料市场的繁荣。",
+                                        "duration": 12636
+                                    }
+                                }
+                            ],
+                            "name": "小米汽车热卖",
+                            "bizId": "1001",
+                            "tts": {
+                                "ttsText": "新能源车产业链，受此次事件影响的主要是下游整车、中游零部件制造以及上游原材料。",
+                                "duration": 5206
+                            },
+                            "summary": {
+                                "ttsText": "综上所述，小米汽车的热卖不仅直接推动了下游整车市场的关注度提升，也带动了中游零部件制造的需求增长和上游原材料的间接增需，为整个新能源车产业链带来了全面而深远的积极影响。好了，这期就到这里，我们下期再见",
+                                "duration": 18035
+                            },
+                            "audioUrl": "https://dl-test-1309667514.cos.ap-shanghai.myqcloud.com/visual/aigc/user/1208740788091292396-1718881365869-themeSound.mp3"
+                        }
+                    }
+                },
+                "zIndex": 14,
                 "enterDuration": 500,
                 "leaveDuration": 500,
                 "style": {},
@@ -410,151 +524,7 @@ const ComponentTest = () => {
                 },
                 "animateType": null,
                 "animateLeaveType": null,
-                "rotate": "0deg",
-                "data": {
-                    "value": {
-                        "animationData": {
-                            "level": 1,
-                            "parentId": "0",
-                            "children": [
-                                {
-                                    "level": 2,
-                                    "parentId": "1163729512358028624",
-                                    "children": [
-                                        {
-                                            "level": 3,
-                                            "parentId": "1163730442778371591",
-                                            "children": [
-                                                {
-                                                    "level": 4,
-                                                    "parentId": "1163730442778371592",
-                                                    "name": "智能手机",
-                                                    "bizId": "1163730442778371593",
-                                                    "effectResult": "直接利好",
-                                                    "effectReason": "技术创新引起的需求"
-                                                }
-                                            ],
-                                            "name": "产品组装与封测",
-                                            "bizId": "1163730442778371592"
-                                        }
-                                    ],
-                                    "name": "中游\n产品制造",
-                                    "bizId": "1163730442778371591",
-                                    "tts": {
-                                        "ttsText": "首先，中游智能手机制造业将直接受益。华为P70系列的技术创新引起了市场对智能手机的新一轮需求，为智能手机制造业带来了直接的利好。",
-                                        "duration": 11447
-                                    }
-                                },
-                                {
-                                    "level": 2,
-                                    "parentId": "1163729512358028624",
-                                    "children": [
-                                        {
-                                            "level": 3,
-                                            "parentId": "1163730442760545791",
-                                            "children": [
-                                                {
-                                                    "level": 4,
-                                                    "parentId": "1163730442778371579",
-                                                    "name": "半导体",
-                                                    "bizId": "1163730442778371580",
-                                                    "effectResult": "间接利好",
-                                                    "effectReason": "需求提升+技术突破"
-                                                },
-                                                {
-                                                    "level": 4,
-                                                    "parentId": "1163730442778371579",
-                                                    "name": "被动元件",
-                                                    "bizId": "1163730442778371581",
-                                                    "effectResult": "间接利好",
-                                                    "effectReason": "需求提升"
-                                                },
-                                                {
-                                                    "level": 4,
-                                                    "parentId": "1163730442778371579",
-                                                    "name": "PCB/FPC",
-                                                    "bizId": "1163730442778371582",
-                                                    "effectResult": "间接利好",
-                                                    "effectReason": "需求提升"
-                                                }
-                                            ],
-                                            "name": "零部件",
-                                            "bizId": "1163730442778371579"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1163730442760545791",
-                                            "children": [
-                                                {
-                                                    "level": 4,
-                                                    "parentId": "1163730442778371583",
-                                                    "name": "显示屏",
-                                                    "bizId": "1163730442778371584",
-                                                    "effectResult": "间接利好",
-                                                    "effectReason": "需求提升"
-                                                },
-                                                {
-                                                    "level": 4,
-                                                    "parentId": "1163730442778371583",
-                                                    "name": "锂电池",
-                                                    "bizId": "1163730442778371585",
-                                                    "effectResult": "间接利好",
-                                                    "effectReason": "技术突破+需求提升"
-                                                },
-                                                {
-                                                    "level": 4,
-                                                    "parentId": "1163730442778371583",
-                                                    "name": "光学器件",
-                                                    "bizId": "1163730442778371587",
-                                                    "effectResult": "间接利好",
-                                                    "effectReason": "技术突破+需求提升"
-                                                }
-                                            ],
-                                            "name": "组件",
-                                            "bizId": "1163730442778371583"
-                                        }
-                                    ],
-                                    "name": "上游\n原材部件",
-                                    "bizId": "1163730442760545791",
-                                    "tts": {
-                                        "ttsText": "随着中游智能手机需求的提升，上游原材部件和组件供应商也将受益。半导体、被动元件、PCB/FPC等零部件的需求将得到提升，同时显示屏、锂电池、光学器件等组件的技术突破和需求提升也将为上游供应商带来间接的利好。",
-                                        "duration": 18828
-                                    }
-                                },
-                                {
-                                    "level": 2,
-                                    "parentId": "1163729512358028624",
-                                    "children": [
-                                        {
-                                            "level": 3,
-                                            "parentId": "1163730442778371599",
-                                            "name": "零售渠道",
-                                            "bizId": "1163730442778371600",
-                                            "effectResult": "间接利好",
-                                            "effectReason": "销量提升"
-                                        }
-                                    ],
-                                    "name": "下游\n渠道",
-                                    "bizId": "1163730442778371599",
-                                    "tts": {
-                                        "ttsText": "此外，下游零售渠道也将受到此次事件的积极影响。随着华为P70系列的热销，零售渠道的销量也将得到提升，为零售商带来间接的利好。",
-                                        "duration": 10835
-                                    }
-                                }
-                            ],
-                            "name": "华为发布P70",
-                            "bizId": "1163729512358028624",
-                            "tts": {
-                                "ttsText": "消费电子产业链，受此次事件影响的主要是上游原材部件与组件、中游产品制造、下游渠道。",
-                                "duration": 5794
-                            },
-                            "summary": {
-                                "duration": 5794
-
-                            }
-                        }
-                    }
-                }
+                "rotate": "0deg"
             }
             // componentProps.current.data.value.animationData = {
             //     "level": 1,
@@ -682,17 +652,18 @@ const ComponentTest = () => {
     //     setPlaying(!playing);
     // }
 
+
     const onSeek = (t) => {
         setTimestamp(t * 1000)
     }
 
     const onPlay = () => {
         if (playing) {
-            audioRef.current.pause();
+            // audioRef.current.pause();
             setPlaying(false);
         } else {
-            audioRef.current.currentTime = timestamp / 1000;
-            audioRef.current.play();
+            // audioRef.current.currentTime = timestamp / 1000;
+            // audioRef.current.play();
             setPlaying(true);
         }
     }
