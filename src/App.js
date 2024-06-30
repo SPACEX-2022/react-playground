@@ -17,6 +17,8 @@ import {useLocalStorageState} from "ahooks";
 import {Button, Layout, List} from "antd";
 import ComponentTest from "./components/ComponentTest";
 import {Component} from "react";
+import PixiPlayground from "./components/PixiPlayground";
+import PixiV7Playground from "./components/PixiV7Playground";
 // import { SplitText } from "gsap/SplitText";
 
 
@@ -69,7 +71,9 @@ function App() {
 
     const ComponentMap = {
         GSAPDemo,
-        ComponentTest
+        ComponentTest,
+        PixiPlayground,
+        PixiV7Playground,
     }
 
     const [displayComponent, setDisplayComponent] = useLocalStorageState ("displayComponent", {
@@ -87,12 +91,13 @@ function App() {
         <Layout style={{ height: '100%' }}>
             <Layout.Sider>
                 <List>
-                    <List.Item>
-                        <Button onClick={() => selectComponent('GSAPDemo')}>GSAPDemo</Button>
-                    </List.Item>
-                    <List.Item>
-                        <Button onClick={() => selectComponent('ComponentTest')}>ComponentTest</Button>
-                    </List.Item>
+                    {
+                        Object.keys(ComponentMap).map((comp) => {
+                            return <List.Item key={comp}>
+                                <Button onClick={() => selectComponent(comp)}>{comp}</Button>
+                            </List.Item>
+                        })
+                    }
                 </List>
             </Layout.Sider>
             <Layout.Content>

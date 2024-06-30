@@ -1,0 +1,27 @@
+
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background: url("../../assets/pixi.png");
+}
+
+.pixiContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.control {
+    position: absolute;
+    bottom: 50px;
+    left: 20px;
+    right: 20px;
+    /*width: 100%;*/
+    /*height: 100%;*/
+    z-index: 100;
+}
