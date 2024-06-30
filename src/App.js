@@ -77,7 +77,7 @@ function App() {
     }
 
     const [displayComponent, setDisplayComponent] = useLocalStorageState ("displayComponent", {
-        defaultValue: 'GSAPDemo'
+        defaultValue: 'PixiV7Playground'
     });
 
     const selectComponent = (comp) => {
