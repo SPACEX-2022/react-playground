@@ -101,431 +101,431 @@ const ComponentTest = () => {
             console.log(222, TreeThemeLibrary)
             // setComponent(TreeThemeLibrary);
             component.current = TreeThemeLibrary;
-            // componentProps.current = {
-            //         "left": "0px",
-            //         "top": "0px",
-            //         "width": "1080px",
-            //         "height": "1920px",
-            //         "delay": 0,
-            //         "duration": 70200,
-            //         "enterDuration": 500,
-            //         "leaveDuration": 500,
-            //         "style": {},
-            //         "fromStyle": {
-            //             "transform": "translateX(0px) scale(1)",
-            //             "opacity": 1
-            //         },
-            //         "toStyle": {
-            //             "transform": "translateX(0px) scale(1)",
-            //             "opacity": 1
-            //         },
-            //         "leaveStyle": {
-            //             "transform": "translateX(0px) scale(1)",
-            //             "opacity": 1
-            //         },
-            //         "animateType": null,
-            //         "animateLeaveType": null,
-            //         "rotate": "0deg",
-            //         "data": {
-            //             "value": {
-            //                 "animationData": {
-            //
-            //                     "level": 1,
-            //                     "parentId": "0",
-            //                     "children": [
-            //
-            //                         {
-            //                             "level": 2,
-            //                             "parentId": "1163728422451558693",
-            //                             "children": [
-            //                                 {
-            //                                     "level": 3,
-            //                                     "parentId": "1163728615590069740",
-            //                                     "children": [
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352810",
-            //                                             "name": "电子膨胀阀",
-            //                                             "bizId": "1163728615639352815",
-            //                                             "effectResult": "间接利好",
-            //                                             "effectReason": "优化能效"
-            //                                         },
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352810",
-            //                                             "name": "传感器",
-            //                                             "bizId": "1163728615639352814",
-            //                                             "effectResult": "间接利空",
-            //                                             "effectReason": "优化能效"
-            //                                         },
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352810",
-            //                                             "name": "芯片",
-            //                                             "bizId": "1163728615639352813",
-            //                                             "effectResult": "中性",
-            //                                             "effectReason": "优化能效"
-            //                                         },
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352810",
-            //                                             "name": "电机",
-            //                                             "bizId": "1163728615639352812",
-            //                                             "effectResult": "",
-            //                                             "effectReason": "优化能效"
-            //                                         },
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352810",
-            //                                             "name": "压缩机",
-            //                                             "bizId": "1163728615639352811",
-            //                                             "effectResult": "间接利好",
-            //                                             "effectReason": "优化能效"
-            //                                         }
-            //                                     ],
-            //                                     "effectResult": "利好",
-            //                                     "name": "核心零部件",
-            //                                     "bizId": "1163728615639352810"
-            //                                 },
-            //                                 {
-            //                                     "level": 3,
-            //                                     "parentId": "1163728615590069740",
-            //                                     "children": [
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352807",
-            //                                             "name": "塑料",
-            //                                             "bizId": "1163728615639352809",
-            //                                             "effectResult": "间接利好",
-            //                                             "effectReason": "技术升级"
-            //                                         },
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352807",
-            //                                             "name": "金属材料",
-            //                                             "bizId": "1163728615639352808",
-            //                                             "effectResult": "间接利好",
-            //                                             "effectReason": "销量带动"
-            //                                         }
-            //                                     ],
-            //                                     "effectResult": "中性",
-            //                                     "name": "原材料",
-            //                                     "bizId": "1163728615639352807"
-            //                                 }
-            //                             ],
-            //                             "name": "上游\n原材料、零部件",
-            //                             "bizId": "1163728615590069740",
-            //                             "tts": {
-            //                                 "ttsText": "中游家电制造业将直接受益。白电领域，空调因节能需求和刚需而受到直接利好，冰箱刚需增加。黑电中的电视产品升级，厨电电饭煲智能转型，小家电扫地机器人需求增加，整个中游产业将迎来产品升级和需求增长的双重利好。",
-            //                                 "duration": 19404
-            //                             }
-            //                         },
-            //                         {
-            //                             "level": 2,
-            //                             "parentId": "1163728422451558693",
-            //                             "children": [
-            //                                 {
-            //                                     "level": 3,
-            //                                     "parentId": "1163728615639352823",
-            //                                     "children": [
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352835",
-            //                                             "name": "扫地机器人",
-            //                                             "bizId": "1163728615639352837",
-            //                                             "effectResult": "直接利好",
-            //                                             "effectReason": "需求增加"
-            //                                         }
-            //                                     ],
-            //                                     "name": "小家电",
-            //                                     "bizId": "1163728615639352835"
-            //                                 },
-            //                                 {
-            //                                     "level": 3,
-            //                                     "parentId": "1163728615639352823",
-            //                                     "children": [
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352831",
-            //                                             "name": "电饭煲",
-            //                                             "bizId": "1163728615639352832",
-            //                                             "effectResult": "直接利好",
-            //                                             "effectReason": "智能转型"
-            //                                         }
-            //                                     ],
-            //                                     "effectResult": "利空",
-            //                                     "name": "厨电",
-            //                                     "bizId": "1163728615639352831"
-            //                                 },
-            //                                 {
-            //                                     "level": 3,
-            //                                     "parentId": "1163728615639352823",
-            //                                     "children": [
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352828",
-            //                                             "name": "电视",
-            //                                             "bizId": "1163728615639352829",
-            //                                             "effectResult": "直接利好",
-            //                                             "effectReason": "产品升级"
-            //                                         }
-            //                                     ],
-            //                                     "name": "黑电",
-            //                                     "bizId": "1163728615639352828"
-            //                                 },
-            //                                 {
-            //                                     "level": 3,
-            //                                     "parentId": "1163728615639352823",
-            //                                     "children": [
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352824",
-            //                                             "name": "冰箱",
-            //                                             "bizId": "1163728615639352826",
-            //                                             "effectResult": "直接利好",
-            //                                             "effectReason": "刚需增加"
-            //                                         },
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352824",
-            //                                             "name": "空调",
-            //                                             "bizId": "1163728615639352825",
-            //                                             "effectResult": "直接利好",
-            //                                             "effectReason": "节能需求+刚需"
-            //                                         }
-            //                                     ],
-            //                                     "name": "白电",
-            //                                     "bizId": "1163728615639352824"
-            //                                 }
-            //                             ],
-            //                             "name": "中游\n家电制造",
-            //                             "bizId": "1163728615639352823",
-            //                             "tts": {
-            //                                 "ttsText": "上游原材料和核心零部件供应商同样受益。随着家电产品更新换代的需求增加，对金属材料和塑料等原材料的销量和技术升级需求上升。核心零部件如电子膨胀阀、电机、压缩机、芯片、传感器等的优化能效需求增长，技术升级成为推动力。",
-            //                                 "duration": 20052
-            //                             }
-            //                         },
-            //
-            //                         {
-            //                             "level": 2,
-            //                             "parentId": "1163728422451558693",
-            //                             "children": [
-            //                                 {
-            //                                     "level": 3,
-            //                                     "parentId": "1163728615639352816",
-            //                                     "children": [
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352817",
-            //                                             "name": "品牌官网",
-            //                                             "bizId": "1163728615639352819",
-            //                                             "effectResult": "直接利好",
-            //                                             "effectReason": "优惠加大"
-            //                                         },
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352817",
-            //                                             "name": "电商平台",
-            //                                             "bizId": "1163728615639352818",
-            //                                             "effectResult": "直接利好",
-            //                                             "effectReason": "补贴增加"
-            //                                         }
-            //                                     ],
-            //                                     "effectResult": "利好",
-            //                                     "name": "线上渠道",
-            //                                     "bizId": "1163728615639352817"
-            //                                 },
-            //                                 {
-            //                                     "level": 3,
-            //                                     "parentId": "1163728615639352816",
-            //                                     "children": [
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352820",
-            //                                             "name": "品牌专卖店",
-            //                                             "bizId": "1163728615639352822",
-            //                                             "effectResult": "直接利好",
-            //                                             "effectReason": "促销增大"
-            //                                         },
-            //                                         {
-            //                                             "level": 4,
-            //                                             "parentId": "1163728615639352820",
-            //                                             "name": "超市",
-            //                                             "bizId": "1163728615639352821",
-            //                                             "effectResult": "直接利好",
-            //                                             "effectReason": "活动增多"
-            //                                         }
-            //                                     ],
-            //                                     "effectResult": "利空",
-            //                                     "name": "线下渠道",
-            //                                     "bizId": "1163728615639352820"
-            //                                 }
-            //                             ],
-            //                             "name": "下游\n销售渠道",
-            //                             "bizId": "1163728615639352816",
-            //                             "tts": {
-            //                                 "ttsText": "下游销售渠道也将受益。线上电商平台和品牌官网的补贴和优惠将增加，吸引消费者线上购买。线下超市和品牌专卖店通过举办促销活动，增加销量，享受政策红利。",
-            //                                 "duration": 13392
-            //                             }
-            //                         },
-            //
-            //
-            //                     ],
-            //                     "name": "消费品以旧换新",
-            //                     "bizId": "1163728422451558693",
-            //                     "tts": {
-            //                         "ttsText": "家电产业链包括上游原材料与零部件、中游家电制造、下游销售渠道。",
-            //                         "duration": 5471
-            //                     },
-            //                     "summary": {
-            //                         "ttsText": "以旧换新政策直接推动了家电制造的产品升级和销售渠道的促销活动，间接促进了上游原材料和核心零部件的需求增长和技术进步，为家电产业链带来了全面而深远的积极影响。",
-            //                         "duration": 13643
-            //                     }
-            //                 }
-            //             }
-            //         }
-            // };
-
             componentProps.current = {
-                "width": "1080px",
-                "height": "1920px",
-                "left": "0px",
-                "top": "0px",
-                "delay": 5702,
-                "duration": 63452,
-                "data": {
-                    "value": {
-                        "animationData": {
-                            "level": 1,
-                            "parentId": "0",
-                            "children": [
-                                {
-                                    "level": 2,
-                                    "parentId": "1001",
-                                    "children": [
-                                        {
-                                            "level": 3,
-                                            "parentId": "1163730441816827399",
-                                            "name": "纯电车",
-                                            "bizId": "1163730441816827400",
-                                            "effectResult": "直接利好",
-                                            "effectReason": "关注度提升"
+                    "left": "0px",
+                    "top": "0px",
+                    "width": "1080px",
+                    "height": "1920px",
+                    "delay": 0,
+                    "duration": 70200,
+                    "enterDuration": 500,
+                    "leaveDuration": 500,
+                    "style": {},
+                    "fromStyle": {
+                        "transform": "translateX(0px) scale(1)",
+                        "opacity": 1
+                    },
+                    "toStyle": {
+                        "transform": "translateX(0px) scale(1)",
+                        "opacity": 1
+                    },
+                    "leaveStyle": {
+                        "transform": "translateX(0px) scale(1)",
+                        "opacity": 1
+                    },
+                    "animateType": null,
+                    "animateLeaveType": null,
+                    "rotate": "0deg",
+                    "data": {
+                        "value": {
+                            "animationData": {
+
+                                "level": 1,
+                                "parentId": "0",
+                                "children": [
+
+                                    {
+                                        "level": 2,
+                                        "parentId": "1163728422451558693",
+                                        "children": [
+                                            {
+                                                "level": 3,
+                                                "parentId": "1163728615590069740",
+                                                "children": [
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352810",
+                                                        "name": "电子膨胀阀",
+                                                        "bizId": "1163728615639352815",
+                                                        "effectResult": "间接利好",
+                                                        "effectReason": "优化能效"
+                                                    },
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352810",
+                                                        "name": "传感器",
+                                                        "bizId": "1163728615639352814",
+                                                        "effectResult": "间接利空",
+                                                        "effectReason": "优化能效"
+                                                    },
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352810",
+                                                        "name": "芯片",
+                                                        "bizId": "1163728615639352813",
+                                                        "effectResult": "中性",
+                                                        "effectReason": "优化能效"
+                                                    },
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352810",
+                                                        "name": "电机",
+                                                        "bizId": "1163728615639352812",
+                                                        "effectResult": "",
+                                                        "effectReason": "优化能效"
+                                                    },
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352810",
+                                                        "name": "压缩机",
+                                                        "bizId": "1163728615639352811",
+                                                        "effectResult": "间接利好",
+                                                        "effectReason": "优化能效"
+                                                    }
+                                                ],
+                                                "effectResult": "利好",
+                                                "name": "核心零部件",
+                                                "bizId": "1163728615639352810"
+                                            },
+                                            {
+                                                "level": 3,
+                                                "parentId": "1163728615590069740",
+                                                "children": [
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352807",
+                                                        "name": "塑料",
+                                                        "bizId": "1163728615639352809",
+                                                        "effectResult": "间接利好",
+                                                        "effectReason": "技术升级"
+                                                    },
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352807",
+                                                        "name": "金属材料",
+                                                        "bizId": "1163728615639352808",
+                                                        "effectResult": "间接利好",
+                                                        "effectReason": "销量带动"
+                                                    }
+                                                ],
+                                                "effectResult": "中性",
+                                                "name": "原材料",
+                                                "bizId": "1163728615639352807"
+                                            }
+                                        ],
+                                        "name": "上游\n原材料、零部件",
+                                        "bizId": "1163728615590069740",
+                                        "tts": {
+                                            "ttsText": "中游家电制造业将直接受益。白电领域，空调因节能需求和刚需而受到直接利好，冰箱刚需增加。黑电中的电视产品升级，厨电电饭煲智能转型，小家电扫地机器人需求增加，整个中游产业将迎来产品升级和需求增长的双重利好。",
+                                            "duration": 19404
                                         }
-                                    ],
-                                    "name": "下游\n整车",
-                                    "bizId": "1163730441816827399",
-                                    "tts": {
-                                        "ttsText": "首先，下游整车市场将直接受益。小米汽车的热卖，将提升纯电车的关注度，为整个新能源汽车市场带来更多消费者的目光。",
-                                        "duration": 9755
-                                    }
+                                    },
+                                    {
+                                        "level": 2,
+                                        "parentId": "1163728422451558693",
+                                        "children": [
+                                            {
+                                                "level": 3,
+                                                "parentId": "1163728615639352823",
+                                                "children": [
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352835",
+                                                        "name": "扫地机器人",
+                                                        "bizId": "1163728615639352837",
+                                                        "effectResult": "直接利好",
+                                                        "effectReason": "需求增加"
+                                                    }
+                                                ],
+                                                "name": "小家电",
+                                                "bizId": "1163728615639352835"
+                                            },
+                                            {
+                                                "level": 3,
+                                                "parentId": "1163728615639352823",
+                                                "children": [
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352831",
+                                                        "name": "电饭煲",
+                                                        "bizId": "1163728615639352832",
+                                                        "effectResult": "直接利好",
+                                                        "effectReason": "智能转型"
+                                                    }
+                                                ],
+                                                "effectResult": "利空",
+                                                "name": "厨电",
+                                                "bizId": "1163728615639352831"
+                                            },
+                                            {
+                                                "level": 3,
+                                                "parentId": "1163728615639352823",
+                                                "children": [
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352828",
+                                                        "name": "电视",
+                                                        "bizId": "1163728615639352829",
+                                                        "effectResult": "直接利好",
+                                                        "effectReason": "产品升级"
+                                                    }
+                                                ],
+                                                "name": "黑电",
+                                                "bizId": "1163728615639352828"
+                                            },
+                                            {
+                                                "level": 3,
+                                                "parentId": "1163728615639352823",
+                                                "children": [
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352824",
+                                                        "name": "冰箱",
+                                                        "bizId": "1163728615639352826",
+                                                        "effectResult": "直接利好",
+                                                        "effectReason": "刚需增加"
+                                                    },
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352824",
+                                                        "name": "空调",
+                                                        "bizId": "1163728615639352825",
+                                                        "effectResult": "直接利好",
+                                                        "effectReason": "节能需求+刚需"
+                                                    }
+                                                ],
+                                                "name": "白电",
+                                                "bizId": "1163728615639352824"
+                                            }
+                                        ],
+                                        "name": "中游\n家电制造",
+                                        "bizId": "1163728615639352823",
+                                        "tts": {
+                                            "ttsText": "上游原材料和核心零部件供应商同样受益。随着家电产品更新换代的需求增加，对金属材料和塑料等原材料的销量和技术升级需求上升。核心零部件如电子膨胀阀、电机、压缩机、芯片、传感器等的优化能效需求增长，技术升级成为推动力。",
+                                            "duration": 20052
+                                        }
+                                    },
+
+                                    {
+                                        "level": 2,
+                                        "parentId": "1163728422451558693",
+                                        "children": [
+                                            {
+                                                "level": 3,
+                                                "parentId": "1163728615639352816",
+                                                "children": [
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352817",
+                                                        "name": "品牌官网",
+                                                        "bizId": "1163728615639352819",
+                                                        "effectResult": "直接利好",
+                                                        "effectReason": "优惠加大"
+                                                    },
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352817",
+                                                        "name": "电商平台",
+                                                        "bizId": "1163728615639352818",
+                                                        "effectResult": "直接利好",
+                                                        "effectReason": "补贴增加"
+                                                    }
+                                                ],
+                                                "effectResult": "利好",
+                                                "name": "线上渠道",
+                                                "bizId": "1163728615639352817"
+                                            },
+                                            {
+                                                "level": 3,
+                                                "parentId": "1163728615639352816",
+                                                "children": [
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352820",
+                                                        "name": "品牌专卖店",
+                                                        "bizId": "1163728615639352822",
+                                                        "effectResult": "直接利好",
+                                                        "effectReason": "促销增大"
+                                                    },
+                                                    {
+                                                        "level": 4,
+                                                        "parentId": "1163728615639352820",
+                                                        "name": "超市",
+                                                        "bizId": "1163728615639352821",
+                                                        "effectResult": "直接利好",
+                                                        "effectReason": "活动增多"
+                                                    }
+                                                ],
+                                                "effectResult": "利空",
+                                                "name": "线下渠道",
+                                                "bizId": "1163728615639352820"
+                                            }
+                                        ],
+                                        "name": "下游\n销售渠道",
+                                        "bizId": "1163728615639352816",
+                                        "tts": {
+                                            "ttsText": "下游销售渠道也将受益。线上电商平台和品牌官网的补贴和优惠将增加，吸引消费者线上购买。线下超市和品牌专卖店通过举办促销活动，增加销量，享受政策红利。",
+                                            "duration": 13392
+                                        }
+                                    },
+
+
+                                ],
+                                "name": "消费品以旧换新",
+                                "bizId": "1163728422451558693",
+                                "tts": {
+                                    "ttsText": "家电产业链包括上游原材料与零部件、中游家电制造、下游销售渠道。",
+                                    "duration": 5471
                                 },
-                                {
-                                    "level": 2,
-                                    "parentId": "1001",
-                                    "children": [
-                                        {
-                                            "level": 3,
-                                            "parentId": "1163730441816827392",
-                                            "name": "电池",
-                                            "bizId": "1163730441816827393",
-                                            "effectResult": "直接利好",
-                                            "effectReason": "需求增加"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1163730441816827392",
-                                            "name": "内饰",
-                                            "bizId": "1163730441816827396",
-                                            "effectResult": "直接利好",
-                                            "effectReason": "需求增加"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1163730441816827392",
-                                            "name": "底盘",
-                                            "bizId": "1163730441816827397",
-                                            "effectResult": "直接利好",
-                                            "effectReason": "轻量化需求"
-                                        }
-                                    ],
-                                    "name": "中游\n零部件制造",
-                                    "bizId": "1163730441816827392",
-                                    "tts": {
-                                        "ttsText": "随着下游需求的增长，中游零部件制造业也将迎来发展机遇。电池作为新能源汽车的核心部件，其需求量将显著增加。同时，内饰和底盘的需求也将随之上升，特别是底盘的轻量化需求，将成为未来汽车设计的重要趋势。",
-                                        "duration": 17820
-                                    }
-                                },
-                                {
-                                    "level": 2,
-                                    "parentId": "1001",
-                                    "children": [
-                                        {
-                                            "level": 3,
-                                            "parentId": "1163730441773835771",
-                                            "name": "隔膜",
-                                            "bizId": "1163730441816827388",
-                                            "effectResult": "间接利好",
-                                            "effectReason": "间接增需"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1163730441773835771",
-                                            "name": "正负极",
-                                            "bizId": "1163730441816827389",
-                                            "effectResult": "间接利好",
-                                            "effectReason": "间接增需"
-                                        },
-                                        {
-                                            "level": 3,
-                                            "parentId": "1163730441773835771",
-                                            "name": "电解液",
-                                            "bizId": "1163730441816827390",
-                                            "effectResult": "间接利好",
-                                            "effectReason": "间接增需"
-                                        }
-                                    ],
-                                    "name": "上游\n原材料",
-                                    "bizId": "1163730441773835771",
-                                    "tts": {
-                                        "ttsText": "此外，上游原材料供应商也将间接受益。随着中游零部件需求的增加，对隔膜、正负极材料和电解液等原材料的需求也将随之增长，推动原材料市场的繁荣。",
-                                        "duration": 12636
-                                    }
+                                "summary": {
+                                    "ttsText": "以旧换新政策直接推动了家电制造的产品升级和销售渠道的促销活动，间接促进了上游原材料和核心零部件的需求增长和技术进步，为家电产业链带来了全面而深远的积极影响。",
+                                    "duration": 13643
                                 }
-                            ],
-                            "name": "小米汽车热卖",
-                            "bizId": "1001",
-                            "tts": {
-                                "ttsText": "新能源车产业链，受此次事件影响的主要是下游整车、中游零部件制造以及上游原材料。",
-                                "duration": 5206
-                            },
-                            "summary": {
-                                "ttsText": "综上所述，小米汽车的热卖不仅直接推动了下游整车市场的关注度提升，也带动了中游零部件制造的需求增长和上游原材料的间接增需，为整个新能源车产业链带来了全面而深远的积极影响。好了，这期就到这里，我们下期再见",
-                                "duration": 18035
-                            },
-                            "audioUrl": "https://dl-test-1309667514.cos.ap-shanghai.myqcloud.com/visual/aigc/user/1208740788091292396-1718881365869-themeSound.mp3"
+                            }
                         }
                     }
-                },
-                "zIndex": 14,
-                "enterDuration": 500,
-                "leaveDuration": 500,
-                "style": {},
-                "fromStyle": {
-                    "transform": "translateX(0px) scale(1)",
-                    "opacity": 1
-                },
-                "toStyle": {
-                    "transform": "translateX(0px) scale(1)",
-                    "opacity": 1
-                },
-                "leaveStyle": {
-                    "transform": "translateX(0px) scale(1)",
-                    "opacity": 1
-                },
-                "animateType": null,
-                "animateLeaveType": null,
-                "rotate": "0deg"
-            }
+            };
+
+            // componentProps.current = {
+            //     "width": "1080px",
+            //     "height": "1920px",
+            //     "left": "0px",
+            //     "top": "0px",
+            //     "delay": 5702,
+            //     "duration": 63452,
+            //     "data": {
+            //         "value": {
+            //             "animationData": {
+            //                 "level": 1,
+            //                 "parentId": "0",
+            //                 "children": [
+            //                     {
+            //                         "level": 2,
+            //                         "parentId": "1001",
+            //                         "children": [
+            //                             {
+            //                                 "level": 3,
+            //                                 "parentId": "1163730441816827399",
+            //                                 "name": "纯电车",
+            //                                 "bizId": "1163730441816827400",
+            //                                 "effectResult": "直接利好",
+            //                                 "effectReason": "关注度提升"
+            //                             }
+            //                         ],
+            //                         "name": "下游\n整车",
+            //                         "bizId": "1163730441816827399",
+            //                         "tts": {
+            //                             "ttsText": "首先，下游整车市场将直接受益。小米汽车的热卖，将提升纯电车的关注度，为整个新能源汽车市场带来更多消费者的目光。",
+            //                             "duration": 9755
+            //                         }
+            //                     },
+            //                     {
+            //                         "level": 2,
+            //                         "parentId": "1001",
+            //                         "children": [
+            //                             {
+            //                                 "level": 3,
+            //                                 "parentId": "1163730441816827392",
+            //                                 "name": "电池",
+            //                                 "bizId": "1163730441816827393",
+            //                                 "effectResult": "直接利好",
+            //                                 "effectReason": "需求增加"
+            //                             },
+            //                             {
+            //                                 "level": 3,
+            //                                 "parentId": "1163730441816827392",
+            //                                 "name": "内饰",
+            //                                 "bizId": "1163730441816827396",
+            //                                 "effectResult": "直接利好",
+            //                                 "effectReason": "需求增加"
+            //                             },
+            //                             {
+            //                                 "level": 3,
+            //                                 "parentId": "1163730441816827392",
+            //                                 "name": "底盘",
+            //                                 "bizId": "1163730441816827397",
+            //                                 "effectResult": "直接利好",
+            //                                 "effectReason": "轻量化需求"
+            //                             }
+            //                         ],
+            //                         "name": "中游\n零部件制造",
+            //                         "bizId": "1163730441816827392",
+            //                         "tts": {
+            //                             "ttsText": "随着下游需求的增长，中游零部件制造业也将迎来发展机遇。电池作为新能源汽车的核心部件，其需求量将显著增加。同时，内饰和底盘的需求也将随之上升，特别是底盘的轻量化需求，将成为未来汽车设计的重要趋势。",
+            //                             "duration": 17820
+            //                         }
+            //                     },
+            //                     {
+            //                         "level": 2,
+            //                         "parentId": "1001",
+            //                         "children": [
+            //                             {
+            //                                 "level": 3,
+            //                                 "parentId": "1163730441773835771",
+            //                                 "name": "隔膜",
+            //                                 "bizId": "1163730441816827388",
+            //                                 "effectResult": "间接利好",
+            //                                 "effectReason": "间接增需"
+            //                             },
+            //                             {
+            //                                 "level": 3,
+            //                                 "parentId": "1163730441773835771",
+            //                                 "name": "正负极",
+            //                                 "bizId": "1163730441816827389",
+            //                                 "effectResult": "间接利好",
+            //                                 "effectReason": "间接增需"
+            //                             },
+            //                             {
+            //                                 "level": 3,
+            //                                 "parentId": "1163730441773835771",
+            //                                 "name": "电解液",
+            //                                 "bizId": "1163730441816827390",
+            //                                 "effectResult": "间接利好",
+            //                                 "effectReason": "间接增需"
+            //                             }
+            //                         ],
+            //                         "name": "上游\n原材料",
+            //                         "bizId": "1163730441773835771",
+            //                         "tts": {
+            //                             "ttsText": "此外，上游原材料供应商也将间接受益。随着中游零部件需求的增加，对隔膜、正负极材料和电解液等原材料的需求也将随之增长，推动原材料市场的繁荣。",
+            //                             "duration": 12636
+            //                         }
+            //                     }
+            //                 ],
+            //                 "name": "小米汽车热卖",
+            //                 "bizId": "1001",
+            //                 "tts": {
+            //                     "ttsText": "新能源车产业链，受此次事件影响的主要是下游整车、中游零部件制造以及上游原材料。",
+            //                     "duration": 5206
+            //                 },
+            //                 "summary": {
+            //                     "ttsText": "综上所述，小米汽车的热卖不仅直接推动了下游整车市场的关注度提升，也带动了中游零部件制造的需求增长和上游原材料的间接增需，为整个新能源车产业链带来了全面而深远的积极影响。好了，这期就到这里，我们下期再见",
+            //                     "duration": 18035
+            //                 },
+            //                 "audioUrl": "https://dl-test-1309667514.cos.ap-shanghai.myqcloud.com/visual/aigc/user/1208740788091292396-1718881365869-themeSound.mp3"
+            //             }
+            //         }
+            //     },
+            //     "zIndex": 14,
+            //     "enterDuration": 500,
+            //     "leaveDuration": 500,
+            //     "style": {},
+            //     "fromStyle": {
+            //         "transform": "translateX(0px) scale(1)",
+            //         "opacity": 1
+            //     },
+            //     "toStyle": {
+            //         "transform": "translateX(0px) scale(1)",
+            //         "opacity": 1
+            //     },
+            //     "leaveStyle": {
+            //         "transform": "translateX(0px) scale(1)",
+            //         "opacity": 1
+            //     },
+            //     "animateType": null,
+            //     "animateLeaveType": null,
+            //     "rotate": "0deg"
+            // }
             // componentProps.current.data.value.animationData = {
             //     "level": 1,
             //     "parentId": "0",
@@ -632,6 +632,8 @@ const ComponentTest = () => {
             //     + componentProps.current.data.value.animationData.summary.duration
             // )
             componentProps.current.data.value.animationData.children = componentProps.current.data.value.animationData.children.slice(0, 3);
+
+            componentProps.current.theme = 'LightAdvisoryBroadcast';
             setDuration(100000)
             setLoading(false);
 
@@ -683,6 +685,7 @@ const ComponentTest = () => {
                         {!loading ?
                             <Comp ref={componentRef} {...componentProps.current} playing={playing} width={"540px"}
                                   height={"960px"} timestamp={timestamp} delay={0}
+                                  onTimestampChange={time => setTimestamp(time * 1000)}
                             /> : null}
                     </div>
                 </Content>
