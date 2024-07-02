@@ -113,7 +113,7 @@ const PixiPlayground = () => {
 
             let graphics = new Graphics()
             graphics.beginFill(0x000000);
-            graphics.drawRect(0, app.renderer.height / 2, app.renderer.width, 500);
+            graphics.drawRect(0, 0, app.renderer.width, 500);
             // graphics.alpha = 0;
             // Add it to the stage to render
             app.stage.addChild(graphics);
