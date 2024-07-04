@@ -19,6 +19,7 @@ import ComponentTest from "./components/ComponentTest";
 import {Component} from "react";
 import PixiPlayground from "./components/PixiPlayground";
 import PixiV7Playground from "./components/PixiV7Playground";
+import GlTransition from "./components/gl-transition";
 // import { SplitText } from "gsap/SplitText";
 
 
@@ -74,6 +75,7 @@ function App() {
         ComponentTest,
         PixiPlayground,
         PixiV7Playground,
+        GlTransition,
     }
 
     const [displayComponent, setDisplayComponent] = useLocalStorageState ("displayComponent", {
