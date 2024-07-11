@@ -1,5 +1,5 @@
 import styles from './index.module.css';
-import { LinearCopy } from "gl-react";
+import { LinearCopy, NearestCopy } from "gl-react";
 import { Surface } from "gl-react-dom";
 import GLTransition from "react-gl-transition";
 import GLTransitions from "gl-transitions";
@@ -39,7 +39,7 @@ const Slideshow = ({ slides, progress }) => {
             progress={progress}
             transition={transition}
         />
-        : <LinearCopy>{from}</LinearCopy>;
+        : <NearestCopy>{from}</NearestCopy>;
 };
 
 
@@ -55,7 +55,7 @@ const GlTransition = () => {
         <div className={styles.container}>
 
             <div>
-                <Surface width={600} height={400}>
+                <Surface width={1000} height={400}>
                     <Slideshow slides={images} progress={timestamp / 1000} />
                 </Surface>
             </div>
